@@ -1,0 +1,16 @@
+include MANIFEST.in
+include LICENSE
+include README.md
+include requirements.txt
+recursive-include ione_qms *.css
+recursive-include ione_qms *.csv
+recursive-include ione_qms *.html
+recursive-include ione_qms *.ico
+recursive-include ione_qms *.js
+recursive-include ione_qms *.json
+recursive-include ione_qms *.md
+recursive-include ione_qms *.png
+recursive-include ione_qms *.py
+recursive-include ione_qms *.svg
+recursive-include ione_qms *.txt
+recursive-exclude ione_qms *.pyc

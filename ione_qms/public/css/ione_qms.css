@@ -1,0 +1,22 @@
+:root {
+  --ione-qms-primary: #165d80;
+  --ione-qms-primary-dark: #0d3f59;
+  --ione-qms-accent: #2d7d6e;
+  --ione-qms-warning: #b56000;
+  --ione-qms-danger: #b42318;
+}
+
+.ione-qms-status-critical {
+  color: var(--ione-qms-danger);
+  font-weight: 600;
+}
+
+.ione-qms-status-warning {
+  color: var(--ione-qms-warning);
+  font-weight: 600;
+}
+
+.ione-qms-evidence-hash {
+  font-family: var(--font-stack-monospace);
+  overflow-wrap: anywhere;
+}

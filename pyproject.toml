@@ -1,0 +1,40 @@
+[project]
+name = "ione_qms"
+authors = [
+    { name = "IONE", email = "317395616@qq.com" }
+]
+description = "Hospital-wide medical quality management, improvement, analytics, integration, and governed AI for Frappe"
+requires-python = ">=3.14,<3.15"
+readme = "README.md"
+license = { text = "MIT" }
+dynamic = ["version"]
+dependencies = []
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.bench.frappe-dependencies]
+frappe = ">=17.0.0-dev,<18.0.0"
+flow = ">=0.0.1"
+
+[tool.ruff]
+line-length = 110
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I", "UP", "B", "RUF", "S"]
+ignore = [
+    "E501",
+    "W191",
+    "S101",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+testpaths = ["ione_qms/tests"]
+addopts = "-q"
