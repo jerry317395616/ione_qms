@@ -6,10 +6,13 @@ It covers standards, deterministic rules, clinical findings and evidence,
 indicators, rectification and PDCA, hospital-system integration, analytics,
 and governed Frappe Flow agents.
 
-Repository status: 104-DocType/9-module static implementation baseline.
-Realtime clinical rules and AI remain disabled. Production readiness remains
-NO-GO until the dated release, clinical, integration, security, capacity,
-backup/restore, and Press acceptance gates pass.
+Repository status: 124-DocType/9-module implementation baseline. A pinned
+Press candidate has been built and installed on `manager.myyr.top`; realtime
+clinical rules and AI remain disabled. Production activation remains NO-GO
+until the dated clinical, integration, security, capacity, offsite-backup,
+performance/HA, and hospital-acceptance gates pass. See
+`docs/production-deployment-evidence-2026-08-01.md` for the current evidence
+and the fail-closed activation boundary.
 
 ## Architecture contract
 
