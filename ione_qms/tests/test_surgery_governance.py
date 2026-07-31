@@ -317,6 +317,7 @@ class TestSurgeryGovernancePureContracts(TestCase):
 	def test_finalization_reuses_frozen_occurrence_evidence_after_definition_retirement(
 		self,
 	) -> None:
+		authorization_ref = "AUTH-1"
 		prior = _Doc(
 			name="SURGERY-QC-1",
 			event="EVENT-OCCURRED-1",
@@ -325,7 +326,7 @@ class TestSurgeryGovernancePureContracts(TestCase):
 			governance_checksum="valid",
 			governance_reason_codes_json="[]",
 			procedure_policy="POLICY-1",
-			surgery_authorization="AUTH-1",
+			surgery_authorization=authorization_ref,
 			staff_qualification="QUAL-1",
 			mdt_record="",
 			safety_checklist="CHECK-1",

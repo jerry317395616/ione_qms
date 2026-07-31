@@ -520,7 +520,7 @@ def ensure_evaluation_threshold_policy() -> None:
 		return
 	from ione_qms.ai.evaluation_contract import EVALUATION_CATEGORIES, canonical_json
 
-	policy_key = "IONE-EVAL-THRESHOLDS-V1"
+	policy_name = "IONE-EVAL-THRESHOLDS-V1"
 	values = {
 		"version": "1.0.0",
 		"categories_json": canonical_json(sorted(EVALUATION_CATEGORIES)),
@@ -535,8 +535,8 @@ def ensure_evaluation_threshold_policy() -> None:
 			}
 		),
 	}
-	if frappe.db.exists("IONE Agent Evaluation Threshold Policy", policy_key):
-		existing = frappe.get_doc("IONE Agent Evaluation Threshold Policy", policy_key)
+	if frappe.db.exists("IONE Agent Evaluation Threshold Policy", policy_name):
+		existing = frappe.get_doc("IONE Agent Evaluation Threshold Policy", policy_name)
 		mismatches = [
 			fieldname
 			for fieldname, expected in values.items()
@@ -550,7 +550,7 @@ def ensure_evaluation_threshold_policy() -> None:
 	frappe.get_doc(
 		{
 			"doctype": "IONE Agent Evaluation Threshold Policy",
-			"threshold_policy_key": policy_key,
+			"threshold_policy_key": policy_name,
 			**values,
 			"status": "Draft",
 		}

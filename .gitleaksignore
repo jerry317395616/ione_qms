@@ -1,0 +1,5 @@
+# Audited false positives in the initial IONE QMS delivery commit. Each entry
+# suppresses only one immutable commit/path/rule/line fingerprint.
+866882a46979fc5636a2ffd95b0109138480da7c:ione_qms/tests/test_surgery_governance.py:generic-api-key:328
+866882a46979fc5636a2ffd95b0109138480da7c:ione_qms/setup/install.py:generic-api-key:523
+866882a46979fc5636a2ffd95b0109138480da7c:tests/test_indicator_revision_gate.py:generic-api-key:207

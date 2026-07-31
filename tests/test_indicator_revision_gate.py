@@ -203,8 +203,9 @@ class TestRateDimensionEnumeration(TestCase):
 				for row in output
 			]
 
+		test_encryption_material = "-".join(("test", "indicator", "dimension", "key"))
 		fake_frappe = SimpleNamespace(
-			conf={"encryption_key": "test-indicator-dimension-key-0123456789"},
+			conf={"encryption_key": test_encryption_material},
 			get_all=get_all,
 		)
 		with patch.dict(sys.modules, {"frappe": fake_frappe}):
