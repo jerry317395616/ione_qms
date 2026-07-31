@@ -7,6 +7,16 @@ from typing import Any
 from ione_qms.indicator_engine import validate_formula_schema
 from ione_qms.rule_engine.evaluator import validate_rule_definition_schema
 
+BLUEPRINT_VALIDATOR_NAMES = {
+	"IONE QC Standard": "validate_standard",
+	"IONE QC Standard Version": "validate_standard_version",
+	"IONE QC Standard Clause": "validate_standard_clause",
+	"IONE QC Indicator": "validate_indicator",
+	"IONE QC Indicator Version": "validate_indicator_version",
+	"IONE QC Rule": "validate_rule",
+	"IONE QC Rule Version": "validate_rule_version",
+}
+
 NATIONAL_GOALS = (
 	{
 		"code": "NIT-2026-I",
@@ -438,8 +448,21 @@ def _upsert(doctype: str, filters: dict[str, Any], values: dict[str, Any]) -> st
 		doc.save()
 		return doc.name
 	doc = frappe.get_doc({"doctype": doctype, **values})
+	_validate_new_blueprint_document(doc)
 	doc.insert(ignore_permissions=True)
 	return doc.name
+
+
+def _validate_new_blueprint_document(doc) -> None:
+	"""Prime mandatory governed fields when install-time doc_events are not cached yet."""
+	import frappe
+
+	from ione_qms.services import versions
+
+	validator_name = BLUEPRINT_VALIDATOR_NAMES.get(str(doc.doctype))
+	if not validator_name:
+		frappe.throw(f"Blueprint DocType is missing a governed validator: {doc.doctype}")
+	getattr(versions, validator_name)(doc)
 
 
 def _canonical_json(value: Any) -> str:

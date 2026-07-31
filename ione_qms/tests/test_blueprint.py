@@ -5,6 +5,7 @@ from unittest import TestCase
 from ione_qms.indicator_engine import validate_formula_schema
 from ione_qms.rule_engine.evaluator import validate_rule_definition_schema
 from ione_qms.setup.blueprint import (
+	BLUEPRINT_VALIDATOR_NAMES,
 	CORE_RULE_TEMPLATES,
 	NATIONAL_GOALS,
 	_event_rate_formula,
@@ -13,6 +14,20 @@ from ione_qms.setup.blueprint import (
 
 
 class TestQualityBlueprint(TestCase):
+	def test_every_seeded_doctype_has_an_explicit_install_time_validator(self) -> None:
+		self.assertEqual(
+			set(BLUEPRINT_VALIDATOR_NAMES),
+			{
+				"IONE QC Standard",
+				"IONE QC Standard Version",
+				"IONE QC Standard Clause",
+				"IONE QC Indicator",
+				"IONE QC Indicator Version",
+				"IONE QC Rule",
+				"IONE QC Rule Version",
+			},
+		)
+
 	def test_all_ten_national_goals_have_unique_executable_definitions(self) -> None:
 		self.assertEqual(len(NATIONAL_GOALS), 10)
 		self.assertEqual(len({goal["code"] for goal in NATIONAL_GOALS}), 10)
