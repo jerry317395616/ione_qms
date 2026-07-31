@@ -7,6 +7,7 @@ from unittest.mock import patch
 from ione_qms.ai.governance import (
 	QWEN_FLOW_MODEL,
 	QWEN_MODEL_ID,
+	_hostname_resolves_only_to_private_addresses,
 	_validate_policy_scope,
 	_validate_qwen_model_configuration,
 	_validate_scope_hierarchy,
@@ -29,6 +30,22 @@ class _FakeDoc(dict):
 
 
 class TestAIGovernance(TestCase):
+	@patch("ione_qms.ai.governance.socket.getaddrinfo")
+	def test_private_dns_resolution_rejects_mixed_public_answers(self, getaddrinfo) -> None:
+		getaddrinfo.return_value = [
+			(2, 1, 6, "", ("172.18.0.2", 8080)),
+			(2, 1, 6, "", ("8.8.8.8", 8080)),
+		]
+		self.assertFalse(_hostname_resolves_only_to_private_addresses("qwen.example", 8080))
+
+	@patch("ione_qms.ai.governance.socket.getaddrinfo")
+	def test_private_dns_resolution_accepts_only_private_answers(self, getaddrinfo) -> None:
+		getaddrinfo.return_value = [
+			(2, 1, 6, "", ("172.18.0.2", 8080)),
+			(2, 1, 6, "", ("10.144.133.1", 8080)),
+		]
+		self.assertTrue(_hostname_resolves_only_to_private_addresses("qwen.example", 8080))
+
 	@patch("ione_qms.ai.governance._allowed_model_hosts", return_value=frozenset({"10.144.133.1"}))
 	def test_private_allowlisted_model_endpoint_is_accepted(self, _allowed) -> None:
 		self.assertTrue(is_private_model_url("http://10.144.133.1:1234/v1"))
@@ -53,8 +70,19 @@ class TestAIGovernance(TestCase):
 		"ione_qms.ai.governance._allowed_model_hosts",
 		return_value=frozenset({"models.example.com"}),
 	)
-	def test_public_host_is_rejected_even_if_allowlisted(self, _allowed) -> None:
+	@patch("ione_qms.ai.governance._hostname_resolves_only_to_private_addresses", return_value=False)
+	def test_public_host_is_rejected_even_if_allowlisted(self, resolved, _allowed) -> None:
 		self.assertFalse(is_private_model_url("https://models.example.com/v1"))
+		resolved.assert_called_once_with("models.example.com", 443)
+
+	@patch(
+		"ione_qms.ai.governance._allowed_model_hosts",
+		return_value=frozenset({"qwen-relay.myyr.top"}),
+	)
+	@patch("ione_qms.ai.governance._hostname_resolves_only_to_private_addresses", return_value=True)
+	def test_allowlisted_hostname_with_only_private_answers_is_accepted(self, resolved, _allowed) -> None:
+		self.assertTrue(is_private_model_url("http://qwen-relay.myyr.top:8080/v1"))
+		resolved.assert_called_once_with("qwen-relay.myyr.top", 8080)
 
 	@patch(
 		"ione_qms.ai.governance._allowed_model_hosts",

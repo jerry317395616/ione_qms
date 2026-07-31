@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import json
+import socket
 from urllib.parse import urlparse
 
 import frappe
@@ -297,14 +298,35 @@ def is_private_model_url(url: str) -> bool:
 	if host in {"localhost", "host.docker.internal"} or host.endswith(".internal"):
 		return True
 	try:
-		address = ipaddress.ip_address(host)
-		if address.is_loopback:
-			return True
-		return address.is_private and not (
-			address.is_link_local or address.is_multicast or address.is_unspecified or address.is_reserved
-		)
+		return _is_approved_private_address(ipaddress.ip_address(host))
 	except ValueError:
-		return host.endswith(".internal")
+		return _hostname_resolves_only_to_private_addresses(
+			host,
+			parsed.port or (443 if parsed.scheme == "https" else 80),
+		)
+
+
+def _hostname_resolves_only_to_private_addresses(host: str, port: int) -> bool:
+	"""Reject public/mixed DNS answers before a governed model endpoint is used."""
+	try:
+		answers = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+	except OSError:
+		return False
+	addresses = {str(answer[4][0]).split("%", 1)[0] for answer in answers if answer[4]}
+	if not addresses:
+		return False
+	try:
+		return all(_is_approved_private_address(ipaddress.ip_address(value)) for value in addresses)
+	except ValueError:
+		return False
+
+
+def _is_approved_private_address(address: ipaddress.IPv4Address | ipaddress.IPv6Address) -> bool:
+	if address.is_loopback:
+		return True
+	return address.is_private and not (
+		address.is_link_local or address.is_multicast or address.is_unspecified or address.is_reserved
+	)
 
 
 def _allowed_model_hosts() -> frozenset[str]:

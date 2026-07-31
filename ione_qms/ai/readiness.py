@@ -64,22 +64,25 @@ def _get_json(
 	headers = {"Accept": "application/json"}
 	if api_key:
 		headers["Authorization"] = f"Bearer {api_key}"
-	response = requests.get(
-		url,
-		headers=headers,
-		timeout=(3.05, 15),
-		allow_redirects=False,
-		stream=True,
-	)
-	if response.is_redirect:
-		raise frappe.ValidationError("Qwen readiness endpoint must not redirect")
-	body = bytearray()
-	for chunk in response.iter_content(chunk_size=65536):
-		body.extend(chunk)
-		if len(body) > MAX_READINESS_RESPONSE_BYTES:
-			raise frappe.ValidationError("Qwen readiness response is too large")
-	if not allow_error:
-		response.raise_for_status()
+	with requests.Session() as session:
+		# Governed internal model traffic must never inherit a host-level egress proxy.
+		session.trust_env = False
+		response = session.get(
+			url,
+			headers=headers,
+			timeout=(3.05, 15),
+			allow_redirects=False,
+			stream=True,
+		)
+		if response.is_redirect:
+			raise frappe.ValidationError("Qwen readiness endpoint must not redirect")
+		body = bytearray()
+		for chunk in response.iter_content(chunk_size=65536):
+			body.extend(chunk)
+			if len(body) > MAX_READINESS_RESPONSE_BYTES:
+				raise frappe.ValidationError("Qwen readiness response is too large")
+		if not allow_error:
+			response.raise_for_status()
 	try:
 		payload = json.loads(body.decode("utf-8")) if body else {}
 	except (UnicodeDecodeError, ValueError) as exc:
