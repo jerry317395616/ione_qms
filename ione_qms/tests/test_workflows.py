@@ -135,6 +135,27 @@ class TestWorkflowSpecifications(TestCase):
 			validate_workflow_install_preflight()
 		set_value.assert_not_called()
 
+	def test_shared_state_with_neutral_empty_style_is_reused_without_mutation(self) -> None:
+		state = WORKFLOW_SPECS[0].states[0]
+
+		def exists(doctype: str, name: str) -> bool:
+			return doctype == "Workflow State" and name == state.name
+
+		with (
+			patch.object(workflows.frappe.db, "exists", side_effect=exists),
+			patch.object(
+				workflows.frappe,
+				"get_doc",
+				return_value={
+					"workflow_state_name": state.name,
+					"style": "",
+				},
+			),
+			patch.object(workflows.frappe.db, "set_value") as set_value,
+		):
+			validate_workflow_install_preflight()
+		set_value.assert_not_called()
+
 	def test_finding_workflow_matches_service_state_machine(self) -> None:
 		service_edges = _edges(_FINDING_TRANSITIONS) | {("Confirmed", "Rectifying")}
 		self.assertEqual(_spec_edges(FINDING_WORKFLOW), service_edges)

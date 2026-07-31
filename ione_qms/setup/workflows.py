@@ -508,14 +508,15 @@ def _ensure_workflow_action(action: str) -> int:
 
 def _validate_existing_workflow_state(state: WorkflowStateSpec) -> None:
 	doc = frappe.get_doc("Workflow State", state.name)
-	mismatches = [
-		fieldname
-		for fieldname, expected in {
-			"workflow_state_name": state.name,
-			"style": state.style,
-		}.items()
-		if str(doc.get(fieldname) or "") != expected
-	]
+	mismatches = []
+	if str(doc.get("workflow_state_name") or "") != state.name:
+		mismatches.append("workflow_state_name")
+	# An empty style is the neutral Frappe representation used by existing shared
+	# states such as Draft. Reuse it without mutating presentation owned by other
+	# applications; reject any conflicting non-empty semantic style.
+	actual_style = str(doc.get("style") or "")
+	if actual_style not in {"", state.style}:
+		mismatches.append("style")
 	if mismatches:
 		frappe.throw(
 			f"Shared Workflow State '{state.name}' is incompatible with IONE. "
