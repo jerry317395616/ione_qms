@@ -4,10 +4,11 @@ Reviewed: 2026-07-31. Re-review deadline: 2026-08-31, or immediately when the
 official Flow/Frappe dependency constraints change.
 
 This statement is narrow: it does not suppress unknown findings, new advisory
-IDs, or a version drift. CI first requires the effective Bench to contain
-`aiohttp==3.14.1`, `python-dotenv==1.2.2`, and the highest LiteLLM version
-currently allowed by official Flow (`litellm==1.83.7`). It then permits only
-the IDs in `pip-audit-vex.txt`.
+IDs, or a version drift. CI first requires the effective Bench to contain the
+highest LiteLLM version currently allowed by official Flow
+(`litellm==1.83.7`) and the two exact transitive versions required by that
+release (`aiohttp==3.13.5` and `python-dotenv==1.0.1`). It then permits only the
+IDs in `pip-audit-vex.txt`.
 
 ## LiteLLM proxy advisories
 
@@ -28,6 +29,34 @@ private vLLM gateway. Flow agents and triggers remain disabled until their
 clinical evaluation gate is approved. CI rejects imports of `litellm.proxy` in
 the IONE and Flow application sources, and deployment acceptance verifies that
 no LiteLLM proxy process is running.
+
+## LiteLLM-pinned aiohttp and python-dotenv advisories
+
+LiteLLM 1.83.7 has exact metadata pins for aiohttp 3.13.5 and python-dotenv
+1.0.1, so these transitive packages cannot be upgraded without violating the
+official Flow/LiteLLM resolver contract.
+
+The covered aiohttp IDs are `PYSEC-2026-237`, `PYSEC-2026-2104`,
+`PYSEC-2026-2105`, `PYSEC-2026-2106`, `PYSEC-2026-2107`,
+`PYSEC-2026-2108`, `PYSEC-2026-2109`, `PYSEC-2026-2110`,
+`PYSEC-2026-2111`, `PYSEC-2026-2112`, and `PYSEC-2026-2113`. They affect
+aiohttp server parsing/WebSocket/resource paths, cookie persistence,
+per-request cookies or authentication across redirects, multipart construction,
+or per-request TLS SNI overrides. IONE, Flow, Drive, and Frappe do not import
+aiohttp directly. IONE invokes only the LiteLLM client path against one fixed,
+credential-free, private HTTP base URL; the authenticated Qwen gateway does
+not redirect and the call carries neither cookies, multipart bodies, nor a
+per-request TLS override. No aiohttp server is started.
+
+`PYSEC-2026-2270` affects python-dotenv `set_key()`/`unset_key()` following a
+locally planted symlink during a cross-device fallback. The application
+sources do not import those functions, and the managed Bench has no untrusted
+local shell user. The package is present only because LiteLLM pins it.
+
+CI rejects application-source imports of aiohttp, `litellm.proxy`, and the
+vulnerable python-dotenv mutation functions. If a future feature needs any of
+those surfaces, the build fails until the dependency is upgraded or the VEX is
+re-reviewed.
 
 ## pdfkit advisory
 
