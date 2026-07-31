@@ -17,6 +17,11 @@
 - The exact app combination is tested together. Updating the Release Group
   must not accidentally combine IONE installation with unrelated upstream
   upgrades.
+- IONE pins the resolver-tested compatibility intersection required by those
+  exact sources: Click `8.4.2`, LiteLLM `1.83.0`, and pydantic `2.13.4`.
+  This compensates for Bench's sequential application installation without
+  changing any official repository. `pip check` and the installed-environment
+  SBOM must prove the effective Press image uses those exact versions.
 - Sites sharing one bench are part of the same blast radius.
 - The target host is ARM64. An x86_64 CI build or cross-resolved ARM64 Python
   wheel is evidence, but only a native ARM64 Press candidate can satisfy the

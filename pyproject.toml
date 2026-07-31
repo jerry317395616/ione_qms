@@ -9,7 +9,13 @@ readme = "README.md"
 license = { text = "MIT" }
 dynamic = ["version"]
 dependencies = [
+    # Flow's sequential Bench installation can otherwise select versions that
+    # violate the exact Frappe develop/manager snapshots. These pins are the
+    # resolver-tested intersection of both official applications.
+    "Click==8.4.2",
+    "litellm==1.83.0",
     "oracledb==4.0.2",
+    "pydantic==2.13.4",
 ]
 
 [build-system]

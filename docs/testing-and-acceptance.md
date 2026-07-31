@@ -26,7 +26,9 @@ the same Flow SHA, and Drive
 dependency combination, builds all assets, runs dependency and QMS tests,
 proves every application checkout still has the expected clean HEAD, audits
 the installed Bench Python environment, and emits a manifest plus CycloneDX
-artifact for each matrix entry.
+artifact for each matrix entry. The combination gate also proves that the
+IONE-owned compatibility pins reconcile Flow's sequential install with both
+Frappe snapshots and leave `pip check` clean.
 
 The ARM64 CI job only cross-resolves binary CPython 3.14 Linux wheels and
 records their hashes. It detects an important class of packaging failure but
