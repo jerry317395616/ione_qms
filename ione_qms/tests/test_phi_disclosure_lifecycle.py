@@ -169,8 +169,11 @@ class TestPHIDisclosureLifecycle(IntegrationTestCase):
 			"0" * 64,
 			update_modified=False,
 		)
+		tampered = frappe.get_doc("IONE PHI Access Receipt", receipt.name)
 		with self.assertRaises(frappe.ValidationError):
-			frappe.get_doc("IONE PHI Access Receipt", receipt.name)
+			# Frappe invokes onload hooks when serializing a document for the
+			# client; a raw server-side get_doc intentionally only hydrates it.
+			tampered.run_method("onload")
 		frappe.db.set_value(
 			"IONE PHI Access Receipt",
 			receipt.name,

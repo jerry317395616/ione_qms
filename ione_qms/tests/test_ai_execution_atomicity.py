@@ -49,6 +49,8 @@ def _task(**overrides) -> _Document:
 		"responsible_staff": None,
 		"input_summary": "governed prompt",
 		"input_hash": orchestrator._hash_text("governed prompt"),
+		"requested_by": "requester@example.test",
+		"requested_at": datetime(2026, 7, 30, 7, 59, 0),
 	}
 	values.update(overrides)
 	return _Document(**values)

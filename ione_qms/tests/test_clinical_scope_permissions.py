@@ -302,7 +302,9 @@ class TestClinicalScopePermissions(TestCase):
 					explicit_scope.user,
 				)
 			self.assertIn("'CARDIOLOGY'", ai_condition)
-			self.assertIn("'ONCOLOGY'", ai_condition)
+			# The ONCOLOGY grant is explicitly limited to Indicator Result and
+			# must not broaden access to AI Candidate Finding.
+			self.assertNotIn("'ONCOLOGY'", ai_condition)
 			other_clauses = permissions._scope_clauses(
 				"IONE Finding Analysis Fact",
 				"`tabIONE Finding Analysis Fact`",

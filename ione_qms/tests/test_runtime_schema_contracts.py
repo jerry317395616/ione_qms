@@ -637,6 +637,12 @@ class TestProjectionHelpers(TestCase):
 		candidate.name = "AIC-0001"
 		candidate.task = "TASK-1"
 		candidate.status = "Pending Review"
+		candidate.evidence_references = "[]"
+		candidate.get.side_effect = lambda fieldname, default=None: getattr(
+			candidate,
+			fieldname,
+			default,
+		)
 		with (
 			patch("ione_qms.api.ai.require_role"),
 			patch(
@@ -648,6 +654,7 @@ class TestProjectionHelpers(TestCase):
 				"ione_qms.api.ai.frappe.db.get_value",
 				return_value="requester@example.test",
 			),
+			patch("ione_qms.api.ai.validate_evidence_references"),
 			patch(
 				"ione_qms.api.ai.frappe.db.advisory_lock",
 				return_value=nullcontext(),
