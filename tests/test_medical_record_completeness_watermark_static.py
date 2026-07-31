@@ -61,7 +61,7 @@ def test_completeness_watermark_is_service_managed_and_read_only() -> None:
 		"IONE Integration Operator",
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 	for permission in permissions:
 		assert permission["read"] == 1

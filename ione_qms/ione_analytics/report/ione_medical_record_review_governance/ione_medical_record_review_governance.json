@@ -17,10 +17,10 @@
  "report_name": "IONE Medical Record Review Governance",
  "report_type": "Script Report",
  "roles": [
-  {"role": "IONE Medical Record Coder"},
+  {"role": "IONE QMS Medical Record Coder"},
   {"role": "IONE Medical Record Expert Reviewer"},
   {"role": "IONE QC Reviewer"},
   {"role": "IONE Medical Affairs"},
-  {"role": "IONE Auditor"}
+  {"role": "IONE QMS Auditor"}
  ]
 }

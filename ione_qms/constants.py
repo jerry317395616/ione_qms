@@ -13,9 +13,9 @@ APP_ROLES = frozenset(
 		"IONE Agent Reviewer",
 		"IONE Integration Administrator",
 		"IONE Integration Operator",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 		"IONE Agent Service",
-		"IONE Medical Record Coder",
+		"IONE QMS Medical Record Coder",
 		"IONE Medical Record Expert Reviewer",
 		"IONE PHI Identity Reader",
 	}
@@ -40,14 +40,14 @@ DEPARTMENT_SCOPED_ROLES = frozenset(
 		"IONE Department Director",
 		"IONE Department QC Officer",
 		"IONE Nursing/Pharmacy/IC QC",
-		"IONE Medical Record Coder",
+		"IONE QMS Medical Record Coder",
 		"IONE Medical Record Expert Reviewer",
 	}
 )
 
 PERSONAL_CLINICAL_ROLES = frozenset({"IONE Physician"})
 
-EXPLICIT_CLINICAL_SCOPE_ROLES = frozenset({"IONE Auditor", "IONE Integration Operator"})
+EXPLICIT_CLINICAL_SCOPE_ROLES = frozenset({"IONE QMS Auditor", "IONE Integration Operator"})
 
 AI_REVIEW_SCOPED_ROLES = frozenset({"IONE Agent Reviewer"})
 
@@ -79,7 +79,7 @@ QUALITY_ACTION_OVERSIGHT_ROLES = frozenset(
 		"IONE Department QC Officer",
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 )
 

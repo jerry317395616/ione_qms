@@ -184,7 +184,7 @@ READ_DEFINITIONS = [
 	perm("IONE Department Director"),
 	perm("IONE Department QC Officer"),
 	perm("IONE Nursing/Pharmacy/IC QC"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 WRITE_DEFINITIONS = [
 	perm("IONE QC Administrator", write=1, create=1),
@@ -200,12 +200,12 @@ INTEGRATION_PERMS = [
 	perm("IONE Integration Administrator", write=1, create=1),
 	perm("IONE Integration Operator"),
 	perm("IONE QC Administrator"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 INTEGRATION_DATA_PERMS = [
 	perm("IONE Integration Operator"),
 	perm("IONE QC Administrator"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 MATERIALIZED_CLINICAL_PERMS = [
 	{**permission, "create": 0} for permission in [*WRITE_CLINICAL, *READ_CLINICAL]
@@ -220,7 +220,7 @@ MEDICAL_RECORD_QC_PERMS = [
 		}
 		for permission in MATERIALIZED_CLINICAL_PERMS
 	],
-	perm("IONE Medical Record Coder"),
+	perm("IONE QMS Medical Record Coder"),
 	perm("IONE Medical Record Expert Reviewer"),
 ]
 SAFETY_EVENT_PERMS = [
@@ -234,7 +234,7 @@ FINDING_APPEAL_PERMS = [
 	perm("IONE Department QC Officer"),
 	perm("IONE QC Reviewer"),
 	perm("IONE Medical Affairs"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 	perm("IONE Physician", permlevel=1, report=0),
 	perm("IONE Department Director", permlevel=1, report=0),
 	perm("IONE Department QC Officer", permlevel=1, report=0),
@@ -255,12 +255,12 @@ INTEGRATION_AUDIT_PERMS = [
 PHI_POLICY_PERMS = [
 	perm("IONE QC Administrator", write=1, create=1),
 	perm("IONE Medical Affairs", write=1, create=1),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 PHI_ACCESS_RECEIPT_PERMS = [
 	perm("IONE QC Administrator", report=0),
 	perm("IONE Medical Affairs", report=0),
-	perm("IONE Auditor", report=0),
+	perm("IONE QMS Auditor", report=0),
 ]
 AI_ADMIN_PERMS = [
 	perm("IONE Agent Administrator", write=1, create=1, export=1),
@@ -268,7 +268,7 @@ AI_ADMIN_PERMS = [
 	perm("IONE Agent Reviewer"),
 	perm("IONE QC Reviewer"),
 	perm("IONE Medical Affairs"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 AGENT_POLICY_PERMS = [
 	*AI_ADMIN_PERMS,
@@ -282,7 +282,7 @@ REPORT_SCHEDULE_PERMS = [
 	perm("IONE Department QC Officer", write=1, create=1),
 	perm("IONE Agent Reviewer"),
 	perm("IONE Agent Administrator"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 	perm("System Manager"),
 ]
 REPORT_SNAPSHOT_PERMS = [
@@ -291,20 +291,20 @@ REPORT_SNAPSHOT_PERMS = [
 	perm("IONE Department Director"),
 	perm("IONE Department QC Officer"),
 	perm("IONE Agent Reviewer"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 REPORT_RECOVERY_PERMS = [
 	perm("IONE Agent Reviewer"),
 	perm("IONE QC Reviewer"),
 	perm("IONE Medical Affairs"),
-	perm("IONE Auditor"),
+	perm("IONE QMS Auditor"),
 ]
 STAFF_GOVERNANCE_PERMS = [
 	perm("System Manager"),
 	perm("IONE QC Administrator", write=1, create=1, export=1),
 	perm("IONE Medical Affairs", write=1, create=1, export=1, print_=1),
 	perm("IONE QC Reviewer", export=1),
-	perm("IONE Auditor", export=1),
+	perm("IONE QMS Auditor", export=1),
 ]
 ANALYTICS_PERMS = [
 	perm("IONE QC Reviewer", export=1, print_=1),
@@ -312,7 +312,7 @@ ANALYTICS_PERMS = [
 	perm("IONE Department Director", export=1),
 	perm("IONE Department QC Officer", export=1),
 	perm("IONE Nursing/Pharmacy/IC QC", export=1),
-	perm("IONE Auditor", export=1),
+	perm("IONE QMS Auditor", export=1),
 ]
 SCOPED_ANALYTICS_PERMS = [
 	*ANALYTICS_PERMS,
@@ -1177,7 +1177,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			perm("IONE QC Administrator"),
 			perm("IONE QC Reviewer"),
 			perm("IONE Medical Affairs"),
-			perm("IONE Auditor"),
+			perm("IONE QMS Auditor"),
 		],
 		search_fields="test_case,rule_version,rule_checksum,definition_hash",
 	),
@@ -1227,7 +1227,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			perm("IONE QC Administrator"),
 			perm("IONE QC Reviewer"),
 			perm("IONE Medical Affairs"),
-			perm("IONE Auditor"),
+			perm("IONE QMS Auditor"),
 		],
 		search_fields="event,rule_version,rule_checksum,execution_key",
 	),
@@ -1280,7 +1280,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			perm("IONE QC Administrator"),
 			perm("IONE QC Reviewer", create=1),
 			perm("IONE Medical Affairs", create=1),
-			perm("IONE Auditor"),
+			perm("IONE QMS Auditor"),
 		],
 		search_fields="shadow_execution,rule_version,rule_checksum",
 	),
@@ -1336,7 +1336,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			perm("IONE QC Administrator"),
 			perm("IONE QC Reviewer", export=1),
 			perm("IONE Medical Affairs", export=1),
-			perm("IONE Auditor", export=1),
+			perm("IONE QMS Auditor", export=1),
 		],
 		search_fields="run_key,rule_version,rule_checksum",
 	),
@@ -1366,7 +1366,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			perm("IONE QC Administrator"),
 			perm("IONE QC Reviewer"),
 			perm("IONE Medical Affairs"),
-			perm("IONE Auditor"),
+			perm("IONE QMS Auditor"),
 		],
 		search_fields="target_doctype,target_name,outcome,reason_code,migration_run_id",
 	),
@@ -1505,7 +1505,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			*READ_CLINICAL,
 			perm("IONE Physician", write=1),
 			perm("IONE Agent Reviewer", read=1),
-			perm("IONE Medical Record Coder"),
+			perm("IONE QMS Medical Record Coder"),
 			perm("IONE Medical Record Expert Reviewer"),
 		],
 		title_field="title",
@@ -1551,7 +1551,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 		],
 		[
 			*READ_CLINICAL,
-			perm("IONE Medical Record Coder"),
+			perm("IONE QMS Medical Record Coder"),
 			perm("IONE Medical Record Expert Reviewer"),
 			perm("IONE Physician", permlevel=1, read=1, report=0),
 			perm("IONE Department Director", permlevel=1, read=1, report=0),
@@ -2159,7 +2159,7 @@ def _extend_indicator_schemas() -> None:
 					*ANALYTICS_PERMS,
 					perm("IONE QC Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, read=1, report=0),
-					perm("IONE Auditor", permlevel=1, read=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, read=1, report=0),
 				],
 				autoname="field:calculation_key",
 				allow_import=0,
@@ -2295,7 +2295,7 @@ def _extend_indicator_schemas() -> None:
 					*SCOPED_ANALYTICS_PERMS,
 					perm("IONE QC Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, read=1, report=0),
-					perm("IONE Auditor", permlevel=1, read=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, read=1, report=0),
 				],
 				autoname="field:result_key",
 				allow_import=0,
@@ -2593,7 +2593,7 @@ def _extend_indicator_schemas() -> None:
 					),
 				],
 				[
-					perm("IONE Auditor", read=1, report=1),
+					perm("IONE QMS Auditor", read=1, report=1),
 					perm("IONE QC Reviewer", read=1, report=1),
 					perm("IONE Medical Affairs", read=1, report=1),
 				],
@@ -2641,7 +2641,7 @@ def _extend_indicator_schemas() -> None:
 					field("Receipt Checksum", "receipt_checksum", reqd=1, read_only=1, length=64),
 				],
 				[
-					perm("IONE Auditor", read=1, report=1),
+					perm("IONE QMS Auditor", read=1, report=1),
 					perm("IONE QC Reviewer", read=1, report=1),
 					perm("IONE Medical Affairs", read=1, report=1),
 				],
@@ -3279,7 +3279,7 @@ def _extend_integration_schemas() -> None:
 					perm("IONE Integration Administrator", write=1, create=1),
 					perm("IONE QC Administrator"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				search_fields=("locator_code,version,source_system,source_record_type,hospital,status"),
 				allow_import=0,
@@ -3370,7 +3370,7 @@ def _extend_integration_schemas() -> None:
 					perm("IONE Medical Affairs"),
 					perm("IONE Department Director"),
 					perm("IONE Department QC Officer"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:access_key",
 				search_fields="request_id,finding,evidence,locator,result_code",
@@ -3432,7 +3432,7 @@ def _extend_integration_schemas() -> None:
 				[
 					*INTEGRATION_PERMS,
 					perm("IONE Integration Administrator", permlevel=1, write=1, report=0),
-					perm("IONE Auditor", permlevel=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, report=0),
 				],
 				search_fields="mapping_code,source_system,version",
 				track_changes=1,
@@ -3558,7 +3558,7 @@ def _extend_integration_schemas() -> None:
 				],
 				[
 					*INTEGRATION_DATA_PERMS,
-					perm("IONE Auditor", permlevel=2, report=0),
+					perm("IONE QMS Auditor", permlevel=2, report=0),
 				],
 				search_fields="idempotency_key,payload_hash",
 			),
@@ -3735,7 +3735,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE QC Reviewer", write=1),
 					perm("IONE Medical Affairs", write=1),
 					perm("System Manager"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:release_key",
 			),
@@ -3794,7 +3794,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE QC Reviewer", write=1),
 					perm("IONE Medical Affairs", write=1),
 					perm("System Manager"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:threshold_policy_key",
 				search_fields="threshold_policy_key,version,status,approved_by",
@@ -3900,7 +3900,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer"),
 					perm("IONE QC Reviewer"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:evaluation_key",
 			),
@@ -4293,7 +4293,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Department Director", read=1),
 					perm("IONE Department QC Officer", read=1),
 					perm("IONE Agent Service", read=0, report=0),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 					perm("IONE Agent Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE QC Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, read=1, report=0),
@@ -4384,7 +4384,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer"),
 					perm("IONE QC Reviewer"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 					perm("IONE Agent Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE QC Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, read=1, report=0),
@@ -4421,7 +4421,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer", read=1),
 					perm("IONE QC Reviewer", read=1),
 					perm("IONE Medical Affairs", read=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				title_field="title",
 			),
@@ -4464,7 +4464,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer", read=1),
 					perm("IONE QC Reviewer", read=1),
 					perm("IONE Medical Affairs", read=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 			),
 			"IONE Flow Run Link": schema(
@@ -4514,7 +4514,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer"),
 					perm("IONE QC Reviewer"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor", export=1),
+					perm("IONE QMS Auditor", export=1),
 				],
 				search_fields="task,flow_run,model_id",
 			),
@@ -4560,7 +4560,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer"),
 					perm("IONE QC Reviewer"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:execution_event_key",
 				search_fields="task,event_type,flow_run,execution_token_hash",
@@ -4640,7 +4640,7 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer", read=1, write=1, create=1),
 					perm("IONE QC Reviewer", read=1, write=1, create=1),
 					perm("IONE Medical Affairs", read=1, write=1, create=1, export=1),
-					perm("IONE Auditor", export=1),
+					perm("IONE QMS Auditor", export=1),
 				],
 				autoname="field:incident_key",
 				title_field="summary",
@@ -4682,11 +4682,11 @@ def _extend_ai_schemas() -> None:
 					perm("IONE Agent Reviewer"),
 					perm("IONE QC Reviewer"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 					perm("IONE Agent Reviewer", permlevel=1, report=0),
 					perm("IONE QC Reviewer", permlevel=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, report=0),
-					perm("IONE Auditor", permlevel=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, report=0),
 				],
 				search_fields="task,user,tool_slug,source_doctype,request_hash",
 			),
@@ -4916,7 +4916,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager", read=1, write=1),
 					perm("IONE QC Administrator", read=1, write=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				issingle=1,
 			),
@@ -4982,7 +4982,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager"),
 					perm("IONE QC Administrator"),
-					perm("IONE Auditor", export=1),
+					perm("IONE QMS Auditor", export=1),
 				],
 				issingle=1,
 			),
@@ -5037,7 +5037,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager"),
 					perm("IONE QC Administrator"),
-					perm("IONE Auditor", export=1),
+					perm("IONE QMS Auditor", export=1),
 				],
 				autoname="field:migration_key",
 				title_field="migration_key",
@@ -5178,7 +5178,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager"),
 					perm("IONE QC Administrator"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:run_key",
 				title_field="run_key",
@@ -5246,7 +5246,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager"),
 					perm("IONE QC Administrator"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:item_key",
 				title_field="item_key",
@@ -5305,7 +5305,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager"),
 					perm("IONE QC Administrator"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:receipt_key",
 				title_field="receipt_key",
@@ -5340,7 +5340,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager"),
 					perm("IONE QC Administrator"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:source_doctype",
 				title_field="source_doctype",
@@ -5362,7 +5362,7 @@ def _extend_admin_schemas() -> None:
 					perm("System Manager", read=1, write=1),
 					perm("IONE QC Administrator", read=1, write=1),
 					perm("IONE QC Reviewer"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				issingle=1,
 			),
@@ -5377,7 +5377,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("IONE Integration Administrator", read=1, write=1),
 					perm("IONE Integration Operator", read=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				issingle=1,
 				track_changes=1,
@@ -5403,7 +5403,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager", read=1, write=1),
 					perm("IONE Agent Administrator", read=1, write=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				issingle=1,
 			),
@@ -5422,7 +5422,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager", read=1, write=1, create=1),
 					perm("IONE QC Administrator", read=1, write=1, create=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				title_field="policy_name",
 			),
@@ -5594,7 +5594,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager", read=1, write=1, create=1),
 					perm("IONE QC Administrator", read=1, write=1, create=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				title_field="flag_name",
 			),
@@ -5682,7 +5682,7 @@ def _extend_admin_schemas() -> None:
 					perm("IONE QC Reviewer", read=1, create=1, if_owner=1),
 					perm("IONE Agent Reviewer", read=1, create=1, if_owner=1),
 					perm("IONE Medical Affairs", read=1, write=1, create=1),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:request_id",
 				search_fields=(
@@ -5717,7 +5717,7 @@ def _extend_admin_schemas() -> None:
 				[
 					perm("System Manager", read=1, create=1),
 					perm("IONE QC Administrator", read=1, create=1),
-					perm("IONE Auditor", export=1),
+					perm("IONE QMS Auditor", export=1),
 				],
 				search_fields="release_id,commit_sha,deploy_candidate",
 			),
@@ -5729,9 +5729,9 @@ def _extend_medical_record_review_schemas() -> None:
 	read_roles = [
 		perm("IONE QC Reviewer"),
 		perm("IONE Medical Affairs"),
-		perm("IONE Medical Record Coder"),
+		perm("IONE QMS Medical Record Coder"),
 		perm("IONE Medical Record Expert Reviewer"),
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	system_managed_permissions = [*read_roles]
 	SCHEMAS.update(
@@ -5921,9 +5921,9 @@ def _extend_medical_record_review_schemas() -> None:
 				[
 					perm("IONE QC Reviewer", write=1, create=1),
 					perm("IONE Medical Affairs", write=1, create=1),
-					perm("IONE Medical Record Coder"),
+					perm("IONE QMS Medical Record Coder"),
 					perm("IONE Medical Record Expert Reviewer"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="format:{policy_code}-{policy_version}",
 				title_field="policy_code",
@@ -6166,7 +6166,7 @@ def _extend_medical_record_review_schemas() -> None:
 					*system_managed_permissions,
 					perm("IONE QC Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, read=1, report=0),
-					perm("IONE Auditor", permlevel=1, read=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, read=1, report=0),
 				],
 				autoname="field:batch_key",
 				search_fields=(
@@ -6366,7 +6366,7 @@ def _extend_medical_record_review_schemas() -> None:
 					*system_managed_permissions,
 					perm("IONE QC Reviewer", permlevel=1, read=1, report=0),
 					perm("IONE Medical Affairs", permlevel=1, read=1, report=0),
-					perm("IONE Auditor", permlevel=1, read=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, read=1, report=0),
 				],
 				autoname="field:assignment_key",
 				search_fields=(
@@ -6703,10 +6703,10 @@ def _extend_medical_record_review_schemas() -> None:
 				[
 					perm("IONE Integration Administrator"),
 					perm("IONE Integration Operator"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 					perm("IONE Integration Administrator", permlevel=1, read=1, report=0),
 					perm("IONE Integration Operator", permlevel=1, read=1, report=0),
-					perm("IONE Auditor", permlevel=1, read=1, report=0),
+					perm("IONE QMS Auditor", permlevel=1, read=1, report=0),
 				],
 				autoname="field:delivery_key",
 				search_fields=("delivery_key,request_id,endpoint,source_system,hospital,delivery_status"),
@@ -6849,7 +6849,7 @@ def _extend_medical_record_review_schemas() -> None:
 					perm("IONE Integration Operator"),
 					perm("IONE QC Reviewer"),
 					perm("IONE Medical Affairs"),
-					perm("IONE Auditor"),
+					perm("IONE QMS Auditor"),
 				],
 				autoname="field:watermark_key",
 				search_fields=(
@@ -7112,7 +7112,7 @@ def _extend_surgery_governance_schemas() -> None:
 
 	audit_permissions = [
 		*[{**permission, "create": 0, "write": 0, "delete": 0} for permission in READ_CLINICAL],
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	surgery["permissions"] = audit_permissions
 	surgery["allow_import"] = 0
@@ -7484,14 +7484,14 @@ def _extend_pdca_governance_schemas() -> None:
 	policy_permissions = [
 		perm("IONE QC Reviewer", write=1, create=1),
 		perm("IONE Medical Affairs", write=1, create=1),
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	audit_permissions = [
 		perm("IONE QC Reviewer"),
 		perm("IONE Medical Affairs"),
 		perm("IONE Department Director"),
 		perm("IONE Department QC Officer"),
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	readonly_scope = [{**scope_field, "read_only": 1} for scope_field in SCOPE_FIELDS]
 	SCHEMAS.update(
@@ -7890,7 +7890,7 @@ def _extend_quality_meeting_schemas() -> None:
 		perm("IONE Department QC Officer"),
 		perm("IONE Physician"),
 		perm("IONE Nursing/Pharmacy/IC QC"),
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	author_permissions = [
 		perm("IONE QC Reviewer", write=1, create=1),
@@ -7905,7 +7905,7 @@ def _extend_quality_meeting_schemas() -> None:
 		perm("IONE Department QC Officer"),
 		perm("IONE Physician"),
 		perm("IONE Nursing/Pharmacy/IC QC"),
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	meeting_scope = [
 		{**SCOPE_FIELDS[0], "reqd": 1},

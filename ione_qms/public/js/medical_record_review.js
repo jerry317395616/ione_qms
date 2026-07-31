@@ -2,7 +2,7 @@
 	"use strict";
 
 	const POLICY_REVIEW_ROLES = ["IONE QC Reviewer", "IONE Medical Affairs"];
-	const CODER_ROLE = "IONE Medical Record Coder";
+	const CODER_ROLE = "IONE QMS Medical Record Coder";
 	const EXPERT_ROLE = "IONE Medical Record Expert Reviewer";
 	const MEDICAL_AFFAIRS_ROLE = "IONE Medical Affairs";
 	const OUTCOMES = ["Pass", "Defect", "Needs Correction", "Unable to Determine"];

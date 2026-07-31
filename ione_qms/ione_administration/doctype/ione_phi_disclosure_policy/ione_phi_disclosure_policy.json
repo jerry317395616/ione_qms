@@ -309,7 +309,7 @@
    "write": 1
   },
   {
-   "role": "IONE Auditor",
+   "role": "IONE QMS Auditor",
    "permlevel": 0,
    "create": 0,
    "delete": 0,

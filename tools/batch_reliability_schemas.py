@@ -17,7 +17,7 @@ def extend_batch_reliability_schemas(
 	read_permissions = [
 		perm("System Manager"),
 		perm("IONE QC Administrator"),
-		perm("IONE Auditor"),
+		perm("IONE QMS Auditor"),
 	]
 	schemas.update(
 		{

@@ -19,7 +19,7 @@ _WORKBENCH_ROLES = frozenset(
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
 		"IONE Agent Reviewer",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 )
 _FUNCTIONAL_WORKBENCH_ROLES = frozenset(
@@ -247,7 +247,7 @@ def _resolve_workbench_persona(user: str, roles: frozenset[str]) -> str:
 			"Current user does not have an eligible IONE business workbench role.",
 			frappe.PermissionError,
 		)
-	if "IONE Auditor" in roles:
+	if "IONE QMS Auditor" in roles:
 		return "Auditor"
 	if roles.intersection(_FUNCTIONAL_WORKBENCH_ROLES):
 		return "Functional"

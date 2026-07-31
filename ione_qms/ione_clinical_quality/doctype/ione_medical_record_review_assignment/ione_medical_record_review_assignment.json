@@ -411,7 +411,7 @@
    "write": 0
   },
   {
-   "role": "IONE Medical Record Coder",
+   "role": "IONE QMS Medical Record Coder",
    "permlevel": 0,
    "create": 0,
    "delete": 0,
@@ -439,7 +439,7 @@
    "write": 0
   },
   {
-   "role": "IONE Auditor",
+   "role": "IONE QMS Auditor",
    "permlevel": 0,
    "create": 0,
    "delete": 0,
@@ -481,7 +481,7 @@
    "write": 0
   },
   {
-   "role": "IONE Auditor",
+   "role": "IONE QMS Auditor",
    "permlevel": 1,
    "create": 0,
    "delete": 0,

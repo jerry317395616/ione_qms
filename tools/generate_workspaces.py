@@ -23,7 +23,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Physician",
 			"IONE Integration Administrator",
 			"IONE Integration Operator",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 			"IONE PHI Identity Reader",
 		],
 		"sections": {
@@ -57,7 +57,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Department Director",
 			"IONE Department QC Officer",
 			"IONE Physician",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Standards": [
@@ -84,10 +84,10 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Department QC Officer",
 			"IONE Physician",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Medical Record Coder",
+			"IONE QMS Medical Record Coder",
 			"IONE Medical Record Expert Reviewer",
 			"IONE Integration Operator",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Quality Workflow": [
@@ -140,7 +140,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Department Director",
 			"IONE Department QC Officer",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Definitions": ["IONE QC Indicator", "IONE QC Indicator Version"],
@@ -164,7 +164,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Department QC Officer",
 			"IONE Physician",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Closed-loop Improvement": [
@@ -204,7 +204,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Integration Operator",
 			"IONE QC Administrator",
 			"IONE Medical Affairs",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Configuration": [
@@ -231,7 +231,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Agent Reviewer",
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Governance": [
@@ -269,10 +269,10 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Department QC Officer",
 			"IONE Physician",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Medical Record Coder",
+			"IONE QMS Medical Record Coder",
 			"IONE Medical Record Expert Reviewer",
 			"IONE Agent Reviewer",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Command Center": [
@@ -352,7 +352,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"IONE Agent Administrator",
 			"IONE Integration Operator",
 			"IONE Medical Affairs",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		],
 		"sections": {
 			"Settings": [

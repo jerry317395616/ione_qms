@@ -21,7 +21,7 @@ APPEAL_SUBMITTER_ROLES = frozenset(
 	}
 )
 APPEAL_REVIEWER_ROLES = frozenset({"IONE QC Reviewer", "IONE Medical Affairs"})
-APPEAL_READ_ROLES = APPEAL_SUBMITTER_ROLES | APPEAL_REVIEWER_ROLES | frozenset({"IONE Auditor"})
+APPEAL_READ_ROLES = APPEAL_SUBMITTER_ROLES | APPEAL_REVIEWER_ROLES | frozenset({"IONE QMS Auditor"})
 APPEAL_TYPES = frozenset(
 	{
 		"Factual Dispute",

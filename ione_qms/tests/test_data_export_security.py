@@ -193,7 +193,7 @@ class TestDataExportScopeSecurity(TestCase):
 		self.assertNotIn("scope_mode in ('Department', 'Campus', 'Hospital')", query)
 
 	def test_request_list_and_document_permissions_fail_closed_for_unscoped_auditor(self) -> None:
-		context = _context("IONE Auditor")
+		context = _context("IONE QMS Auditor")
 		doc = _export_request(scope_mode="Unscoped", campus=None, department=None)
 		with (
 			patch.object(permissions, "get_access_context", return_value=context),

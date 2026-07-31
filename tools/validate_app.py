@@ -120,13 +120,13 @@ APP_ROLES = frozenset(
 		"IONE Agent Administrator",
 		"IONE Agent Reviewer",
 		"IONE Agent Service",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 		"IONE Department Director",
 		"IONE Department QC Officer",
 		"IONE Integration Administrator",
 		"IONE Integration Operator",
 		"IONE Medical Affairs",
-		"IONE Medical Record Coder",
+		"IONE QMS Medical Record Coder",
 		"IONE Medical Record Expert Reviewer",
 		"IONE Nursing/Pharmacy/IC QC",
 		"IONE PHI Identity Reader",
@@ -3011,10 +3011,10 @@ def validate_permissions(name: str, payload: dict[str, Any], errors: list[str]) 
 		role = permission.get("role")
 		if role not in APP_ROLES:
 			errors.append(f"{name}: undeclared role in permissions: {role!r}")
-		if role == "IONE Auditor" and any(
+		if role == "IONE QMS Auditor" and any(
 			int(permission.get(action) or 0) for action in ("create", "delete", "share", "write")
 		):
-			errors.append(f"{name}: IONE Auditor must remain read-only")
+			errors.append(f"{name}: IONE QMS Auditor must remain read-only")
 		if name in SENSITIVE_EXPORT_DOCTYPES and any(
 			int(permission.get(action) or 0) for action in ("export", "print")
 		):
@@ -3226,7 +3226,7 @@ def validate_contracts(
 			"IONE Department QC Officer",
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 		if level_zero_readers != expected_level_zero:
 			errors.append(
@@ -3238,7 +3238,7 @@ def validate_contracts(
 			for permission in permissions
 			if int(permission.get("permlevel") or 0) == 1 and permission.get("read")
 		}
-		expected_level_one = expected_level_zero - {"IONE Auditor"}
+		expected_level_one = expected_level_zero - {"IONE QMS Auditor"}
 		if level_one_readers != expected_level_one:
 			errors.append(
 				"IONE QC Finding Appeal: clinical rationale may only be read by scoped "
@@ -3309,7 +3309,7 @@ def validate_contracts(
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
 		}
-		if readers != expected_readers or "IONE Auditor" in readers:
+		if readers != expected_readers or "IONE QMS Auditor" in readers:
 			errors.append(
 				"IONE QC Finding Appeal Evidence: readers must be exactly scoped "
 				"submitter/reviewer roles and exclude Auditor"
@@ -3360,7 +3360,7 @@ def validate_contracts(
 			permission = permissions.get(role)
 			if not permission or not permission.get("read") or not permission.get("write"):
 				errors.append(f"IONE Agent Release: {role} requires approval write access")
-		for role in ("IONE Auditor", "System Manager"):
+		for role in ("IONE QMS Auditor", "System Manager"):
 			permission = permissions.get(role)
 			if not permission or not permission.get("read") or permission.get("write"):
 				errors.append(f"IONE Agent Release: {role} must remain read-only")
@@ -3515,7 +3515,7 @@ def validate_contracts(
 		medical_affairs = permissions.get("IONE Medical Affairs")
 		if not medical_affairs or not medical_affairs.get("read") or not medical_affairs.get("write"):
 			errors.append("IONE Data Export Request: Medical Affairs requires approval write access")
-		auditor = permissions.get("IONE Auditor")
+		auditor = permissions.get("IONE QMS Auditor")
 		if not auditor or not auditor.get("read") or auditor.get("write"):
 			errors.append("IONE Data Export Request: Auditor requires read-only audit access")
 		if "System Manager" in permissions:

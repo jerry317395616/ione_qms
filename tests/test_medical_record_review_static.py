@@ -39,7 +39,7 @@ SYSTEM_MEDICAL_RECORD_REVIEW_DOCTYPES = frozenset(MEDICAL_RECORD_REVIEW_DOCTYPES
 	"IONE Medical Record Sampling Policy"
 }
 MEDICAL_RECORD_REVIEW_ACTOR_ROLES = {
-	"IONE Medical Record Coder",
+	"IONE QMS Medical Record Coder",
 	"IONE Medical Record Expert Reviewer",
 }
 MUTATING_API_FUNCTIONS = {
@@ -442,7 +442,7 @@ class TestMedicalRecordReviewStaticContract(TestCase):
 		submit = _function_source(self.source, "_submit_review")
 		review_validator = _function_source(self.source, "validate_review_decision")
 		deletion = _function_source(self.source, "prevent_medical_record_review_deletion")
-		self.assertIn('"IONE Medical Record Coder"', self.source)
+		self.assertIn('"IONE QMS Medical Record Coder"', self.source)
 		self.assertIn('"IONE Medical Record Expert Reviewer"', self.source)
 		self.assertIn("must be independent named users", self.source)
 		self.assertIn('other_actor_field="assigned_coder"', claim_expert)
@@ -763,7 +763,7 @@ class TestMedicalRecordReviewStaticContract(TestCase):
 					{
 						"IONE Integration Administrator",
 						"IONE Integration Operator",
-						"IONE Auditor",
+						"IONE QMS Auditor",
 					}
 					if doctype == "IONE Medical Record Archive Delivery"
 					else MEDICAL_RECORD_REVIEW_ACTOR_ROLES
@@ -1119,7 +1119,7 @@ class TestMedicalRecordReviewStaticContract(TestCase):
 		self.assertIn("_medical_record_assignment_actor_condition(", assignment_query)
 		self.assertIn("_combine_read_conditions(base, actor)", assignment_query)
 		for expected in (
-			"IONE Medical Record Coder",
+			"IONE QMS Medical Record Coder",
 			"IONE Medical Record Expert Reviewer",
 			"assigned_coder",
 			"assigned_expert",

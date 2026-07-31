@@ -12,7 +12,7 @@ permission on all four definition types used by the comparison:
 - IONE QC Administrator
 - IONE QC Reviewer
 - IONE Medical Affairs
-- IONE Auditor
+- IONE QMS Auditor
 
 Guest, Administrator, and any user carrying `IONE Agent Service` are rejected even
 if another role is also assigned. The service reads only Standard Version, Standard

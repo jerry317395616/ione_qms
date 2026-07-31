@@ -8,6 +8,8 @@ from types import ModuleType, SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
 
+from ione_qms.constants import APP_ROLES
+
 
 class _InstallationRejected(Exception):
 	pass
@@ -111,6 +113,14 @@ def _load_install(*, role_collision: bool = True, duplicate_crypto_secrets: bool
 
 
 class TestInstallPreflight(TestCase):
+	def test_qms_role_namespace_does_not_claim_manager_external_roles(self) -> None:
+		self.assertTrue({"IONE QMS Auditor", "IONE QMS Medical Record Coder"}.issubset(APP_ROLES))
+		manager_external_roles = {
+			"IONE " + "Auditor",
+			"IONE Medical Record " + "Coder",
+		}
+		self.assertTrue(APP_ROLES.isdisjoint(manager_external_roles))
+
 	def test_reserved_collision_fails_before_any_write(self) -> None:
 		with _load_install() as (install, database):
 			with self.assertRaisesRegex(

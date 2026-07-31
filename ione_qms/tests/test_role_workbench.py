@@ -236,7 +236,7 @@ class TestRoleWorkbenchPermissions(TestCase):
 	def test_auditor_persona_is_explicitly_read_only(self) -> None:
 		with _runtime(
 			user="auditor@example.test",
-			roles=["IONE Auditor"],
+			roles=["IONE QMS Auditor"],
 			get_list_side_effect=lambda *args, **kwargs: [],
 		):
 			result = dashboard.get_role_workbench()

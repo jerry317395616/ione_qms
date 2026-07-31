@@ -264,9 +264,9 @@ class TestClinicalScopePermissions(TestCase):
 			)
 
 	def test_auditor_requires_explicit_user_permission_scope(self) -> None:
-		no_scope = _context(roles=("IONE Auditor",))
+		no_scope = _context(roles=("IONE QMS Auditor",))
 		explicit_scope = _context(
-			roles=("IONE Auditor",),
+			roles=("IONE QMS Auditor",),
 			scope_grants=(
 				("IONE Medical Department", "CARDIOLOGY", ""),
 				("IONE Medical Department", "ONCOLOGY", "IONE Indicator Result"),

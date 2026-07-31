@@ -26,9 +26,9 @@ EXPORT_REQUESTER_ROLES = frozenset(
 		"IONE Medical Affairs",
 	}
 )
-EXPORT_APPROVER_ROLES = frozenset({"IONE Auditor", "IONE Medical Affairs"})
+EXPORT_APPROVER_ROLES = frozenset({"IONE QMS Auditor", "IONE Medical Affairs"})
 EXPORT_GLOBAL_APPROVER_ROLES = frozenset({"IONE Medical Affairs"})
-EXPORT_SCOPED_APPROVER_ROLE = "IONE Auditor"
+EXPORT_SCOPED_APPROVER_ROLE = "IONE QMS Auditor"
 
 EXPORT_SCOPE_MODES = frozenset({"Department", "Campus", "Hospital", "Multiple", "Unscoped"})
 AUDITOR_EXPORT_SCOPE_MODES = frozenset({"Department", "Campus"})

@@ -386,7 +386,7 @@ class TestFindingAppealDeskContract(TestCase):
 		)
 		self.assertEqual(evidence.get("track_changes"), 0)
 		readers = {permission["role"] for permission in evidence["permissions"] if permission.get("read")}
-		self.assertNotIn("IONE Auditor", readers)
+		self.assertNotIn("IONE QMS Auditor", readers)
 		evidence_file = next(field for field in evidence["fields"] if field["fieldname"] == "evidence_file")
 		self.assertEqual(evidence_file["fieldtype"], "Link")
 		self.assertEqual(evidence_file["options"], "File")

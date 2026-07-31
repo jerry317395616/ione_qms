@@ -43,7 +43,7 @@
    "role": "IONE Nursing/Pharmacy/IC QC"
   },
   {
-   "role": "IONE Medical Record Coder"
+   "role": "IONE QMS Medical Record Coder"
   },
   {
    "role": "IONE Medical Record Expert Reviewer"
@@ -52,7 +52,7 @@
    "role": "IONE Agent Reviewer"
   },
   {
-   "role": "IONE Auditor"
+   "role": "IONE QMS Auditor"
   }
  ],
  "sequence_id": 88.0,

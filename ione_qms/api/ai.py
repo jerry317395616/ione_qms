@@ -45,7 +45,7 @@ from ione_qms.setup.workflows import FINDING_REVIEW_ACTION
 
 @frappe.whitelist(methods=["GET"])
 def get_model_readiness(model_name: str = "I-ONE Qwen 35B") -> dict:
-	require_role("IONE Agent Administrator", "IONE Auditor")
+	require_role("IONE Agent Administrator", "IONE QMS Auditor")
 	return check_qwen_readiness(model_name)
 
 

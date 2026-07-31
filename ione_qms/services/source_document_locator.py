@@ -24,14 +24,14 @@ LOCATOR_DOCTYPE = "IONE Source Document Locator"
 ACCESS_LOG_DOCTYPE = "IONE Source Document Access Log"
 LOCATOR_AUTHOR_ROLES = frozenset({"IONE Integration Administrator"})
 LOCATOR_APPROVER_ROLES = frozenset({"IONE QC Administrator", "IONE Medical Affairs"})
-LOCATOR_READ_ROLES = LOCATOR_AUTHOR_ROLES | LOCATOR_APPROVER_ROLES | frozenset({"IONE Auditor"})
+LOCATOR_READ_ROLES = LOCATOR_AUTHOR_ROLES | LOCATOR_APPROVER_ROLES | frozenset({"IONE QMS Auditor"})
 ACCESS_LOG_READ_ROLES = frozenset(
 	{
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
 		"IONE Department Director",
 		"IONE Department QC Officer",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 )
 LOCATOR_STATUSES = frozenset({"Draft", "Approved", "Suspended", "Retired"})

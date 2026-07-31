@@ -69,7 +69,7 @@ class TestStandardVersionDifferenceStaticContract(TestCase):
 					"IONE QC Administrator",
 					"IONE QC Reviewer",
 					"IONE Medical Affairs",
-					"IONE Auditor",
+					"IONE QMS Auditor",
 				}
 			),
 		)

@@ -437,7 +437,7 @@ class TestAIReportScheduleStaticContract(TestCase):
 			self.assertIn("is_administrator", source)
 		self.assertIn("read", source)
 		self.assertIn("select", source)
-		self.assertIn("IONE Auditor", source)
+		self.assertIn("IONE QMS Auditor", source)
 		self.assertIn("scope", source.lower())
 
 	def test_tools_are_exact_snapshot_bound_and_draft_is_human_reviewed(self) -> None:
@@ -488,7 +488,7 @@ class TestAIReportScheduleStaticContract(TestCase):
 		):
 			self.assertEqual(schedule_permissions[role].get("create"), 1)
 			self.assertEqual(schedule_permissions[role].get("write"), 1)
-		for role in ("IONE Agent Reviewer", "IONE Agent Administrator", "IONE Auditor"):
+		for role in ("IONE Agent Reviewer", "IONE Agent Administrator", "IONE QMS Auditor"):
 			self.assertNotEqual(schedule_permissions[role].get("create"), 1)
 			self.assertNotEqual(schedule_permissions[role].get("write"), 1)
 

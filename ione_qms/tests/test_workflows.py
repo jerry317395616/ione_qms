@@ -365,7 +365,7 @@ class TestWorkflowSpecifications(TestCase):
 				with self.subTest(workflow=workflow.name, state=state.name):
 					expected = state_role_map.get(
 						state.name,
-						frozenset({"IONE Auditor"}),
+						frozenset({"IONE QMS Auditor"}),
 					)
 					self.assertEqual(frozenset(state.edit_roles), expected)
 

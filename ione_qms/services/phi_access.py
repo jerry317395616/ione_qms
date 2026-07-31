@@ -25,7 +25,7 @@ ACCESS_RECEIPT_DOCTYPE = "IONE PHI Access Receipt"
 PHI_READER_ROLE = "IONE PHI Identity Reader"
 
 POLICY_AUTHOR_ROLES = frozenset({"IONE QC Administrator", "IONE Medical Affairs"})
-POLICY_REVIEWER_ROLES = frozenset({"IONE Medical Affairs", "IONE Auditor"})
+POLICY_REVIEWER_ROLES = frozenset({"IONE Medical Affairs", "IONE QMS Auditor"})
 POLICY_STATUSES = frozenset({"Draft", "Under Review", "Scheduled", "Active", "Retired"})
 PHI_FIELDS_BY_DOCTYPE = PHI_DISCLOSURE_FIELDS_BY_DOCTYPE
 PHI_BUSINESS_ROLES = frozenset(
@@ -36,8 +36,8 @@ PHI_BUSINESS_ROLES = frozenset(
 		"IONE Nursing/Pharmacy/IC QC",
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
-		"IONE Auditor",
-		"IONE Medical Record Coder",
+		"IONE QMS Auditor",
+		"IONE QMS Medical Record Coder",
 		"IONE Medical Record Expert Reviewer",
 	}
 )

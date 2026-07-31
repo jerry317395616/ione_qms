@@ -21,7 +21,7 @@ Primary roles:
 - IONE Agent Reviewer
 - IONE Integration Administrator
 - IONE Integration Operator
-- IONE Auditor
+- IONE QMS Auditor
 - IONE Agent Service
 - IONE PHI Identity Reader
 

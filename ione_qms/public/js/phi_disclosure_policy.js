@@ -1,5 +1,5 @@
 const IONE_PHI_POLICY_AUTHOR_ROLES = ["IONE QC Administrator", "IONE Medical Affairs"];
-const IONE_PHI_POLICY_REVIEWER_ROLES = ["IONE Medical Affairs", "IONE Auditor"];
+const IONE_PHI_POLICY_REVIEWER_ROLES = ["IONE Medical Affairs", "IONE QMS Auditor"];
 
 function ione_has_any_phi_policy_role(roles) {
 	return roles.some((role) => frappe.user_roles.includes(role));

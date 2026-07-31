@@ -21,7 +21,7 @@ from ione_qms.services.indicators import (
 AUTHORIZATION_DOCTYPE = "IONE Indicator Historical Audit Authorization"
 ACCESS_RECEIPT_DOCTYPE = "IONE Indicator Historical Audit Access Receipt"
 
-HISTORICAL_AUDIT_REQUESTER_ROLES = frozenset({"IONE Auditor", "IONE QC Reviewer", "IONE Medical Affairs"})
+HISTORICAL_AUDIT_REQUESTER_ROLES = frozenset({"IONE QMS Auditor", "IONE QC Reviewer", "IONE Medical Affairs"})
 HISTORICAL_AUDIT_REVIEWER_ROLES = frozenset({"IONE QC Reviewer", "IONE Medical Affairs"})
 MAX_HISTORICAL_AUDIT_SOURCE_RECORDS = 100_000
 MAX_HISTORICAL_AUDIT_REPRODUCTIONS = 5

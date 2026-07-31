@@ -20,6 +20,6 @@
   {"role": "IONE Integration Administrator"},
   {"role": "IONE Integration Operator"},
   {"role": "IONE QC Administrator"},
-  {"role": "IONE Auditor"}
+  {"role": "IONE QMS Auditor"}
  ]
 }

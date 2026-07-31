@@ -23,7 +23,7 @@ class TestPHIDisclosureLifecycle(IntegrationTestCase):
 		super().setUp()
 		self.suffix = uuid.uuid4().hex[:10].upper()
 		self.author = self._user("author", "IONE QC Administrator")
-		self.reviewer = self._user("reviewer", "IONE Auditor")
+		self.reviewer = self._user("reviewer", "IONE QMS Auditor")
 		self.reader = self._user(
 			"reader",
 			"IONE Medical Affairs",

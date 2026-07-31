@@ -40,20 +40,20 @@ FINDING_APPEAL_READ_ROLES = frozenset(
 		"IONE Department QC Officer",
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 )
-FINDING_APPEAL_EVIDENCE_READ_ROLES = FINDING_APPEAL_READ_ROLES - {"IONE Auditor"}
+FINDING_APPEAL_EVIDENCE_READ_ROLES = FINDING_APPEAL_READ_ROLES - {"IONE QMS Auditor"}
 MEDICAL_RECORD_POLICY_AUTHOR_ROLES = frozenset({"IONE QC Reviewer", "IONE Medical Affairs"})
 MEDICAL_RECORD_REVIEW_ACTOR_ROLES = frozenset(
-	{"IONE Medical Record Coder", "IONE Medical Record Expert Reviewer"}
+	{"IONE QMS Medical Record Coder", "IONE Medical Record Expert Reviewer"}
 )
 SOURCE_DOCUMENT_LOCATOR_AUTHOR_ROLES = frozenset({"IONE Integration Administrator"})
 SOURCE_DOCUMENT_LOCATOR_APPROVER_ROLES = frozenset({"IONE QC Administrator", "IONE Medical Affairs"})
 SOURCE_DOCUMENT_LOCATOR_READ_ROLES = (
 	SOURCE_DOCUMENT_LOCATOR_AUTHOR_ROLES
 	| SOURCE_DOCUMENT_LOCATOR_APPROVER_ROLES
-	| frozenset({"IONE Auditor"})
+	| frozenset({"IONE QMS Auditor"})
 )
 SOURCE_DOCUMENT_ACCESS_LOG_READ_ROLES = frozenset(
 	{
@@ -61,18 +61,18 @@ SOURCE_DOCUMENT_ACCESS_LOG_READ_ROLES = frozenset(
 		"IONE Medical Affairs",
 		"IONE Department Director",
 		"IONE Department QC Officer",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 )
 QUALITY_MEETING_READ_ROLES = (
 	QUALITY_MEETING_AUTHOR_ROLES
 	| QUALITY_MEETING_APPROVER_ROLES
 	| QUALITY_ACTION_OWNER_ROLES
-	| frozenset({"IONE Auditor"})
+	| frozenset({"IONE QMS Auditor"})
 )
 QUALITY_ACTION_READ_ROLES = QUALITY_ACTION_OWNER_ROLES | QUALITY_ACTION_OVERSIGHT_ROLES
 PHI_IDENTITY_BUSINESS_ROLES = frozenset(
-	GLOBAL_CLINICAL_READ_ROLES | DEPARTMENT_SCOPED_ROLES | PERSONAL_CLINICAL_ROLES | {"IONE Auditor"}
+	GLOBAL_CLINICAL_READ_ROLES | DEPARTMENT_SCOPED_ROLES | PERSONAL_CLINICAL_ROLES | {"IONE QMS Auditor"}
 )
 _PHI_ORGANIZATION_DOCTYPES = {
 	"hospital": "IONE Hospital",
@@ -493,7 +493,7 @@ def medical_record_review_assignment_query(user: str | None = None) -> str:
 def medical_record_review_decision_query(user: str | None = None) -> str:
 	context = get_access_context(user)
 	base = _clinical_condition("IONE Medical Record Review Decision", context.user)
-	if context.has_global_clinical_read or "IONE Auditor" in context.roles:
+	if context.has_global_clinical_read or "IONE QMS Auditor" in context.roles:
 		return base
 	if not context.roles.intersection(MEDICAL_RECORD_REVIEW_ACTOR_ROLES):
 		return "1=0"
@@ -726,7 +726,7 @@ def medical_staff_query(user: str | None = None) -> str:
 	integrity = scope_integrity_sql("IONE Medical Staff", table)
 	if context.user == "Administrator":
 		return "1=0"
-	if context.roles.intersection({"System Manager", "IONE QC Administrator", "IONE Auditor"}):
+	if context.roles.intersection({"System Manager", "IONE QC Administrator", "IONE QMS Auditor"}):
 		return integrity
 	if context.has_department_clinical_scope:
 		departments = _authorized_departments(context, "IONE Medical Staff")
@@ -796,7 +796,7 @@ def quality_report_recovery_authorization_query(user: str | None = None) -> str:
 			return "1=0"
 		actor_access = f"({actor}) and ({' or '.join(scoped)})"
 	authorized = [actor_access]
-	if "IONE Auditor" in context.roles:
+	if "IONE QMS Auditor" in context.roles:
 		authorized.append("1=1" if context.has_global_clinical_read else f"({' or '.join(scoped)})")
 	return f"({integrity}) and ({' or '.join(authorized)})"
 
@@ -838,7 +838,7 @@ def data_export_request_query(user: str | None = None) -> str:
 def flow_agent_query(user: str | None = None) -> str:
 	context = get_access_context(user)
 	if context.is_administrator or context.roles.intersection(
-		{"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs", "IONE Auditor"}
+		{"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs", "IONE QMS Auditor"}
 	):
 		return ""
 	non_ione = "`tabFlow Agent`.title not like 'IONE %'"
@@ -934,7 +934,7 @@ def _ai_query(doctype: str, user: str | None = None) -> str:
 	if context.roles.intersection({"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs"}):
 		return integrity
 	scoped = _scope_clauses(doctype, table, context, include_ai_review=True)
-	if "IONE Auditor" in context.roles:
+	if "IONE QMS Auditor" in context.roles:
 		if not scoped:
 			return "1=0"
 		authorized = "(" + " or ".join(scoped) + ")"
@@ -1368,7 +1368,7 @@ def _independent_phi_scope_roles(
 	if staff_match or grant_match:
 		roles.update(locked_roles.intersection(DEPARTMENT_SCOPED_ROLES))
 	if grant_match:
-		roles.update(locked_roles.intersection({"IONE Auditor"}))
+		roles.update(locked_roles.intersection({"IONE QMS Auditor"}))
 	if allow_personal and "IONE Physician" in locked_roles:
 		linked_staff = {
 			str(doc.get("responsible_staff") or ""),
@@ -1868,7 +1868,7 @@ def quality_report_schedule_permission(
 		}
 		and str(getattr(doc, "report_reviewer", None) or "") != context.user
 	):
-		if not context.roles.intersection({"IONE QC Reviewer", "IONE Medical Affairs", "IONE Auditor"}):
+		if not context.roles.intersection({"IONE QC Reviewer", "IONE Medical Affairs", "IONE QMS Auditor"}):
 			return False
 	return _clinical_permission(
 		doc,
@@ -1916,7 +1916,7 @@ def quality_report_recovery_authorization_permission(
 			context.user,
 			include_ai_review=True,
 		)
-	if "IONE Auditor" in context.roles:
+	if "IONE QMS Auditor" in context.roles:
 		return _clinical_permission(doc, ptype, context.user)
 	return False
 
@@ -1977,9 +1977,9 @@ def medical_record_review_assignment_permission(
 	context = get_access_context(user)
 	if not _medical_record_review_scope_permission(doc, context.user):
 		return False
-	if context.has_global_clinical_read or "IONE Auditor" in context.roles:
+	if context.has_global_clinical_read or "IONE QMS Auditor" in context.roles:
 		return True
-	if "IONE Medical Record Coder" in context.roles and (
+	if "IONE QMS Medical Record Coder" in context.roles and (
 		str(getattr(doc, "assigned_coder", None) or "") == context.user
 		or (
 			str(getattr(doc, "status", None) or "") == "Coder Review"
@@ -2009,7 +2009,7 @@ def medical_record_review_decision_permission(
 	context = get_access_context(user)
 	if not _medical_record_review_scope_permission(doc, context.user):
 		return False
-	if context.has_global_clinical_read or "IONE Auditor" in context.roles:
+	if context.has_global_clinical_read or "IONE QMS Auditor" in context.roles:
 		return True
 	return bool(
 		context.roles.intersection(MEDICAL_RECORD_REVIEW_ACTOR_ROLES)
@@ -2047,7 +2047,7 @@ def medical_record_archive_delivery_permission(
 			"IONE Integration Administrator",
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 	):
 		return False
@@ -2063,7 +2063,7 @@ def medical_record_completeness_watermark_permission(
 		return False
 	context = get_access_context(user)
 	if not context.roles.intersection(
-		{"IONE Integration Operator", "IONE Integration Administrator", "IONE Auditor"}
+		{"IONE Integration Operator", "IONE Integration Administrator", "IONE QMS Auditor"}
 	):
 		return False
 	return _clinical_permission(doc, ptype, context.user)
@@ -2077,7 +2077,7 @@ def medical_staff_permission(doc, ptype: str = "read", user: str | None = None) 
 		return False
 	if ptype not in {"read", "select"}:
 		return bool(context.roles.intersection({"System Manager", "IONE QC Administrator"}))
-	if context.roles.intersection({"System Manager", "IONE QC Administrator", "IONE Auditor"}):
+	if context.roles.intersection({"System Manager", "IONE QC Administrator", "IONE QMS Auditor"}):
 		return True
 	if context.has_department_clinical_scope:
 		return bool(
@@ -2101,7 +2101,7 @@ def ai_task_permission(doc, ptype: str = "read", user: str | None = None) -> boo
 		return bool(
 			getattr(frappe.flags, "ione_ai_artifact_review", None) == f"{doctype}:{getattr(doc, 'name', '')}"
 		)
-	if "IONE Auditor" in context.roles:
+	if "IONE QMS Auditor" in context.roles:
 		return ptype in {"read", "select"} and _clinical_permission(doc, ptype, context.user)
 	if context.roles.intersection({"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs"}):
 		return ptype in {"read", "select"}
@@ -2131,7 +2131,7 @@ def ai_data_access_log_permission(doc, ptype: str = "read", user: str | None = N
 		return False
 	if context.roles.intersection({"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs"}):
 		return True
-	if "IONE Auditor" in context.roles:
+	if "IONE QMS Auditor" in context.roles:
 		return _clinical_permission(doc, ptype, context.user)
 	if context.has_ai_review_scope:
 		return _clinical_permission(
@@ -2180,7 +2180,7 @@ def flow_agent_permission(doc, ptype: str = "read", user: str | None = None) -> 
 		return True
 	context = get_access_context(user)
 	if context.is_administrator or context.roles.intersection(
-		{"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs", "IONE Auditor"}
+		{"IONE Agent Administrator", "IONE QC Reviewer", "IONE Medical Affairs", "IONE QMS Auditor"}
 	):
 		return ptype in {"read", "select"} or "IONE Agent Administrator" in context.roles
 	if ptype not in {"read", "select"} or "IONE Agent Service" not in context.roles:
@@ -2326,12 +2326,12 @@ def flow_session_permission(doc, ptype: str = "read", user: str | None = None) -
 def _medical_record_assignment_actor_condition(context: AccessContext) -> str:
 	if context.is_administrator or "IONE Agent Service" in context.roles:
 		return "1=0"
-	if context.has_global_clinical_read or "IONE Auditor" in context.roles:
+	if context.has_global_clinical_read or "IONE QMS Auditor" in context.roles:
 		return "1=1"
 	table = "`tabIONE Medical Record Review Assignment`"
 	clauses: list[str] = []
 	user = frappe.db.escape(context.user)
-	if "IONE Medical Record Coder" in context.roles:
+	if "IONE QMS Medical Record Coder" in context.roles:
 		clauses.append(
 			f"({table}.assigned_coder = {user} or "
 			f"({table}.status = 'Coder Review' and coalesce({table}.assigned_coder, '') = ''))"
@@ -2375,7 +2375,7 @@ def _medical_record_review_scope_permission(doc, user: str | None) -> bool:
 		context.is_administrator
 		or "IONE Agent Service" in context.roles
 		or not context.roles.intersection(
-			MEDICAL_RECORD_REVIEW_ACTOR_ROLES | GLOBAL_CLINICAL_READ_ROLES | frozenset({"IONE Auditor"})
+			MEDICAL_RECORD_REVIEW_ACTOR_ROLES | GLOBAL_CLINICAL_READ_ROLES | frozenset({"IONE QMS Auditor"})
 		)
 	):
 		return False

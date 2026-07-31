@@ -153,7 +153,7 @@ def _build_spec(
 	states = tuple(
 		WorkflowStateSpec(
 			name=state,
-			edit_roles=_roles(edit_roles[state] or {"IONE Auditor"}),
+			edit_roles=_roles(edit_roles[state] or {"IONE QMS Auditor"}),
 			style=_STATE_STYLES.get(state, "Info"),
 		)
 		for state in state_names

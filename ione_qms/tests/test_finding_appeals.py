@@ -1016,7 +1016,7 @@ class TestFindingAppealPermissions(TestCase):
 		evidence = _Document(finding="FINDING-0001")
 		auditor = permissions.AccessContext(
 			user="auditor@example.test",
-			roles=frozenset({"IONE Auditor"}),
+			roles=frozenset({"IONE QMS Auditor"}),
 			hospitals=frozenset(),
 			campuses=frozenset(),
 			departments=frozenset(),

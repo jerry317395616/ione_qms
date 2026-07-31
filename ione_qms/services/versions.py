@@ -61,7 +61,7 @@ STANDARD_VERSION_DIFF_ROLES = frozenset(
 		"IONE QC Administrator",
 		"IONE QC Reviewer",
 		"IONE Medical Affairs",
-		"IONE Auditor",
+		"IONE QMS Auditor",
 	}
 )
 STANDARD_VERSION_DIFF_DOCTYPES = (

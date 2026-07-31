@@ -52,7 +52,7 @@ REPORT_ROLES: dict[str, frozenset[str]] = {
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 	),
 	"finding_closure": frozenset(
@@ -68,7 +68,7 @@ REPORT_ROLES: dict[str, frozenset[str]] = {
 			"IONE Integration Administrator",
 			"IONE Integration Operator",
 			"IONE QC Administrator",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 	),
 	"ai_usage": frozenset(
@@ -78,16 +78,16 @@ REPORT_ROLES: dict[str, frozenset[str]] = {
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 	),
 	"medical_record_review": frozenset(
 		{
-			"IONE Medical Record Coder",
+			"IONE QMS Medical Record Coder",
 			"IONE Medical Record Expert Reviewer",
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 	),
 	"surgery_governance": frozenset({"IONE QC Reviewer", "IONE Medical Affairs"}),
@@ -98,7 +98,7 @@ REPORT_ROLES: dict[str, frozenset[str]] = {
 			"IONE QC Reviewer",
 			"IONE Medical Affairs",
 			"IONE Nursing/Pharmacy/IC QC",
-			"IONE Auditor",
+			"IONE QMS Auditor",
 		}
 	),
 	"improvement_governance": frozenset(
