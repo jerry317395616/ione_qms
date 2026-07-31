@@ -13,10 +13,10 @@ dependencies = [
     # violate the exact Frappe develop/manager snapshots. These pins are the
     # resolver-tested intersection of both official applications.
     "Click==8.4.2",
-    # 1.83.7 is the highest compatible release permitted by official Flow's
-    # current >=1.83.0,<1.83.8 metadata. Proxy-only residual advisories are
-    # documented as not affected in security/dependency-vex.md.
-    "litellm==1.83.7",
+    # 1.83.0 is the only resolver-tested intersection of official Flow's
+    # LiteLLM range and Frappe's current Pydantic constraint. Proxy-only
+    # advisories are documented as not affected in security/dependency-vex.md.
+    "litellm==1.83.0",
     "oracledb==4.0.2",
     "pydantic==2.13.4",
 ]

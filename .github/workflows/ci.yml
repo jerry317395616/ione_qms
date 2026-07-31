@@ -376,7 +376,7 @@ jobs:
             --exclude-editable > "$requirements"
           test -s "$requirements"
           grep -Fxq 'aiohttp==3.13.5' "$requirements"
-          grep -Fxq 'litellm==1.83.7' "$requirements"
+          grep -Fxq 'litellm==1.83.0' "$requirements"
           grep -Fxq 'python-dotenv==1.0.1' "$requirements"
           frappe_pdf='frappe-bench/apps/frappe/frappe/utils/pdf.py'
           grep -Fq 'def _find_options_in_meta' "$frappe_pdf"
@@ -391,7 +391,7 @@ jobs:
           mapfile -t vex_ids < <(
             grep -Ev '^[[:space:]]*(#|$)' ione_qms/security/pip-audit-vex.txt
           )
-          test "${#vex_ids[@]}" -eq 19
+          test "${#vex_ids[@]}" -eq 23
           audit_vex_args=()
           for advisory in "${vex_ids[@]}"; do
             audit_vex_args+=(--ignore-vuln "$advisory")

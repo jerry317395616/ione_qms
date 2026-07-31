@@ -5,8 +5,8 @@ official Flow/Frappe dependency constraints change.
 
 This statement is narrow: it does not suppress unknown findings, new advisory
 IDs, or a version drift. CI first requires the effective Bench to contain the
-highest LiteLLM version currently allowed by official Flow
-(`litellm==1.83.7`) and the two exact transitive versions required by that
+only resolver-tested LiteLLM version at the intersection of official Flow and
+Frappe (`litellm==1.83.0`) and the two exact transitive versions required by that
 release (`aiohttp==3.13.5` and `python-dotenv==1.0.1`). It then permits only the
 IDs in `pip-audit-vex.txt`.
 
@@ -17,9 +17,13 @@ LiteLLM Proxy service, not the LiteLLM client functions used by IONE QMS and
 Flow:
 
 - `PYSEC-2026-388`: proxy Host-header authentication bypass.
+- `PYSEC-2026-391`: proxy API-key verification SQL injection.
+- `PYSEC-2026-2602`: proxy `/prompts/test` template injection.
 - `PYSEC-2026-2601`: proxy custom-code guardrail sandbox escape.
+- `PYSEC-2026-2599`: proxy MCP stdio test command execution.
 - `PYSEC-2026-2598`: proxy API-key route privilege escalation.
 - `PYSEC-2026-2600`: proxy `/user/update` privilege escalation.
+- `PYSEC-2026-3477`: proxy Skills archive path traversal.
 - `PYSEC-2026-3479`: proxy MCP OAuth passthrough authentication bypass.
 - `PYSEC-2026-3476`: privileged proxy connection-test local-file read.
 
@@ -32,7 +36,7 @@ no LiteLLM proxy process is running.
 
 ## LiteLLM-pinned aiohttp and python-dotenv advisories
 
-LiteLLM 1.83.7 has exact metadata pins for aiohttp 3.13.5 and python-dotenv
+LiteLLM 1.83.0 has exact metadata pins for aiohttp 3.13.5 and python-dotenv
 1.0.1, so these transitive packages cannot be upgraded without violating the
 official Flow/LiteLLM resolver contract.
 

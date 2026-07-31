@@ -7,9 +7,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_VEX_IDS = {
 	"PYSEC-2026-388",
+	"PYSEC-2026-391",
+	"PYSEC-2026-2602",
 	"PYSEC-2026-2601",
+	"PYSEC-2026-2599",
 	"PYSEC-2026-2598",
 	"PYSEC-2026-2600",
+	"PYSEC-2026-3477",
 	"PYSEC-2026-3479",
 	"PYSEC-2026-3476",
 	"PYSEC-2026-2860",
@@ -31,7 +35,7 @@ EXPECTED_VEX_IDS = {
 class TestSupplyChainPolicyStatic(unittest.TestCase):
 	def test_safe_direct_dependency_versions_are_exact(self) -> None:
 		pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-		for dependency in ("litellm==1.83.7",):
+		for dependency in ("litellm==1.83.0",):
 			self.assertIn(f'"{dependency}"', pyproject)
 		self.assertNotIn('"aiohttp==', pyproject)
 		self.assertNotIn('"python-dotenv==', pyproject)
