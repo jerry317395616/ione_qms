@@ -848,7 +848,7 @@ SCHEMAS: dict[str, dict[str, Any]] = {
 			select(
 				"Lineage Status",
 				"lineage_status",
-				"Verified\nQuarantined",
+				"Pending Archive\nVerified\nQuarantined",
 				read_only=1,
 				in_standard_filter=1,
 			),
@@ -2030,7 +2030,7 @@ def _extend_indicator_schemas() -> None:
 						"Source Mapping",
 						"source_mapping",
 						"IONE Integration Mapping",
-						reqd=1,
+						mandatory_depends_on='eval:doc.status=="Published"',
 					),
 					link(
 						"Source System Snapshot",

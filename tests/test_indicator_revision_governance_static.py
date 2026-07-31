@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -114,6 +115,13 @@ class TestIndicatorRevisionStatic(unittest.TestCase):
 		cls.pdca = (ROOT / "ione_qms/services/pdca_structure.py").read_text(encoding="utf-8")
 		cls.migrations = (ROOT / "ione_qms/tasks/migrations.py").read_text(encoding="utf-8")
 		cls.integration_mapping = (ROOT / "ione_qms/integration/mapping.py").read_text(encoding="utf-8")
+		cls.indicator_version_meta = json.loads(
+			(
+				ROOT
+				/ "ione_qms/ione_indicators/doctype/ione_qc_indicator_version"
+				/ "ione_qc_indicator_version.json"
+			).read_text(encoding="utf-8")
+		)
 
 	def test_service_uses_receipt_idempotency_and_locked_atomic_pointer(self) -> None:
 		self.assertIn('"input_receipt_hash": input_receipt_hash', self.service)
@@ -155,6 +163,29 @@ class TestIndicatorRevisionStatic(unittest.TestCase):
 			self.assertIn(token, self.versions)
 		self.assertIn("Published indicator versions require a governed source_mapping", self.versions)
 		self.assertIn("does not resolve governed dimensions", self.versions)
+
+	def test_source_mapping_is_deferred_only_until_publication(self) -> None:
+		source_mapping = next(
+			field for field in self.indicator_version_meta["fields"] if field["fieldname"] == "source_mapping"
+		)
+		self.assertNotEqual(source_mapping.get("reqd"), 1)
+		self.assertEqual(
+			source_mapping.get("mandatory_depends_on"),
+			'eval:doc.status=="Published"',
+		)
+		self.assertIn(
+			"mandatory_depends_on='eval:doc.status==\"Published\"'",
+			self.generator,
+		)
+		self.assertIn(
+			'if doc.get("status") == "Published" and not quarantined_retirement:',
+			self.versions,
+		)
+		self.assertIn(
+			"if not mapping_name:\n\t\tfrappe.throw("
+			'"Published indicator versions require a governed source_mapping")',
+			self.versions,
+		)
 
 	def test_schema_hooks_permissions_and_migration_are_fail_closed(self) -> None:
 		for doctype in (

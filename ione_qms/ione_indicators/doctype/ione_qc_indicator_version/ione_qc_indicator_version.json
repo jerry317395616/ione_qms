@@ -225,7 +225,7 @@
    "fieldtype": "Link",
    "label": "Source Mapping",
    "options": "IONE Integration Mapping",
-   "reqd": 1
+   "mandatory_depends_on": "eval:doc.status==\"Published\""
   },
   {
    "fieldname": "source_system_snapshot",
