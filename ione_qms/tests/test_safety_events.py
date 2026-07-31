@@ -73,7 +73,7 @@ class TestSafetyEventGovernance(TestCase):
 	def test_direct_creation_is_rejected(self) -> None:
 		doc = _SafetyDoc()
 		doc.flags.ione_projection_materializer = False
-		self.assert_validation_error(doc, "controlled projection materializer")
+		self.assert_validation_error(doc, "governed report or integration path")
 
 	def test_new_projection_cannot_skip_to_closed(self) -> None:
 		doc = _SafetyDoc(

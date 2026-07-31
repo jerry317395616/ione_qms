@@ -108,7 +108,11 @@ class TestAIToolScope(TestCase):
 			ward=None,
 		)
 		with (
-			patch.object(tools.frappe, "get_doc", return_value=result),
+			patch.object(
+				tools,
+				"current_indicator_result_lock",
+				return_value=nullcontext((None, result)),
+			),
 			patch.object(tools, "_require_requester_read"),
 			self.assertRaises(frappe.PermissionError),
 		):
