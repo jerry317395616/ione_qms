@@ -375,11 +375,33 @@ jobs:
             --format=freeze \
             --exclude-editable > "$requirements"
           test -s "$requirements"
+          grep -Fxq 'aiohttp==3.14.1' "$requirements"
+          grep -Fxq 'litellm==1.83.7' "$requirements"
+          grep -Fxq 'python-dotenv==1.2.2' "$requirements"
+          frappe_pdf='frappe-bench/apps/frappe/frappe/utils/pdf.py'
+          grep -Fq 'def _find_options_in_meta' "$frappe_pdf"
+          grep -Fq 'options.update({"disable-javascript": "", "disable-local-file-access": ""})' \
+            "$frappe_pdf"
+          if grep -R --include='*.py' -nE 'litellm\.proxy|litellm_proxy' \
+            frappe-bench/apps/flow/flow frappe-bench/apps/ione_qms/ione_qms; then
+            echo 'A deployed application imports the vulnerable LiteLLM proxy surface' >&2
+            exit 1
+          fi
+          mapfile -t vex_ids < <(
+            grep -Ev '^[[:space:]]*(#|$)' ione_qms/security/pip-audit-vex.txt
+          )
+          test "${#vex_ids[@]}" -eq 7
+          audit_vex_args=()
+          for advisory in "${vex_ids[@]}"; do
+            audit_vex_args+=(--ignore-vuln "$advisory")
+          done
           # Every non-editable distribution in the effective Bench environment
           # is now fully pinned. Local editable app sources are covered by exact
           # SHA, clean-tree, static-analysis, build, and application test gates.
-          pip-audit --strict --disable-pip --no-deps --requirement "$requirements"
-          pip-audit --disable-pip --no-deps --requirement "$requirements" \
+          pip-audit --strict --disable-pip --no-deps \
+            --requirement "$requirements" "${audit_vex_args[@]}"
+          pip-audit --disable-pip --no-deps \
+            --requirement "$requirements" "${audit_vex_args[@]}" \
             --format cyclonedx-json \
             --output "ione-qms-bench-${{ matrix.runtime }}.cdx.json"
           {
