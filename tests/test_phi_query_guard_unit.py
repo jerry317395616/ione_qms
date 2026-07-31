@@ -257,6 +257,11 @@ class TestPHIQueryGuardUnit(unittest.TestCase):
 			)
 
 	def test_communication_child_link_cannot_persist_a_protected_sidecar(self) -> None:
+		self.assertEqual(
+			set(self.guard._SIDECAR_TARGET_FIELDS_BY_DOCTYPE),
+			set(self.guard.PHI_UNSTRUCTURED_SIDECAR_DOCTYPES),
+		)
+
 		class _Document(dict):
 			__getattr__ = dict.get
 

@@ -53,6 +53,13 @@ PHI_METADATA_OVERRIDE_DOCTYPES = frozenset(
 PHI_UNSTRUCTURED_SIDECAR_DOCTYPES = frozenset(
 	{"Comment", "Communication", "Communication Link", "ToDo", "Version"}
 )
+_SIDECAR_TARGET_FIELDS_BY_DOCTYPE = {
+	"Comment": ("reference_doctype",),
+	"Communication": ("reference_doctype",),
+	"Communication Link": ("link_doctype",),
+	"ToDo": ("reference_type",),
+	"Version": ("ref_doctype",),
+}
 GOVERNED_CONFIGURATION_WRITE_DOCTYPES = frozenset(
 	{
 		"IONE Integration Mapping",
@@ -292,12 +299,7 @@ def assert_no_legacy_phi_query_bypasses() -> None:
 	for doctype in sorted(PHI_UNSTRUCTURED_SIDECAR_DOCTYPES):
 		if not frappe.db.exists("DocType", doctype):
 			continue
-		target_field = {
-			"Comment": "reference_doctype",
-			"Communication": "reference_doctype",
-			"ToDo": "reference_type",
-			"Version": "ref_doctype",
-		}[doctype]
+		target_field = _SIDECAR_TARGET_FIELDS_BY_DOCTYPE[doctype][0]
 		row = frappe.db.sql(
 			f"select name from `tab{doctype}` "  # noqa: S608
 			f"where {target_field} in ({', '.join(frappe.db.escape(item) for item in sorted(PHI_METADATA_DOCTYPES))}) "
@@ -308,30 +310,11 @@ def assert_no_legacy_phi_query_bypasses() -> None:
 				f"Legacy {doctype} content references IONE QMS business data. "
 				"Remove it under approved change control before migration."
 			)
-		if doctype == "Communication" and frappe.db.exists("DocType", "Communication Link"):
-			link = frappe.db.get_value(
-				"Communication Link",
-				{"link_doctype": ["in", sorted(PHI_METADATA_DOCTYPES)]},
-				["parent", "link_doctype"],
-				as_dict=True,
-			)
-			if link:
-				frappe.throw(
-					f"Legacy Communication '{link.parent}' links to protected "
-					f"{link.link_doctype} data. Remove it under approved change control "
-					"before migration."
-				)
 
 
 def _sidecar_target_doctypes(doc) -> frozenset[str]:
 	doctype = str(getattr(doc, "doctype", "") or "")
-	target_fields = {
-		"Comment": ("reference_doctype",),
-		"Communication": ("reference_doctype",),
-		"Communication Link": ("link_doctype",),
-		"ToDo": ("reference_type",),
-		"Version": ("ref_doctype",),
-	}.get(doctype, ())
+	target_fields = _SIDECAR_TARGET_FIELDS_BY_DOCTYPE.get(doctype, ())
 	targets = {
 		str(doc.get(fieldname) or "").strip()
 		for fieldname in target_fields
