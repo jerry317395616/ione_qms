@@ -3675,7 +3675,7 @@ def literal_assignment(tree: ast.Module, name: str) -> Any:
 		if any(isinstance(target, ast.Name) and target.id == name for target in node.targets):
 			try:
 				return ast.literal_eval(node.value)
-			except (ValueError, SyntaxError):
+			except ValueError, SyntaxError:
 				return None
 	return None
 

@@ -22,8 +22,8 @@ and the 2026-07-30 read-only Press audit. Those files remain historical records.
   Success.
 - Installed IONE baseline at the time of this audit:
   `61c386e37946357081b9499dd0ea0074d656770f` from App Release `mp818kfgoi`.
-- The validation-tool syntax correction recorded after this audit baseline must
-  receive a new immutable commit, successful CI, Press release/candidate,
+- The documentation and evidence correction recorded after this audit baseline
+  must receive a new immutable commit, successful CI, Press release/candidate,
   migration, and acceptance run before it replaces the installed baseline.
 - Candidate comparison against `deploy-0002-000049` proves that only
   `ione_qms` changed. Every other app retained its exact App Release and hash.
@@ -73,7 +73,7 @@ and the 2026-07-30 read-only Press audit. Those files remain historical records.
 | 13 | Role, scope, privacy, export, audit and AI data controls | 16 IONE roles, service users with one minimal role/no API key, PHI and export guards | Implemented; hospital SSO/MFA/UAT blocked |
 | 14 | Capacity, queues, degradation, 99.9%, RPO/RTO and load targets | Queue recovery verified; isolated restore RTO 143.818 seconds | Capacity, load/HA and RPO remain NO-GO |
 | 15 | Controlled environments and pinned container deployment | Press ARM64 image, candidate, site install, migration and rollback evidence | Deployment verified; offsite/DR incomplete |
-| 16 | Controller/service boundaries and hooks | Hook targets validate and manager scheduler/workers run | Verified after release-tool correction |
+| 16 | Controller/service boundaries and hooks | Hook targets validate under the required Python 3.14 runtime and manager scheduler/workers run | Verified |
 | 17 | Develop workflow, immutable release and CI/CD | Default branches, pinned releases and Press build verified | Replacement commit still requires CI/Press promotion |
 | 18 | Unit, integration, permission, AI, performance and disaster tests | 78 safety and 289 source-contract tests plus runtime/restore checks | Clinical, load, HA and signed UAT remain external |
 | 19 | Phased rollout and pilot departments | Platform phase is installed | Pilot scope and exit criteria not supplied |
