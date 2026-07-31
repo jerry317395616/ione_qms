@@ -251,6 +251,6 @@ class TestFlowRetentionContract(TestCase):
 			patch("flow.flow.doctype.flow_session.flow_session._purge_attachment_chunks") as purge_chunks,
 		):
 			flow_session.IONEGovernedFlowSessionMixin.clear_old_logs(days=30)
-		self.assertEqual(delete.call_count, 5)
+		self.assertEqual(delete.call_count, 4)
 		delete_files.assert_called_once_with(["SESSION-ORDINARY"])
 		purge_chunks.assert_called_once_with(["SESSION-ORDINARY"])

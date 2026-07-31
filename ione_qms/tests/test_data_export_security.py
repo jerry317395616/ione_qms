@@ -56,6 +56,12 @@ def _context(*roles: str, user: str = "auditor@example.test") -> permissions.Acc
 
 
 class TestDataExportScopeSecurity(TestCase):
+	def setUp(self) -> None:
+		super().setUp()
+		integrity_sql = patch.object(permissions, "scope_integrity_sql", return_value="1=1")
+		integrity_sql.start()
+		self.addCleanup(integrity_sql.stop)
+
 	def test_department_scope_is_frozen_with_verified_parents(self) -> None:
 		meta = SimpleNamespace(
 			get_field=lambda fieldname: (
@@ -196,7 +202,7 @@ class TestDataExportScopeSecurity(TestCase):
 		):
 			self.assertEqual(
 				permissions.data_export_request_query(context.user),
-				"1=0",
+				"(1=1) and (1=0)",
 			)
 			self.assertFalse(
 				permissions.data_export_request_permission(
@@ -210,7 +216,7 @@ class TestDataExportScopeSecurity(TestCase):
 		doc = _export_request(scope_mode="Unscoped", campus=None, department=None)
 		medical_affairs = _context("IONE Medical Affairs", user="ma@example.test")
 		with patch.object(permissions, "get_access_context", return_value=medical_affairs):
-			self.assertEqual(permissions.data_export_request_query(medical_affairs.user), "")
+			self.assertEqual(permissions.data_export_request_query(medical_affairs.user), "1=1")
 			self.assertTrue(permissions.data_export_request_permission(doc, "read", medical_affairs.user))
 		administrator = _context(user="Administrator")
 		with patch.object(permissions, "get_access_context", return_value=administrator):
@@ -298,9 +304,9 @@ class TestDataExportDecisionConcurrency(TestCase):
 						side_effect=RuntimeError("separation"),
 					),
 					patch.object(
-						data_export.frappe.session,
-						"user",
-						"requester@example.test",
+						data_export.frappe,
+						"session",
+						SimpleNamespace(user="requester@example.test"),
 					),
 				):
 					with self.assertRaisesRegex(RuntimeError, "separation"):
@@ -322,7 +328,11 @@ class TestDataExportDecisionConcurrency(TestCase):
 			patch.object(data_export, "_require_export_approver"),
 			patch.object(data_export, "_validate_request_as_requester"),
 			patch.object(data_export.frappe, "enqueue"),
-			patch.object(data_export.frappe.session, "user", "approver@example.test"),
+			patch.object(
+				data_export.frappe,
+				"session",
+				SimpleNamespace(user="approver@example.test"),
+			),
 		):
 			data_export.approve_export_request("IONE-EXP-1", "approved for scoped use")
 			data_export.reject_export_request("IONE-EXP-1", "rejected after review")

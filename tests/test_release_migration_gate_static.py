@@ -17,6 +17,27 @@ class TestReleaseMigrationGateStatic(TestCase):
 		self.assertIn(assertion, workflow)
 		self.assertLess(workflow.index(worker), workflow.index(assertion))
 
+	def test_test_runtime_override_requires_frappe_test_mode_and_verified_receipt(self) -> None:
+		hooks = (ROOT / "ione_qms" / "hooks.py").read_text(encoding="utf-8")
+		source = (ROOT / "ione_qms" / "services" / "runtime_settings.py").read_text(encoding="utf-8")
+		self.assertIn(
+			'before_tests = "ione_qms.services.runtime_settings.verify_test_migration_runtime"',
+			hooks,
+		)
+		self.assertIn('getattr(frappe.flags, "in_test", False)', source)
+		self.assertIn('assert_migration_complete("begin IONE QMS test runtime")', source)
+		self.assertLess(
+			source.index('assert_migration_complete("begin IONE QMS test runtime")'),
+			source.index("_TEST_MIGRATION_RECEIPT_VERIFIED = True"),
+		)
+
+	def test_reserved_service_users_revoke_known_drive_auto_provisioning(self) -> None:
+		source = (ROOT / "ione_qms" / "setup" / "install.py").read_text(encoding="utf-8")
+		self.assertIn('_AUTO_PROVISIONED_SERVICE_USER_ROLES = frozenset({"Drive User"})', source)
+		self.assertIn("unexpected_roles = assigned_roles.difference(", source)
+		self.assertIn("user.reload()", source)
+		self.assertIn('user.set("roles", reconciled_roles)', source)
+
 	def test_fingerprint_inputs_are_explicit_and_runtime_derived(self) -> None:
 		source = (ROOT / "ione_qms" / "services" / "migration_state.py").read_text(encoding="utf-8")
 		self.assertIn('root.rglob("*.py")', source)

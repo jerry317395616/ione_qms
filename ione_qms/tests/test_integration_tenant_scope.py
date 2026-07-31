@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from contextlib import nullcontext
+from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -9,7 +10,7 @@ import frappe
 from ione_qms.integration.master_data import _stable_key
 from ione_qms.integration.schemas import IncomingClinicalEvent
 from ione_qms.integration.service import _idempotency_key
-from ione_qms.services import integration_scope
+from ione_qms.services import integration_config, integration_scope
 from ione_qms.services.identity_keys import identity_key_contract
 from ione_qms.services.integration_config import (
 	_require_named_integration_administrator,
@@ -113,7 +114,11 @@ class TestIntegrationTenantScope(TestCase):
 
 	def test_administrator_cannot_bypass_configuration_role_with_ignore_permissions(self) -> None:
 		with (
-			patch.object(frappe.session, "user", "Administrator"),
+			patch.object(
+				integration_config.frappe,
+				"session",
+				SimpleNamespace(user="Administrator"),
+			),
 			self.assertRaises(frappe.PermissionError),
 		):
 			_require_named_integration_administrator()

@@ -431,11 +431,13 @@ class TestAIReportScheduleGovernance(TestCase):
 	def test_after_commit_queue_callback_never_touches_redis_before_registration_or_rethrows(self) -> None:
 		task = _Doc(name="TASK-PENDING-1", execution_attempt=0, status="Pending")
 		callbacks = []
+		callback_manager_type = type(schedules.frappe.db.after_commit)
 		with (
 			patch.object(
-				schedules.frappe.db.after_commit,
+				callback_manager_type,
 				"add",
-				side_effect=callbacks.append,
+				autospec=True,
+				side_effect=lambda _manager, callback: callbacks.append(callback),
 			) as add,
 			patch.object(
 				orchestrator,
@@ -749,7 +751,10 @@ class TestAIReportScheduleGovernance(TestCase):
 		enqueue.assert_not_called()
 		commit.assert_called_once_with()
 		self.assertIsNone(fresh_schedule.last_task)
-		self.assertIsNone(fresh_schedule.last_dispatch_key)
+		self.assertEqual(
+			fresh_schedule.last_dispatch_key,
+			schedules._dispatch_key(fresh_schedule, period_start, period_end),
+		)
 		self.assertEqual(fresh_schedule.last_result, "Failed")
 		self.assertEqual(fresh_schedule.last_error_code, "UNEXPECTED_FAILURE")
 
@@ -768,6 +773,7 @@ class TestAIReportScheduleGovernance(TestCase):
 				period_end,
 			),
 		)
+		schedule.last_dispatch_key = task.dispatch_key
 		with patch.object(
 			schedules,
 			"validated_quality_report_snapshot_for_task",
@@ -1180,9 +1186,9 @@ class TestAIReportScheduleGovernance(TestCase):
 		with (
 			patch.object(ai_api, "require_role"),
 			patch.object(
-				ai_api.frappe.session,
-				"user",
-				"different-reviewer@example.test",
+				ai_api.frappe,
+				"session",
+				SimpleNamespace(user="different-reviewer@example.test"),
 			),
 			patch.object(ai_api.frappe.db, "advisory_lock", return_value=nullcontext()),
 			patch.object(ai_api.frappe, "get_doc", return_value=draft),

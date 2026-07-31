@@ -57,6 +57,7 @@ class TestAIAgentReleaseConfiguration(TestCase):
 		with (
 			patch.object(release, "assert_ione_tool_integrity"),
 			patch.object(release, "tool_registry_fingerprint", return_value="fingerprint"),
+			patch.object(release, "live_tool_schema_manifest", return_value=[]),
 			patch.object(
 				release,
 				"runtime_commit_manifest",
@@ -73,7 +74,7 @@ class TestAIAgentReleaseConfiguration(TestCase):
 
 	def test_provider_extra_params_are_merged_and_secret_free(self) -> None:
 		configuration = self._configuration('{"temperature": 0.8, "top_p": 0.9, "timeout": 45}')
-		self.assertEqual(configuration["contract_version"], 2)
+		self.assertEqual(configuration["contract_version"], 3)
 		self.assertEqual(configuration["provider"]["name"], "openai")
 		self.assertEqual(configuration["provider"]["extra_params"]["top_p"], 0.9)
 		self.assertEqual(configuration["model"]["effective_params"]["temperature"], 0.1)

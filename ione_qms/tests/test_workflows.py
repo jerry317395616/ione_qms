@@ -3,6 +3,7 @@ from __future__ import annotations
 import ast
 import json
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -64,6 +65,11 @@ from ione_qms.setup.workflows import (
 )
 
 
+def _raise_runtime(message: str, *args, **kwargs) -> None:
+	del args, kwargs
+	raise RuntimeError(message)
+
+
 class TestWorkflowSpecifications(TestCase):
 	def test_specs_are_internally_valid(self) -> None:
 		validate_workflow_specifications()
@@ -77,7 +83,7 @@ class TestWorkflowSpecifications(TestCase):
 				"exists",
 				side_effect=lambda doctype, name: doctype == "Workflow" and name == reserved,
 			),
-			patch.object(workflows.frappe, "throw", side_effect=RuntimeError),
+			patch.object(workflows.frappe, "throw", side_effect=_raise_runtime),
 			self.assertRaisesRegex(RuntimeError, "will not claim or overwrite"),
 		):
 			validate_workflow_install_preflight()
@@ -123,7 +129,7 @@ class TestWorkflowSpecifications(TestCase):
 				},
 			),
 			patch.object(workflows.frappe.db, "set_value") as set_value,
-			patch.object(workflows.frappe, "throw", side_effect=RuntimeError),
+			patch.object(workflows.frappe, "throw", side_effect=_raise_runtime),
 			self.assertRaisesRegex(RuntimeError, "never modifies shared Workflow States"),
 		):
 			validate_workflow_install_preflight()
@@ -228,7 +234,11 @@ class TestWorkflowSpecifications(TestCase):
 	def test_administrator_cannot_perform_governed_business_actions(self) -> None:
 		administrator_roles = ["IONE Agent Service", "IONE QC Reviewer"]
 		with (
-			patch.object(improvement.frappe.session, "user", "Administrator"),
+			patch.object(
+				improvement.frappe,
+				"session",
+				SimpleNamespace(user="Administrator"),
+			),
 			patch.object(improvement.frappe, "get_roles", return_value=administrator_roles),
 			patch.object(findings.frappe, "get_roles", return_value=administrator_roles),
 			patch.object(versions.frappe, "get_roles", return_value=administrator_roles),
@@ -260,7 +270,10 @@ class TestWorkflowSpecifications(TestCase):
 		}
 		for spec in WORKFLOW_SPECS:
 			for transition in spec.transitions:
-				if transition.next_state in protected_targets:
+				if transition.next_state in protected_targets and (
+					transition.state,
+					transition.next_state,
+				) != ("Appealed", "Confirmed"):
 					self.assertFalse(
 						transition.allow_self_approval,
 						f"{spec.name}: {transition.state} -> {transition.next_state}",

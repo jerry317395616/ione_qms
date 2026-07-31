@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import frappe
 
+_TEST_MIGRATION_RECEIPT_VERIFIED = False
+
 
 def ai_runtime_enabled() -> bool:
 	"""Return true only when both independent AI kill switches are enabled."""
@@ -46,9 +48,24 @@ def require_realtime_rules_enabled() -> None:
 
 
 def require_post_migrate_runtime_ready(operation: str) -> None:
+	if getattr(frappe.flags, "in_test", False) and _TEST_MIGRATION_RECEIPT_VERIFIED:
+		return
 	from ione_qms.services.migration_state import assert_migration_complete
 
 	assert_migration_complete(operation)
+
+
+def verify_test_migration_runtime() -> None:
+	"""Verify the real receipt once before isolation tests mutate governed rows."""
+	global _TEST_MIGRATION_RECEIPT_VERIFIED
+	if not getattr(frappe.flags, "in_test", False):
+		frappe.throw("IONE test migration runtime can only be verified by the Frappe test runner.")
+	if _TEST_MIGRATION_RECEIPT_VERIFIED:
+		return
+	from ione_qms.services.migration_state import assert_migration_complete
+
+	assert_migration_complete("begin IONE QMS test runtime")
+	_TEST_MIGRATION_RECEIPT_VERIFIED = True
 
 
 def validate_runtime_enablement(doc, method: str | None = None) -> None:

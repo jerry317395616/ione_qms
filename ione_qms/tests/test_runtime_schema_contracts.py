@@ -53,6 +53,11 @@ class TestRuntimeSchemaContracts(TestCase):
 	def assert_unique(self, doctype: str, fieldname: str) -> None:
 		self.assertEqual(self.field(doctype, fieldname).get("unique"), 1)
 
+	def assert_validate_handler(self, doctype: str, handler: str) -> None:
+		configured = doc_events[doctype]["validate"]
+		handlers = configured if isinstance(configured, list) else [configured]
+		self.assertIn(handler, handlers)
+
 	def test_finding_candidate_and_evidence_contracts(self) -> None:
 		finding = self.schemas["IONE QC Finding"]
 		agent_reviewer = next(
@@ -80,7 +85,7 @@ class TestRuntimeSchemaContracts(TestCase):
 			self.field("IONE AI Data Access Log", fieldname)
 		self.assertEqual(
 			self.field("IONE AI Data Access Log", "snapshot_json").get("permlevel"),
-			1,
+			9,
 		)
 		self.assertFalse(
 			any(
@@ -88,8 +93,8 @@ class TestRuntimeSchemaContracts(TestCase):
 				for permission in self.schemas["IONE AI Data Access Log"]["permissions"]
 			)
 		)
-		self.assertEqual(
-			doc_events["IONE AI Data Access Log"]["validate"],
+		self.assert_validate_handler(
+			"IONE AI Data Access Log",
 			"ione_qms.services.immutability.validate_append_only",
 		)
 
@@ -124,8 +129,8 @@ class TestRuntimeSchemaContracts(TestCase):
 				"record_hash",
 			):
 				self.field(doctype, fieldname)
-			self.assertEqual(
-				doc_events[doctype]["validate"],
+			self.assert_validate_handler(
+				doctype,
 				"ione_qms.services.immutability.validate_append_only",
 			)
 
@@ -274,17 +279,18 @@ class TestRuntimeSchemaContracts(TestCase):
 			if int(permission.get("permlevel") or 0) == 1 and permission.get("read")
 		}
 		self.assertEqual(level_one_readers, {"IONE QC Reviewer", "IONE Medical Affairs"})
-		self.assertEqual(
-			doc_events["IONE Medical Safety Event"]["validate"],
-			[
-				"ione_qms.services.projections.validate_projection_identity",
-				"ione_qms.services.safety_events.validate_medical_safety_event",
-			],
+		self.assert_validate_handler(
+			"IONE Medical Safety Event",
+			"ione_qms.services.projections.validate_projection_identity",
+		)
+		self.assert_validate_handler(
+			"IONE Medical Safety Event",
+			"ione_qms.services.safety_events.validate_medical_safety_event",
 		)
 
 	def test_finding_contract_is_enforced_before_database_update(self) -> None:
-		self.assertEqual(
-			doc_events["IONE QC Finding"]["validate"],
+		self.assert_validate_handler(
+			"IONE QC Finding",
 			"ione_qms.services.findings.validate_finding",
 		)
 
@@ -402,7 +408,7 @@ class TestRuntimeSchemaContracts(TestCase):
 
 	def test_integration_payload_is_field_level_restricted(self) -> None:
 		schema = self.schemas["IONE Integration Message"]
-		self.assertEqual(self.field("IONE Integration Message", "payload_json").get("permlevel"), 1)
+		self.assertEqual(self.field("IONE Integration Message", "payload_json").get("permlevel"), 9)
 		self.assertNotIn(
 			"System Manager",
 			{permission["role"] for permission in schema["permissions"]},
@@ -415,7 +421,7 @@ class TestRuntimeSchemaContracts(TestCase):
 		self.assertEqual(operator_levels, {0})
 		self.assertFalse(
 			any(
-				int(permission.get("permlevel") or 0) == 1 and permission.get("read")
+				int(permission.get("permlevel") or 0) == 9 and permission.get("read")
 				for permission in schema["permissions"]
 			)
 		)
@@ -434,17 +440,17 @@ class TestRuntimeSchemaContracts(TestCase):
 		):
 			with self.subTest(doctype=doctype):
 				for fieldname in fields:
-					self.assertEqual(self.field(doctype, fieldname).get("permlevel"), 1)
+					self.assertEqual(self.field(doctype, fieldname).get("permlevel"), 9)
 				self.assertFalse(
 					any(
-						int(permission.get("permlevel") or 0) == 1 and permission.get("read")
+						int(permission.get("permlevel") or 0) == 9 and permission.get("read")
 						for permission in self.schemas[doctype]["permissions"]
 					)
 				)
 
 	def test_ai_task_raw_request_excludes_technical_agent_administrator(self) -> None:
 		schema = self.schemas["IONE AI Analysis Task"]
-		self.assertEqual(self.field("IONE AI Analysis Task", "input_summary").get("permlevel"), 1)
+		self.assertEqual(self.field("IONE AI Analysis Task", "input_summary").get("permlevel"), 9)
 		self.assertNotIn(
 			"IONE Agent Administrator",
 			{permission["role"] for permission in schema["permissions"]},
@@ -632,6 +638,10 @@ class TestProjectionHelpers(TestCase):
 		candidate.status = "Pending Review"
 		with (
 			patch("ione_qms.api.ai.require_role"),
+			patch(
+				"ione_qms.api.ai.frappe.session",
+				SimpleNamespace(user="reviewer@example.test"),
+			),
 			patch("ione_qms.api.ai.frappe.get_doc", return_value=candidate),
 			patch(
 				"ione_qms.api.ai.frappe.db.advisory_lock",

@@ -81,7 +81,11 @@ class TestReviewDecisionConcurrency(TestCase):
 
 				with (
 					patch.object(module, "require_role"),
-					patch.object(module.frappe.session, "user", "reviewer@example.test"),
+					patch.object(
+						module.frappe,
+						"session",
+						SimpleNamespace(user="reviewer@example.test"),
+					),
 					patch.object(
 						module.frappe.db,
 						"advisory_lock",
@@ -114,7 +118,11 @@ class TestReviewDecisionConcurrency(TestCase):
 		doc.save.side_effect = lambda **_kwargs: events.append("save")
 		with (
 			patch.object(ai_api, "require_role"),
-			patch.object(ai_api.frappe.session, "user", "reviewer@example.test"),
+			patch.object(
+				ai_api.frappe,
+				"session",
+				SimpleNamespace(user="reviewer@example.test"),
+			),
 			patch.object(ai_api.frappe, "flags", SimpleNamespace()),
 			patch.object(
 				ai_api.frappe.db,
@@ -150,7 +158,11 @@ class TestReviewDecisionConcurrency(TestCase):
 		doc.save.side_effect = lambda **_kwargs: events.append("save")
 		with (
 			patch.object(ai_api, "require_role"),
-			patch.object(ai_api.frappe.session, "user", "reviewer@example.test"),
+			patch.object(
+				ai_api.frappe,
+				"session",
+				SimpleNamespace(user="reviewer@example.test"),
+			),
 			patch.object(ai_api.frappe, "flags", SimpleNamespace()),
 			patch.object(
 				ai_api.frappe.db,
@@ -193,7 +205,11 @@ class TestReviewDecisionConcurrency(TestCase):
 		doc.save.side_effect = lambda **_kwargs: events.append("save")
 		with (
 			patch.object(ai_api, "require_role"),
-			patch.object(ai_api.frappe.session, "user", "reviewer@example.test"),
+			patch.object(
+				ai_api.frappe,
+				"session",
+				SimpleNamespace(user="reviewer@example.test"),
+			),
 			patch.object(ai_api.frappe, "flags", SimpleNamespace()),
 			patch.object(
 				ai_api.frappe.db,
@@ -235,7 +251,11 @@ class TestReviewDecisionConcurrency(TestCase):
 		doc.db_set.side_effect = lambda *_args, **_kwargs: events.append("db_set")
 		with (
 			patch.object(integration_api, "require_role"),
-			patch.object(integration_api.frappe.session, "user", "reviewer@example.test"),
+			patch.object(
+				integration_api.frappe,
+				"session",
+				SimpleNamespace(user="reviewer@example.test"),
+			),
 			patch.object(
 				integration_api.frappe.db,
 				"advisory_lock",

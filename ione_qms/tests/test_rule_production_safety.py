@@ -221,7 +221,7 @@ class TestRuleProductionSafety(TestCase):
 		version = frappe._dict(name="RULE-1-v1", checksum="a" * 64)
 		with (
 			patch.object(validation.frappe.db, "exists", return_value=True),
-			patch.object(validation.frappe.db, "get_value", return_value=None),
+			patch.object(validation, "_append_only_receipt_rows", return_value=[]),
 			patch.object(validation.frappe, "throw", side_effect=_raise_runtime),
 			self.assertRaisesRegex(RuntimeError, "completed validation artifact"),
 		):

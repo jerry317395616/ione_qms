@@ -47,6 +47,8 @@ def _task(**overrides) -> _Document:
 		"patient": None,
 		"encounter": None,
 		"responsible_staff": None,
+		"input_summary": "",
+		"input_summary_hash": orchestrator._hash_text(""),
 	}
 	values.update(overrides)
 	return _Document(**values)
@@ -264,7 +266,7 @@ class TestAIExecutionAtomicity(TestCase):
 				"session",
 				SimpleNamespace(user="scheduler@example.test"),
 			),
-			patch.object(orchestrator.frappe, "flags", SimpleNamespace()),
+			patch.object(orchestrator.frappe, "flags", SimpleNamespace(read_only=False)),
 			patch.object(
 				orchestrator.frappe,
 				"get_doc",
@@ -285,8 +287,13 @@ class TestAIExecutionAtomicity(TestCase):
 			patch.object(orchestrator, "_find_new_failed_flow_run", return_value=failed_run),
 			patch.object(
 				orchestrator,
+				"_aggregate_output_violation_or_fail_closed",
+				return_value=None,
+			),
+			patch.object(
+				orchestrator,
 				"_sanitize_failed_run",
-				side_effect=lambda *args: order.append("sanitize"),
+				side_effect=lambda *args, **kwargs: order.append("sanitize"),
 			) as sanitize,
 			patch.object(
 				orchestrator,
@@ -360,13 +367,14 @@ class TestAIExecutionAtomicity(TestCase):
 				"session",
 				SimpleNamespace(user="scheduler@example.test"),
 			),
-			patch.object(orchestrator.frappe, "flags", SimpleNamespace()),
+			patch.object(orchestrator.frappe, "flags", SimpleNamespace(read_only=False)),
 			patch.object(
 				orchestrator.frappe,
 				"get_doc",
 				side_effect=lambda doctype, name: policy if doctype == "IONE Agent Policy" else agent,
 			),
 			patch.object(orchestrator, "validate_policy_runtime"),
+			patch.object(orchestrator, "_validate_live_task_provenance_before_model_call"),
 			patch.object(orchestrator, "_build_prompt", return_value=prompt),
 			patch.object(orchestrator, "_capture_flow_run_fence", return_value=fence),
 			patch.object(orchestrator.frappe, "set_user"),
@@ -546,7 +554,7 @@ class TestAIExecutionAtomicity(TestCase):
 			patch.object(
 				orchestrator,
 				"_sanitize_failed_run",
-				side_effect=lambda *args: order.append("sanitize"),
+				side_effect=lambda *args, **kwargs: order.append("sanitize"),
 			),
 			patch.object(
 				orchestrator,

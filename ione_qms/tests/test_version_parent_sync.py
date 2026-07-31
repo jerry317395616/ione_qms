@@ -318,7 +318,11 @@ class TestVersionParentSynchronization(TestCase):
 			fields=[SimpleNamespace(fieldname="condition_json", fieldtype="Code")],
 		)
 		with (
-			patch.object(versions.frappe.session, "user", "author@example.test"),
+			patch.object(
+				versions.frappe,
+				"session",
+				SimpleNamespace(user="author@example.test"),
+			),
 			patch.object(
 				versions.frappe,
 				"get_roles",

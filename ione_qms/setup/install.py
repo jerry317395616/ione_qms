@@ -10,6 +10,9 @@ from ione_qms.services.integration_config import trusted_integration_configurati
 from ione_qms.setup.blueprint import seed_quality_blueprint
 from ione_qms.setup.workflows import ensure_workflows, validate_workflow_install_preflight
 
+_SERVICE_USER_ROLE = "IONE Agent Service"
+_AUTO_PROVISIONED_SERVICE_USER_ROLES = frozenset({"Drive User"})
+
 
 def before_install() -> None:
 	_validate_runtime()
@@ -815,18 +818,7 @@ def ensure_agent_policies(
 def _ensure_agent_service_user(email: str, agent_title: str) -> str:
 	if frappe.db.exists("User", email):
 		user = frappe.get_doc("User", email)
-		assigned_roles = {row.role for row in user.get("roles") or []}
-		if assigned_roles.difference({"IONE Agent Service"}):
-			frappe.throw(
-				f"Reserved IONE service user {email} has unexpected roles; "
-				"review the account before continuing migration."
-			)
-		if "IONE Agent Service" not in assigned_roles:
-			user.append("roles", {"role": "IONE Agent Service"})
-			user.flags.ignore_permissions = True
-			user.flags.no_welcome_mail = True
-			user.save()
-		return user.name
+		return _reconcile_agent_service_user_roles(user, email)
 	user = frappe.get_doc(
 		{
 			"doctype": "User",
@@ -834,11 +826,39 @@ def _ensure_agent_service_user(email: str, agent_title: str) -> str:
 			"first_name": agent_title,
 			"enabled": 1,
 			"send_welcome_email": 0,
-			"roles": [{"role": "IONE Agent Service"}],
+			"roles": [{"role": _SERVICE_USER_ROLE}],
 		}
 	)
 	user.flags.no_welcome_mail = True
 	user.insert(ignore_permissions=True)
+	# Installed apps may append a generic role in User.after_insert. Reload and
+	# reconcile after all hooks complete so reserved model identities retain
+	# exactly the least-privilege IONE service role.
+	user.reload()
+	return _reconcile_agent_service_user_roles(user, email)
+
+
+def _reconcile_agent_service_user_roles(user, email: str) -> str:
+	assigned_roles = {row.role for row in user.get("roles") or []}
+	unexpected_roles = assigned_roles.difference({_SERVICE_USER_ROLE}, _AUTO_PROVISIONED_SERVICE_USER_ROLES)
+	if unexpected_roles:
+		frappe.throw(
+			f"Reserved IONE service user {email} has unexpected roles; "
+			"review the account before continuing migration."
+		)
+	reconciled_roles = [
+		row for row in user.get("roles") or [] if row.role not in _AUTO_PROVISIONED_SERVICE_USER_ROLES
+	]
+	if _SERVICE_USER_ROLE not in {row.role for row in reconciled_roles}:
+		user.set("roles", reconciled_roles)
+		user.append("roles", {"role": _SERVICE_USER_ROLE})
+	elif len(reconciled_roles) != len(user.get("roles") or []):
+		user.set("roles", reconciled_roles)
+	else:
+		return user.name
+	user.flags.ignore_permissions = True
+	user.flags.no_welcome_mail = True
+	user.save()
 	return user.name
 
 

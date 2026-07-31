@@ -40,6 +40,7 @@ class TestPHIDisclosureLifecycle(IntegrationTestCase):
 				"status": "Active",
 			}
 		).insert(ignore_permissions=True)
+		frappe.clear_cache(doctype="IONE Hospital")
 		self.source = f"PHI-SRC-{self.suffix}"
 		source = frappe.get_doc(
 			{

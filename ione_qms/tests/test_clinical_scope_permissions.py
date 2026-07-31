@@ -35,6 +35,19 @@ def _escape(value: str) -> str:
 
 
 class TestClinicalScopePermissions(TestCase):
+	def setUp(self) -> None:
+		super().setUp()
+		integrity_sql = patch.object(permissions, "scope_integrity_sql", return_value="1=1")
+		document_integrity = patch.object(
+			permissions,
+			"_scope_document_is_consistent",
+			return_value=True,
+		)
+		integrity_sql.start()
+		document_integrity.start()
+		self.addCleanup(document_integrity.stop)
+		self.addCleanup(integrity_sql.stop)
+
 	def test_all_scope_bearing_business_lists_have_query_and_document_guards(self) -> None:
 		expected = {
 			"IONE Medical Staff",

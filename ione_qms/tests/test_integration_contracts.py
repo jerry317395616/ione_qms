@@ -117,6 +117,7 @@ class TestIntegrationContracts(TestCase):
 		endpoint = frappe._dict(name="ENDPOINT-1", allowed_ip_cidrs="")
 		with (
 			patch.object(signing, "production_mode_enabled", return_value=True),
+			patch.object(signing, "_verify_forwarded_chain"),
 			self.assertRaises(frappe.AuthenticationError),
 		):
 			signing._verify_source_ip(endpoint)

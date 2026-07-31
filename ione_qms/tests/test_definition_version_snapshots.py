@@ -348,6 +348,7 @@ class TestDefinitionVersionSnapshots(TestCase):
 			previous=previous,
 		)
 		with (
+			patch.object(versions, "_validate_parent_authority_links"),
 			patch.object(versions.frappe.db, "sql"),
 			patch.object(versions.frappe.db, "exists", return_value=True),
 			patch.object(versions.frappe, "throw", side_effect=_raise_runtime),

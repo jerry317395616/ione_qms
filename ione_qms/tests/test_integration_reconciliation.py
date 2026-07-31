@@ -77,6 +77,7 @@ class TestIntegrationReconciliation(TestCase):
 		else:
 			connector.reconcile.return_value = snapshot
 		with (
+			patch.object(integration, "assert_integration_endpoint_runtime"),
 			patch.object(integration, "_ingestion_counts", return_value=self.counts),
 			patch.object(integration.frappe, "get_doc", return_value=self.endpoint),
 			patch.object(

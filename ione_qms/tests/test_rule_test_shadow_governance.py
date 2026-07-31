@@ -144,11 +144,11 @@ class TestRuleTestShadowGovernance(TestCase):
 				expected_result=expected,
 				expected_hash=testing._hash_payload({"expected_result": expected}),
 				actual_result=expected,
-				output_hash="o" * 64,
+				output_hash="a" * 64,
 				executor_version="IONE_RULE_EVALUATOR_V2:" + "f" * 40,
 				lifecycle_state="Test",
 				passed=1,
-				record_hash="r" * 64,
+				record_hash="b" * 64,
 			)
 
 		def get_value(_doctype, name, _fields, **_kwargs):

@@ -7,6 +7,7 @@ from ione_qms.services.data_export import (
 	AUDITOR_EXPORT_SCOPE_MODES,
 	EXPORT_SCOPE_MODES,
 	EXPORTABLE_DOCTYPES,
+	GOVERNED_NATIVE_EXPORT_DOCTYPES,
 	MAX_EXPORT_ROWS,
 	SENSITIVE_EXPORT_DOCTYPES,
 	_safe_csv_cell,
@@ -17,7 +18,8 @@ from ione_qms.services.data_export import (
 class TestControlledDataExportContracts(TestCase):
 	def test_sensitive_doctypes_are_explicitly_exportable(self) -> None:
 		self.assertTrue(SENSITIVE_EXPORT_DOCTYPES)
-		self.assertTrue(SENSITIVE_EXPORT_DOCTYPES.issubset(EXPORTABLE_DOCTYPES))
+		self.assertTrue(SENSITIVE_EXPORT_DOCTYPES.issubset(GOVERNED_NATIVE_EXPORT_DOCTYPES))
+		self.assertTrue(EXPORTABLE_DOCTYPES.issubset(GOVERNED_NATIVE_EXPORT_DOCTYPES))
 
 	def test_row_limit_is_bounded(self) -> None:
 		self.assertGreater(MAX_EXPORT_ROWS, 0)

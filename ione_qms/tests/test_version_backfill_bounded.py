@@ -79,6 +79,7 @@ def _load_versions():
 			["VER-A1", "VER-A2"] if filters.get("standard") == "PARENT-DUP" else ["VER-Z1"]
 		),
 		log_error=lambda **_kwargs: None,
+		whitelist=lambda *args, **kwargs: lambda function: function,
 		DuplicateEntryError=type("DuplicateEntryError", (Exception,), {}),
 		UniqueValidationError=type("UniqueValidationError", (Exception,), {}),
 	)

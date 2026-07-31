@@ -390,7 +390,11 @@ class TestImprovementWorkflowIntegrity(TestCase):
 		)
 		doc.meta = SimpleNamespace(fields=[SimpleNamespace(fieldname="plan", fieldtype="Text Editor")])
 		with (
-			patch.object(improvement.frappe.session, "user", "physician@example.test"),
+			patch.object(
+				improvement.frappe,
+				"session",
+				SimpleNamespace(user="physician@example.test"),
+			),
 			patch.object(
 				improvement.frappe,
 				"get_roles",

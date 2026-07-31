@@ -566,6 +566,7 @@ class TestMedicalRecordReviewDecisions(TestCase):
 		with (
 			patch.object(review, "_named_role_user", return_value="coder@example.test"),
 			patch.object(review, "_require_assignment_access"),
+			patch.object(review, "require_scope_read"),
 			patch.object(review, "_medical_record_archive_lock", return_value=_lock()),
 			patch.object(review.frappe.db, "advisory_lock", return_value=_lock()),
 			patch.object(review.frappe, "get_doc", side_effect=get_doc),
@@ -655,6 +656,8 @@ class TestMedicalRecordReviewDecisions(TestCase):
 		with (
 			patch.object(review, "_named_role_user", return_value="expert@example.test"),
 			patch.object(review, "_require_assignment_access"),
+			patch.object(review, "_validate_finding_reference"),
+			patch.object(review, "require_scope_read"),
 			patch.object(review, "_medical_record_archive_lock", return_value=_lock()),
 			patch.object(review.frappe.db, "advisory_lock", return_value=_lock()),
 			patch.object(review.frappe, "get_doc", side_effect=get_doc),
@@ -1010,7 +1013,7 @@ class TestMedicalRecordArchiveGate(TestCase):
 			"envelope_hash": assignment.pending_archive_envelope_hash,
 			"source_record_id_hash": decision.source_record_id_hash,
 			"source_ack_id": "ACK-1",
-			"source_ack_at": "2026-07-30T11:30:00+08:00",
+			"source_ack_at": "2026-07-30T19:30:00+08:00",
 			"ack_status": "Applied",
 			"message_code": "ARCHIVE_APPLIED",
 		}

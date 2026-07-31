@@ -143,6 +143,8 @@ class TestAIToolScope(TestCase):
 			queries.append((doctype, filters or {}))
 			if doctype == "IONE QC Indicator Version":
 				return ["VERSION-1"]
+			if doctype == "IONE Indicator Result Pointer":
+				return [frappe._dict(current_result="RESULT-1")]
 			if doctype == "IONE Indicator Result Detail":
 				return ["RESULT-1"]
 			if doctype == "IONE Indicator Result":
@@ -155,6 +157,11 @@ class TestAIToolScope(TestCase):
 			patch.object(tools, "require_scope_read"),
 			patch.object(tools.frappe.db, "get_value", return_value="INDICATOR-1"),
 			patch.object(tools.frappe, "get_all", side_effect=get_all),
+			patch.object(
+				tools,
+				"current_indicator_result_lock",
+				return_value=nullcontext((None, result_row)),
+			),
 			patch.object(tools, "record_tool_access") as record_access,
 			self.assertRaises(frappe.PermissionError),
 		):
@@ -178,13 +185,11 @@ class TestAIToolScope(TestCase):
 				"patient": "PATIENT-1",
 				"encounter": "ENCOUNTER-1",
 				"responsible_staff": "STAFF-1",
-				"indicator_result": "RESULT-1",
+				"indicator_result": ["in", ["RESULT-1"]],
 			},
 		)
 		result_filters = next(filters for doctype, filters in queries if doctype == "IONE Indicator Result")
-		for fieldname in ("hospital", "campus", "department", "ward"):
-			self.assertEqual(result_filters[fieldname], task.get(fieldname))
-		self.assertEqual(result_filters["name"], ["in", ["RESULT-1"]])
+		self.assertEqual(result_filters, {"name": ["in", ["RESULT-1"]]})
 		record_access.assert_not_called()
 
 	def test_contributing_case_with_cross_scope_row_is_rejected(self) -> None:
@@ -215,9 +220,17 @@ class TestAIToolScope(TestCase):
 		with (
 			patch.object(tools, "_assert_authenticated"),
 			patch.object(tools, "_get_active_task", return_value=task),
-			patch.object(tools.frappe, "get_doc", return_value=result),
+			patch.object(
+				tools,
+				"current_indicator_result_lock",
+				return_value=nullcontext((None, result)),
+			),
 			patch.object(tools, "_require_requester_read"),
-			patch.object(tools.frappe, "get_all", return_value=[case]) as get_all,
+			patch.object(
+				tools,
+				"_verified_current_indicator_details",
+				return_value=[case],
+			) as get_details,
 			patch.object(tools, "record_tool_access") as record_access,
 			self.assertRaises(frappe.PermissionError),
 		):
@@ -228,7 +241,7 @@ class TestAIToolScope(TestCase):
 			)
 
 		self.assertEqual(
-			get_all.call_args.kwargs["filters"],
+			get_details.call_args.kwargs["filters"],
 			{
 				"indicator_result": "RESULT-1",
 				"hospital": "HOSP-1",
@@ -278,6 +291,10 @@ class TestAIToolScope(TestCase):
 			if not isinstance(value, dict):
 				raise AssertionError((value, args, kwargs))
 			doc = _Doc(**value)
+			doc.name = {
+				"IONE AI Candidate Finding": "CANDIDATE-1",
+				"IONE AI Report Draft": "REPORT-1",
+			}[value["doctype"]]
 			created.append(doc)
 			return doc
 

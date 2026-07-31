@@ -52,6 +52,7 @@ add_to_apps_screen = [
 before_install = "ione_qms.setup.install.before_install"
 after_install = "ione_qms.setup.install.after_install"
 after_migrate = "ione_qms.setup.install.after_migrate"
+before_tests = "ione_qms.services.runtime_settings.verify_test_migration_runtime"
 before_uninstall = "ione_qms.setup.install.before_uninstall"
 before_request = ["ione_qms.overrides.phi_query_guard.prevent_unsafe_phi_query_request"]
 after_request = ["ione_qms.overrides.security_headers.apply_security_headers"]

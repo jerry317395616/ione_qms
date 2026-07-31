@@ -487,7 +487,7 @@ class TestFindingAppealService(TestCase):
 		with (
 			patch.object(finding_appeals.frappe.db, "get_value", return_value=row),
 			patch.object(finding_appeals.frappe, "get_doc", return_value=file_doc),
-			self.assertRaisesRegex(RuntimeError, "private local File"),
+			self.assertRaisesRegex(finding_appeals.frappe.ValidationError, "private local File"),
 		):
 			finding_appeals._get_evidence_file_row(
 				file_doc.name,
@@ -1074,7 +1074,7 @@ class TestFindingAppealPermissions(TestCase):
 			patch.object(
 				permissions.frappe.db,
 				"get_value",
-				return_value=evidence.name,
+				side_effect=[None, evidence.name, None, evidence.name],
 			),
 			patch.object(permissions.frappe, "get_doc", return_value=evidence),
 			patch.object(
