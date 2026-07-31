@@ -300,6 +300,26 @@ jobs:
             bench --site test.localhost set-config enable_ui_tests false
           fi
           bench --site test.localhost run-tests --app ione_qms
+
+          # Frappe's File integration suite mutates System Settings and fetches
+          # test images through the development web server. Reproduce those
+          # upstream test preconditions explicitly on this ephemeral site.
+          bench --site test.localhost execute frappe.db.set_single_value \
+            --args '["System Settings", {"language": "en", "time_zone": "Asia/Shanghai"}]'
+          bench --site test.localhost set-config host_name http://test.localhost:8000
+          echo "127.0.0.1 test.localhost" | sudo tee -a /etc/hosts >/dev/null
+          bench serve --port 8000 >/tmp/ione-qms-file-test-server.log 2>&1 &
+          file_test_server_pid=$!
+          trap 'kill "$file_test_server_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error --max-time 3 \
+              http://test.localhost:8000/api/method/ping >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent --show-error --max-time 5 \
+            http://test.localhost:8000/_test/assets/image.jpg >/dev/null
           bench --site test.localhost run-tests --doctype File
       - name: Prove exact SHAs and clean official application trees
         working-directory: frappe-bench
