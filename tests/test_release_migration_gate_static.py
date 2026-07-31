@@ -33,7 +33,8 @@ class TestReleaseMigrationGateStatic(TestCase):
 
 	def test_reserved_service_users_revoke_known_drive_auto_provisioning(self) -> None:
 		source = (ROOT / "ione_qms" / "setup" / "install.py").read_text(encoding="utf-8")
-		self.assertIn('_AUTO_PROVISIONED_SERVICE_USER_ROLES = frozenset({"Drive User"})', source)
+		for role in ("Drive User", "LMS Student", "Suite User", "Wiki User"):
+			self.assertIn(f'\t\t"{role}",', source)
 		self.assertIn("unexpected_roles = assigned_roles.difference(", source)
 		self.assertIn("user.reload()", source)
 		self.assertIn('user.set("roles", reconciled_roles)', source)

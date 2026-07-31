@@ -11,7 +11,14 @@ from ione_qms.setup.blueprint import seed_quality_blueprint
 from ione_qms.setup.workflows import ensure_workflows, validate_workflow_install_preflight
 
 _SERVICE_USER_ROLE = "IONE Agent Service"
-_AUTO_PROVISIONED_SERVICE_USER_ROLES = frozenset({"Drive User"})
+_AUTO_PROVISIONED_SERVICE_USER_ROLES = frozenset(
+	{
+		"Drive User",
+		"LMS Student",
+		"Suite User",
+		"Wiki User",
+	}
+)
 
 
 def before_install() -> None:
