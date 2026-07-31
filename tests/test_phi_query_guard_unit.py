@@ -203,6 +203,28 @@ class TestPHIQueryGuardUnit(unittest.TestCase):
 				"/api/resource/IONE%20Patient%20Index",
 				filters=double_encoded,
 			)
+		with self.assertRaisesRegex(_GuardRejected, "malformed encoded query value"):
+			self._request(
+				"GET",
+				"/api/method/frappe.client.get_list",
+				doctype="Unrelated Patient",
+				filters="[not-json}",
+			)
+
+	def test_non_query_json_looking_artifact_text_is_not_rejected(self) -> None:
+		class _Document(dict):
+			__getattr__ = dict.get
+
+			def as_dict(self):
+				return dict(self)
+
+		notification = _Document(
+			doctype="Notification",
+			name="Error Log",
+			document_type="Error Log",
+			subject="[Error] {{ doc.method }}",
+		)
+		self.guard.validate_phi_query_artifact(notification)
 
 	def test_technical_administrator_cannot_enumerate_phi_sidecars(self) -> None:
 		self.frappe.session.user = "Administrator"

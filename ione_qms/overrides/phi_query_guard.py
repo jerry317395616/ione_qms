@@ -87,6 +87,15 @@ _ROOT_DOCTYPE_KEYS = frozenset(
 		"workflow_document_type",
 	}
 )
+_ENCODED_QUERY_ARGUMENT_KEYS = frozenset(
+	{
+		"fields",
+		"filters",
+		"group_by",
+		"or_filters",
+		"order_by",
+	}
+)
 _PHI_FIELD_PATTERN = re.compile(
 	r"(?<![a-z0-9_])(?:"
 	+ "|".join(
@@ -139,6 +148,7 @@ def prevent_unsafe_phi_query_request() -> None:
 			_deny_technical_administrator()
 		return
 	_assert_bounded_generic_request(request, path, form_dict)
+	_assert_parseable_query_arguments(form_dict)
 	request_value = {"path": unquote(path), "arguments": form_dict}
 	root_doctypes = _request_root_doctypes(path, command, form_dict, request_value)
 	if _is_direct_file_download(path, command) and set(root_doctypes).intersection(PHI_METADATA_DOCTYPES):
@@ -672,7 +682,7 @@ def _dotted_path_targets_phi(path: str, root_doctypes: frozenset[str]) -> bool:
 	return False
 
 
-def _parse_embedded_json(value: str) -> Any | None:
+def _parse_embedded_json(value: str, *, reject_malformed: bool = False) -> Any | None:
 	if not value or value[0] not in '[{"' or value[-1] not in ']}"':
 		return None
 	if len(value.encode("utf-8", errors="replace")) > _MAX_JSON_STRING_LENGTH:
@@ -680,10 +690,26 @@ def _parse_embedded_json(value: str) -> Any | None:
 	try:
 		return json.loads(value)
 	except TypeError, ValueError:
-		# A JSON-looking generic query argument that cannot be inspected is not
-		# passed downstream to Frappe for a second, more permissive parse.
-		_raise_inspection_limit("malformed encoded query value")
+		if reject_malformed:
+			# A JSON-looking generic query argument that cannot be inspected is
+			# not passed downstream to Frappe for a second, permissive parse.
+			_raise_inspection_limit("malformed encoded query value")
 	return None
+
+
+def _assert_parseable_query_arguments(value: Any, depth: int = 0) -> None:
+	"""Fail closed only for fields Frappe interprets as encoded query structures."""
+	if depth > _MAX_INSPECTION_DEPTH:
+		_raise_inspection_limit("query argument structure")
+	if isinstance(value, Mapping):
+		for key, item in value.items():
+			if str(key).strip().lower() in _ENCODED_QUERY_ARGUMENT_KEYS and isinstance(item, str):
+				_parse_embedded_json(item.strip(), reject_malformed=True)
+			_assert_parseable_query_arguments(item, depth + 1)
+		return
+	if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
+		for item in value:
+			_assert_parseable_query_arguments(item, depth + 1)
 
 
 def _assert_bounded_generic_request(
