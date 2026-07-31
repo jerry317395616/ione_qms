@@ -255,10 +255,10 @@ jobs:
             --db-root-password root \
             --admin-password admin \
             --mariadb-user-host-login-scope='%'
-          identity_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
-          phi_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
-          rule_receipt_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
-          sensitive_hash_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
+          identity_key="$(python -c 'import secrets; print(secrets.token_hex(48))')"
+          phi_key="$(python -c 'import secrets; print(secrets.token_hex(48))')"
+          rule_receipt_key="$(python -c 'import secrets; print(secrets.token_hex(48))')"
+          sensitive_hash_key="$(python -c 'import secrets; print(secrets.token_hex(48))')"
           bench --site test.localhost set-config ione_identity_hmac_key_id ci-v1
           bench --site test.localhost set-config ione_identity_hmac_key "$identity_key"
           bench --site test.localhost set-config ione_phi_hmac_key_id ci-v1
@@ -290,20 +290,10 @@ jobs:
           INCLUDE_DRIVE: ${{ matrix.include_drive }}
         run: |
           set -euo pipefail
-          bench --site test.localhost run-tests --app flow
-          if [ "$INCLUDE_DRIVE" = "true" ]; then
-            # Drive's backend test discovery imports its Cypress helper, whose
-            # official guard requires this site flag even when no browser test
-            # is launched. The flag changes only the ephemeral CI site.
-            bench --site test.localhost set-config enable_ui_tests true
-            bench --site test.localhost run-tests --app drive
-            bench --site test.localhost set-config enable_ui_tests false
-          fi
-          bench --site test.localhost run-tests --app ione_qms
-
           # Frappe's File integration suite mutates System Settings and fetches
           # test images through the development web server. Reproduce those
-          # upstream test preconditions explicitly on this ephemeral site.
+          # upstream test preconditions explicitly on this ephemeral site. Run
+          # it before Drive's suite creates linked activity-log fixtures.
           bench --site test.localhost execute frappe.db.set_single_value \
             --args '["System Settings", {"language": "en", "time_zone": "Asia/Shanghai"}]'
           bench --site test.localhost set-config host_name http://test.localhost:8000
@@ -321,6 +311,20 @@ jobs:
           curl --fail --silent --show-error --max-time 5 \
             http://test.localhost:8000/_test/assets/image.jpg >/dev/null
           bench --site test.localhost run-tests --doctype File
+          kill "$file_test_server_pid" 2>/dev/null || true
+          wait "$file_test_server_pid" 2>/dev/null || true
+          trap - EXIT
+
+          bench --site test.localhost run-tests --app flow
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            # Drive's backend test discovery imports its Cypress helper, whose
+            # official guard requires this site flag even when no browser test
+            # is launched. The flag changes only the ephemeral CI site.
+            bench --site test.localhost set-config enable_ui_tests true
+            bench --site test.localhost run-tests --app drive
+            bench --site test.localhost set-config enable_ui_tests false
+          fi
+          bench --site test.localhost run-tests --app ione_qms
       - name: Prove exact SHAs and clean official application trees
         working-directory: frappe-bench
         env:
