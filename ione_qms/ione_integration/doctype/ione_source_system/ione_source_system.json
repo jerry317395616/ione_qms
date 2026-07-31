@@ -1,0 +1,162 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "system_code",
+  "system_name",
+  "system_type",
+  "enabled",
+  "read_only",
+  "identity_namespace",
+  "allowed_scopes",
+  "allowed_hosts",
+  "owner_user",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "system_code",
+   "fieldtype": "Data",
+   "label": "System Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "system_name",
+   "fieldtype": "Data",
+   "label": "System Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "system_type",
+   "fieldtype": "Select",
+   "label": "System Type",
+   "options": "Internal\nHIS\nEMR\nLIS\nPACS\nAnesthesia\nNursing\nHRP\nHL7 v2\nFHIR\nOther",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "0",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "read_only",
+   "fieldtype": "Check",
+   "label": "Read Only",
+   "default": "1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "identity_namespace",
+   "fieldtype": "Data",
+   "label": "Identity Namespace",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "allowed_scopes",
+   "fieldtype": "Table",
+   "label": "Allowed Scopes",
+   "options": "IONE Integration Allowed Scope",
+   "reqd": 1
+  },
+  {
+   "fieldname": "allowed_hosts",
+   "fieldtype": "Code",
+   "label": "Allowed Hosts",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "owner_user",
+   "fieldtype": "Link",
+   "label": "Owner User",
+   "options": "User"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Integration",
+ "name": "IONE Source System",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Integration Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Integration Operator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "system_name",
+ "search_fields": "system_code,system_name"
+}

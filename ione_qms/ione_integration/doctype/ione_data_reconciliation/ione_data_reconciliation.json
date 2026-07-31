@@ -1,0 +1,198 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "reconciliation_key",
+  "source_system",
+  "endpoint",
+  "period_start",
+  "period_end",
+  "status",
+  "source_count",
+  "message_count",
+  "event_count",
+  "execution_count",
+  "error_count",
+  "difference_count",
+  "source_hash",
+  "qms_hash",
+  "started_at",
+  "completed_at",
+  "details_json"
+ ],
+ "fields": [
+  {
+   "fieldname": "reconciliation_key",
+   "fieldtype": "Data",
+   "label": "Reconciliation Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1
+  },
+  {
+   "fieldname": "endpoint",
+   "fieldtype": "Link",
+   "label": "Endpoint",
+   "options": "IONE Integration Endpoint"
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Datetime",
+   "label": "Period Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Datetime",
+   "label": "Period End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nMatched\nMismatch\nFailed\nReviewed",
+   "default": "Pending",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "source_count",
+   "fieldtype": "Int",
+   "label": "Source Count"
+  },
+  {
+   "fieldname": "message_count",
+   "fieldtype": "Int",
+   "label": "Message Count"
+  },
+  {
+   "fieldname": "event_count",
+   "fieldtype": "Int",
+   "label": "Event Count"
+  },
+  {
+   "fieldname": "execution_count",
+   "fieldtype": "Int",
+   "label": "Execution Count"
+  },
+  {
+   "fieldname": "error_count",
+   "fieldtype": "Int",
+   "label": "Error Count"
+  },
+  {
+   "fieldname": "difference_count",
+   "fieldtype": "Int",
+   "label": "Difference Count"
+  },
+  {
+   "fieldname": "source_hash",
+   "fieldtype": "Data",
+   "label": "Source Hash",
+   "length": 64
+  },
+  {
+   "fieldname": "qms_hash",
+   "fieldtype": "Data",
+   "label": "QMS Hash",
+   "length": 64
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At"
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At"
+  },
+  {
+   "fieldname": "details_json",
+   "fieldtype": "Long Text",
+   "label": "Details JSON"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Integration",
+ "name": "IONE Data Reconciliation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Integration Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Integration Operator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "reconciliation_key,source_system"
+}

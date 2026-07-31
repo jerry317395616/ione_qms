@@ -1,0 +1,324 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:series_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "series_key",
+  "indicator",
+  "indicator_version",
+  "period_start",
+  "period_end",
+  "dimension_hash",
+  "dimension_json",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "medical_group",
+  "physician",
+  "medical_staff",
+  "disease",
+  "surgery",
+  "drg",
+  "current_result",
+  "current_revision",
+  "current_input_receipt_hash",
+  "current_result_checksum",
+  "switched_at",
+  "pointer_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "series_key",
+   "fieldtype": "Data",
+   "label": "Series Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "indicator",
+   "fieldtype": "Link",
+   "label": "Indicator",
+   "options": "IONE QC Indicator",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicator_version",
+   "fieldtype": "Link",
+   "label": "Indicator Version",
+   "options": "IONE QC Indicator Version",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "Period Start",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Period End",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "dimension_hash",
+   "fieldtype": "Data",
+   "label": "Dimension Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "dimension_json",
+   "fieldtype": "Code",
+   "label": "Dimension JSON",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "physician",
+   "fieldtype": "Link",
+   "label": "Physician",
+   "options": "IONE Medical Staff",
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_staff",
+   "fieldtype": "Link",
+   "label": "Medical Staff Compatibility",
+   "options": "IONE Medical Staff",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease",
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery",
+   "read_only": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_result",
+   "fieldtype": "Link",
+   "label": "Current Result",
+   "options": "IONE Indicator Result",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "current_revision",
+   "fieldtype": "Int",
+   "label": "Current Revision",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "current_input_receipt_hash",
+   "fieldtype": "Data",
+   "label": "Current Input Receipt Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "current_result_checksum",
+   "fieldtype": "Data",
+   "label": "Current Result Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "switched_at",
+   "fieldtype": "Datetime",
+   "label": "Switched At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "pointer_checksum",
+   "fieldtype": "Data",
+   "label": "Pointer Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Indicators",
+ "name": "IONE Indicator Result Pointer",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "series_key,indicator_version,current_result",
+ "allow_import": 0
+}

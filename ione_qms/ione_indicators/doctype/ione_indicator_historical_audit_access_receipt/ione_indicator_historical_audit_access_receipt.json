@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:access_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "access_key",
+  "hmac_key_id",
+  "authorization",
+  "indicator_result",
+  "accessed_by",
+  "accessed_at",
+  "purpose_hash",
+  "sequence_no",
+  "source_manifest_count",
+  "result_checksum",
+  "verified",
+  "reason_code",
+  "outcome_hash",
+  "receipt_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "access_key",
+   "fieldtype": "Data",
+   "label": "Access Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "authorization",
+   "fieldtype": "Link",
+   "label": "Authorization",
+   "options": "IONE Indicator Historical Audit Authorization",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "indicator_result",
+   "fieldtype": "Link",
+   "label": "Indicator Result",
+   "options": "IONE Indicator Result",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "accessed_by",
+   "fieldtype": "Link",
+   "label": "Accessed By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "accessed_at",
+   "fieldtype": "Datetime",
+   "label": "Accessed At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "purpose_hash",
+   "fieldtype": "Data",
+   "label": "Purpose Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "sequence_no",
+   "fieldtype": "Int",
+   "label": "Sequence Number",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_manifest_count",
+   "fieldtype": "Int",
+   "label": "Source Manifest Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "result_checksum",
+   "fieldtype": "Data",
+   "label": "Result Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "verified",
+   "fieldtype": "Check",
+   "label": "Verified",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_code",
+   "fieldtype": "Data",
+   "label": "Reason Code",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "outcome_hash",
+   "fieldtype": "Data",
+   "label": "Outcome Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_checksum",
+   "fieldtype": "Data",
+   "label": "Receipt Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Indicators",
+ "name": "IONE Indicator Historical Audit Access Receipt",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "access_key,authorization,indicator_result,accessed_by",
+ "allow_import": 0
+}

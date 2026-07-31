@@ -1,0 +1,557 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "task_type",
+  "policy",
+  "requested_by",
+  "requested_at",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "patient",
+  "encounter",
+  "responsible_staff",
+  "indicator_result",
+  "finding",
+  "record_count",
+  "input_summary",
+  "input_hash",
+  "data_classification",
+  "requires_human_review",
+  "origin",
+  "report_schedule",
+  "report_snapshot",
+  "report_period_start",
+  "report_period_end",
+  "report_reviewer",
+  "dispatch_key",
+  "schedule_approval_checksum",
+  "prior_report_task",
+  "report_recovery_authorization",
+  "recovery_sequence",
+  "recovery_authorization_checksum",
+  "execution_attempt",
+  "execution_phase",
+  "claimed_at",
+  "heartbeat_at",
+  "lease_expires_at",
+  "execution_token",
+  "last_execution_token_hash",
+  "status",
+  "started_at",
+  "completed_at",
+  "flow_session",
+  "flow_run",
+  "output_hash",
+  "error_message"
+ ],
+ "fields": [
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Select",
+   "label": "Task Type",
+   "options": "Policy Governance\nMedical Record QC\nIndicator Analysis\nRectification\nQuality Report\nQuality Analysis\nReport Draft\nSpecial Topic",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Agent Policy",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "reqd": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter",
+   "fieldtype": "Link",
+   "label": "Encounter",
+   "options": "IONE Encounter Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicator_result",
+   "fieldtype": "Link",
+   "label": "Indicator Result",
+   "options": "IONE Indicator Result"
+  },
+  {
+   "fieldname": "finding",
+   "fieldtype": "Link",
+   "label": "Finding",
+   "options": "IONE QC Finding"
+  },
+  {
+   "fieldname": "record_count",
+   "fieldtype": "Int",
+   "label": "Record Count",
+   "default": "1"
+  },
+  {
+   "fieldname": "input_summary",
+   "fieldtype": "Long Text",
+   "label": "Input Summary",
+   "no_copy": 1,
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "input_hash",
+   "fieldtype": "Data",
+   "label": "Input Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "data_classification",
+   "fieldtype": "Select",
+   "label": "Data Classification",
+   "options": "Public\nHospital Internal\nSensitive Medical"
+  },
+  {
+   "fieldname": "requires_human_review",
+   "fieldtype": "Check",
+   "label": "Requires Human Review",
+   "default": "1"
+  },
+  {
+   "fieldname": "origin",
+   "fieldtype": "Select",
+   "label": "Origin",
+   "options": "Manual\nScheduled",
+   "default": "Manual",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_schedule",
+   "fieldtype": "Link",
+   "label": "Report Schedule",
+   "options": "IONE AI Report Schedule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_snapshot",
+   "fieldtype": "Link",
+   "label": "Report Snapshot",
+   "options": "IONE Quality Report Snapshot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_period_start",
+   "fieldtype": "Date",
+   "label": "Report Period Start",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_period_end",
+   "fieldtype": "Date",
+   "label": "Report Period End",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_reviewer",
+   "fieldtype": "Link",
+   "label": "Report Reviewer",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dispatch_key",
+   "fieldtype": "Data",
+   "label": "Dispatch Key",
+   "unique": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "schedule_approval_checksum",
+   "fieldtype": "Data",
+   "label": "Schedule Approval Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "prior_report_task",
+   "fieldtype": "Link",
+   "label": "Prior Report Task",
+   "options": "IONE AI Analysis Task",
+   "unique": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_recovery_authorization",
+   "fieldtype": "Link",
+   "label": "Report Recovery Authorization",
+   "options": "IONE AI Report Recovery Authorization",
+   "unique": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovery_sequence",
+   "fieldtype": "Int",
+   "label": "Recovery Sequence",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovery_authorization_checksum",
+   "fieldtype": "Data",
+   "label": "Recovery Authorization Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "execution_attempt",
+   "fieldtype": "Int",
+   "label": "Execution Attempt",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_phase",
+   "fieldtype": "Select",
+   "label": "Execution Phase",
+   "options": "\nInitial\nResume",
+   "read_only": 1,
+   "hidden": 1,
+   "permlevel": 2
+  },
+  {
+   "fieldname": "claimed_at",
+   "fieldtype": "Datetime",
+   "label": "Claimed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "heartbeat_at",
+   "fieldtype": "Datetime",
+   "label": "Heartbeat At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lease_expires_at",
+   "fieldtype": "Datetime",
+   "label": "Lease Expires At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_token",
+   "fieldtype": "Data",
+   "label": "Execution Token",
+   "read_only": 1,
+   "hidden": 1,
+   "no_copy": 1,
+   "permlevel": 2
+  },
+  {
+   "fieldname": "last_execution_token_hash",
+   "fieldtype": "Data",
+   "label": "Last Execution Token Hash",
+   "read_only": 1,
+   "hidden": 1,
+   "no_copy": 1,
+   "permlevel": 2,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nQueued\nRunning\nPending Confirmation\nRetry\nCompleted\nFailed\nRejected\nCancelled\nReviewed",
+   "default": "Pending",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "flow_session",
+   "fieldtype": "Link",
+   "label": "Flow Session",
+   "options": "Flow Session",
+   "read_only": 1
+  },
+  {
+   "fieldname": "flow_run",
+   "fieldtype": "Link",
+   "label": "Flow Run",
+   "options": "Flow Run",
+   "read_only": 1
+  },
+  {
+   "fieldname": "output_hash",
+   "fieldtype": "Data",
+   "label": "Output Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Small Text",
+   "label": "Error Message",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Flow AI",
+ "name": "IONE AI Analysis Task",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Service",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 0,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "policy,requested_by,flow_run"
+}

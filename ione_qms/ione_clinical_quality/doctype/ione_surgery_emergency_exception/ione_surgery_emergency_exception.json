@@ -1,0 +1,316 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:exception_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "exception_key",
+  "surgery_qc",
+  "surgery_source_id_hash",
+  "procedure_policy",
+  "hospital",
+  "campus",
+  "department",
+  "requested_scopes_json",
+  "reason_code",
+  "reason",
+  "requested_by",
+  "requested_at",
+  "valid_from",
+  "valid_to",
+  "status",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment",
+  "checksum",
+  "expired_from_status",
+  "expired_at",
+  "expiration_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "exception_key",
+   "fieldtype": "Data",
+   "label": "Exception Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "surgery_qc",
+   "fieldtype": "Link",
+   "label": "Surgery QC",
+   "options": "IONE Surgery QC",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery_source_id_hash",
+   "fieldtype": "Data",
+   "label": "Surgery Source ID Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "procedure_policy",
+   "fieldtype": "Link",
+   "label": "Procedure Policy",
+   "options": "IONE Surgery Procedure Policy",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_scopes_json",
+   "fieldtype": "Code",
+   "label": "Requested Scopes JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_code",
+   "fieldtype": "Data",
+   "label": "Reason Code",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Long Text",
+   "label": "Reason",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Datetime",
+   "label": "Valid From",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Datetime",
+   "label": "Valid To",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected\nExpired",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checksum",
+   "fieldtype": "Data",
+   "label": "Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "expired_from_status",
+   "fieldtype": "Select",
+   "label": "Expired From Status",
+   "options": "Pending\nApproved",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expired_at",
+   "fieldtype": "Datetime",
+   "label": "Expired At",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "expiration_checksum",
+   "fieldtype": "Data",
+   "label": "Expiration Checksum",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Surgery Emergency Exception",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "exception_key,surgery_qc,surgery_source_id_hash,reason_code",
+ "allow_import": 0
+}

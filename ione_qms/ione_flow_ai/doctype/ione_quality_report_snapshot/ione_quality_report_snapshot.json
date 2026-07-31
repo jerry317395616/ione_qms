@@ -1,0 +1,248 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:snapshot_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "snapshot_key",
+  "schedule",
+  "period_start",
+  "period_end",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "generated_for",
+  "report_reviewer",
+  "generated_at",
+  "source_cutoff",
+  "source_group_count",
+  "data_json",
+  "data_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "snapshot_key",
+   "fieldtype": "Data",
+   "label": "Snapshot Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "schedule",
+   "fieldtype": "Link",
+   "label": "Schedule",
+   "options": "IONE AI Report Schedule",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "Period Start",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Period End",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "generated_for",
+   "fieldtype": "Link",
+   "label": "Generated For",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_reviewer",
+   "fieldtype": "Link",
+   "label": "Report Reviewer",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "generated_at",
+   "fieldtype": "Datetime",
+   "label": "Generated At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_cutoff",
+   "fieldtype": "Datetime",
+   "label": "Snapshot Capture Marker",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_group_count",
+   "fieldtype": "Int",
+   "label": "Source Group Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "data_json",
+   "fieldtype": "Code",
+   "label": "Data JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "data_hash",
+   "fieldtype": "Data",
+   "label": "Data Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Flow AI",
+ "name": "IONE Quality Report Snapshot",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "snapshot_key,schedule,generated_for,report_reviewer",
+ "allow_import": 0
+}

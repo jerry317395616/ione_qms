@@ -1,0 +1,375 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:schedule_code",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "schedule_code",
+  "schedule_title",
+  "report_type",
+  "policy",
+  "requested_by",
+  "report_reviewer",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "run_day",
+  "required_indicator_codes_json",
+  "status",
+  "enabled",
+  "coverage_start_period",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment",
+  "approval_checksum",
+  "operated_by",
+  "operated_at",
+  "operation_comment",
+  "last_period_start",
+  "last_period_end",
+  "last_dispatch_key",
+  "last_task",
+  "last_run_at",
+  "last_result",
+  "last_error_code"
+ ],
+ "fields": [
+  {
+   "fieldname": "schedule_code",
+   "fieldtype": "Data",
+   "label": "Schedule Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "schedule_title",
+   "fieldtype": "Data",
+   "label": "Schedule Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "report_type",
+   "fieldtype": "Select",
+   "label": "Report Type",
+   "options": "Hospital Monthly\nDepartment Monthly\nQuality Meeting",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Agent Policy",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_reviewer",
+   "fieldtype": "Link",
+   "label": "Report Reviewer",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "run_day",
+   "fieldtype": "Int",
+   "label": "Run Day",
+   "reqd": 1,
+   "default": "5"
+  },
+  {
+   "fieldname": "required_indicator_codes_json",
+   "fieldtype": "Code",
+   "label": "Required Indicator Codes JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nApproved\nRejected\nSuspended\nRetired",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coverage_start_period",
+   "fieldtype": "Date",
+   "label": "Coverage Start Period",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_checksum",
+   "fieldtype": "Data",
+   "label": "Approval Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "operated_by",
+   "fieldtype": "Link",
+   "label": "Operated By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operated_at",
+   "fieldtype": "Datetime",
+   "label": "Operated At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operation_comment",
+   "fieldtype": "Small Text",
+   "label": "Operation Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_period_start",
+   "fieldtype": "Date",
+   "label": "Last Period Start",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_period_end",
+   "fieldtype": "Date",
+   "label": "Last Period End",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_dispatch_key",
+   "fieldtype": "Data",
+   "label": "Last Dispatch Key",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "last_task",
+   "fieldtype": "Link",
+   "label": "Last Task",
+   "options": "IONE AI Analysis Task",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_run_at",
+   "fieldtype": "Datetime",
+   "label": "Last Run At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_result",
+   "fieldtype": "Select",
+   "label": "Last Result",
+   "options": "\nSuccess\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error_code",
+   "fieldtype": "Data",
+   "label": "Last Error Code",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Flow AI",
+ "name": "IONE AI Report Schedule",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "schedule_title",
+ "search_fields": "schedule_code,schedule_title,policy,requested_by,report_reviewer",
+ "allow_import": 0
+}

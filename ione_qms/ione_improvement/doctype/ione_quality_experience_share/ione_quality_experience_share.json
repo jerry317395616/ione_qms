@@ -1,0 +1,352 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "experience_code",
+  "version_number",
+  "version_key",
+  "active_publication_key",
+  "supersedes",
+  "safety_event",
+  "meeting_minute",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "title",
+  "content_json",
+  "deidentification_method",
+  "deidentification_attested",
+  "effective_from",
+  "effective_to",
+  "publisher",
+  "status",
+  "submitted_by",
+  "submitted_at",
+  "published_by",
+  "published_at",
+  "review_comment",
+  "checksum",
+  "retired_by",
+  "retired_at",
+  "retirement_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "experience_code",
+   "fieldtype": "Data",
+   "label": "Experience Code",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "version_number",
+   "fieldtype": "Int",
+   "label": "Version Number",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "version_key",
+   "fieldtype": "Data",
+   "label": "Version Key",
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "active_publication_key",
+   "fieldtype": "Data",
+   "label": "Active Publication Key",
+   "unique": 1,
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "supersedes",
+   "fieldtype": "Link",
+   "label": "Supersedes",
+   "options": "IONE Quality Experience Share"
+  },
+  {
+   "fieldname": "safety_event",
+   "fieldtype": "Link",
+   "label": "Safety Event",
+   "options": "IONE Medical Safety Event"
+  },
+  {
+   "fieldname": "meeting_minute",
+   "fieldtype": "Link",
+   "label": "Meeting Minute",
+   "options": "IONE Meeting Minute"
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "content_json",
+   "fieldtype": "Code",
+   "label": "Structured Deidentified Content",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "deidentification_method",
+   "fieldtype": "Small Text",
+   "label": "Deidentification Method",
+   "reqd": 1
+  },
+  {
+   "fieldname": "deidentification_attested",
+   "fieldtype": "Check",
+   "label": "Deidentification Attested",
+   "default": "0",
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Date",
+   "label": "Effective From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_to",
+   "fieldtype": "Date",
+   "label": "Effective To"
+  },
+  {
+   "fieldname": "publisher",
+   "fieldtype": "Link",
+   "label": "Publisher",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSubmitted\nPublished\nRejected\nRetired",
+   "default": "Draft",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "submitted_by",
+   "fieldtype": "Link",
+   "label": "Submitted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "published_by",
+   "fieldtype": "Link",
+   "label": "Published By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "published_at",
+   "fieldtype": "Datetime",
+   "label": "Published At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checksum",
+   "fieldtype": "Data",
+   "label": "Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "retired_by",
+   "fieldtype": "Link",
+   "label": "Retired By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retired_at",
+   "fieldtype": "Datetime",
+   "label": "Retired At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retirement_reason",
+   "fieldtype": "Small Text",
+   "label": "Retirement Reason",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Quality Experience Share",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "title",
+ "search_fields": "experience_code,version_number,title",
+ "allow_import": 0
+}

@@ -1,0 +1,292 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:delivery_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "delivery_key",
+  "request_id",
+  "request_hash",
+  "endpoint",
+  "source_system",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "delivery_mode",
+  "decision_count",
+  "envelope_count",
+  "decision_manifest_json",
+  "response_json",
+  "envelope_manifest_json",
+  "response_hash",
+  "delivery_status",
+  "delivered_by",
+  "delivered_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "delivery_key",
+   "fieldtype": "Data",
+   "label": "Delivery Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "label": "Request ID",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "request_hash",
+   "fieldtype": "Data",
+   "label": "Request Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "endpoint",
+   "fieldtype": "Link",
+   "label": "Endpoint",
+   "options": "IONE Integration Endpoint",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_mode",
+   "fieldtype": "Select",
+   "label": "Delivery Mode",
+   "options": "Signed Pull\nOperator Reconciliation",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "decision_count",
+   "fieldtype": "Int",
+   "label": "Decision Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "envelope_count",
+   "fieldtype": "Int",
+   "label": "Envelope Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "decision_manifest_json",
+   "fieldtype": "Code",
+   "label": "Decision Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "response_json",
+   "fieldtype": "Long Text",
+   "label": "Response JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "envelope_manifest_json",
+   "fieldtype": "Code",
+   "label": "Envelope Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "response_hash",
+   "fieldtype": "Data",
+   "label": "Response Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "delivery_status",
+   "fieldtype": "Select",
+   "label": "Delivery Status",
+   "options": "Delivered\nInspected",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "delivered_by",
+   "fieldtype": "Link",
+   "label": "Delivered By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivered_at",
+   "fieldtype": "Datetime",
+   "label": "Delivered At",
+   "reqd": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Record Archive Delivery",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Integration Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Integration Operator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Integration Administrator",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Integration Operator",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "delivery_key,request_id,endpoint,source_system,hospital,delivery_status",
+ "allow_import": 0
+}

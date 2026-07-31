@@ -1,0 +1,434 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "safety_event_key",
+  "clinical_event",
+  "finding",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "patient",
+  "encounter",
+  "responsible_staff",
+  "event_time",
+  "event_type",
+  "severity",
+  "anonymous_report",
+  "near_miss",
+  "report_channel",
+  "status",
+  "narrative",
+  "immediate_action",
+  "reported_by",
+  "reported_at",
+  "investigation_summary",
+  "root_cause_analysis",
+  "improvement_action",
+  "verification_outcome",
+  "lessons_learned",
+  "closed_by",
+  "closed_at",
+  "medical_group",
+  "disease",
+  "surgery",
+  "drg",
+  "source_system",
+  "mapping_record",
+  "mapping_version",
+  "mapping_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "safety_event_key",
+   "fieldtype": "Data",
+   "label": "Safety Event Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "clinical_event",
+   "fieldtype": "Link",
+   "label": "Clinical Event",
+   "options": "IONE Clinical Quality Event",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "finding",
+   "fieldtype": "Link",
+   "label": "Finding",
+   "options": "IONE QC Finding"
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter",
+   "fieldtype": "Link",
+   "label": "Encounter",
+   "options": "IONE Encounter Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "event_time",
+   "fieldtype": "Datetime",
+   "label": "Event Time",
+   "reqd": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "event_type",
+   "fieldtype": "Data",
+   "label": "Event Type",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "Severity",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "anonymous_report",
+   "fieldtype": "Check",
+   "label": "Anonymous Report",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "near_miss",
+   "fieldtype": "Check",
+   "label": "Near Miss",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "report_channel",
+   "fieldtype": "Select",
+   "label": "Report Channel",
+   "options": "Clinical Integration\nStaff Portal\nAnonymous Portal\nImported",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Reported\nUnder Review\nConfirmed\nImproving\nClosed",
+   "default": "Reported",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "narrative",
+   "fieldtype": "Long Text",
+   "label": "Narrative",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "immediate_action",
+   "fieldtype": "Long Text",
+   "label": "Immediate Action",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reported_by",
+   "fieldtype": "Link",
+   "label": "Reported By",
+   "options": "User",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reported_at",
+   "fieldtype": "Datetime",
+   "label": "Reported At",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "investigation_summary",
+   "fieldtype": "Text Editor",
+   "label": "Investigation Summary"
+  },
+  {
+   "fieldname": "root_cause_analysis",
+   "fieldtype": "Text Editor",
+   "label": "Root Cause Analysis"
+  },
+  {
+   "fieldname": "improvement_action",
+   "fieldtype": "Text Editor",
+   "label": "Improvement Action"
+  },
+  {
+   "fieldname": "verification_outcome",
+   "fieldtype": "Text Editor",
+   "label": "Verification Outcome"
+  },
+  {
+   "fieldname": "lessons_learned",
+   "fieldtype": "Text Editor",
+   "label": "Lessons Learned"
+  },
+  {
+   "fieldname": "closed_by",
+   "fieldtype": "Link",
+   "label": "Closed By",
+   "options": "User",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "closed_at",
+   "fieldtype": "Datetime",
+   "label": "Closed At",
+   "permlevel": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Indicator Source System",
+   "options": "IONE Source System",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_record",
+   "fieldtype": "Link",
+   "label": "Indicator Mapping Record",
+   "options": "IONE Integration Mapping",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_version",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_checksum",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Checksum",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Safety Event",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "safety_event_key,event_type"
+}

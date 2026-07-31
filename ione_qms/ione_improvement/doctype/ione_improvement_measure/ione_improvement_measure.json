@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "measure_code",
+  "measure_type",
+  "measure",
+  "owner_user",
+  "planned_start",
+  "due_date",
+  "status",
+  "completion_evidence",
+  "completion_evidence_hash",
+  "cancellation_reason",
+  "standardization_candidate",
+  "effectiveness"
+ ],
+ "fields": [
+  {
+   "fieldname": "measure_code",
+   "fieldtype": "Data",
+   "label": "Measure Code",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "measure_type",
+   "fieldtype": "Select",
+   "label": "Measure Type",
+   "options": "Corrective\nPreventive\nStandardization",
+   "reqd": 1
+  },
+  {
+   "fieldname": "measure",
+   "fieldtype": "Small Text",
+   "label": "Measure",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "owner_user",
+   "fieldtype": "Link",
+   "label": "Owner User",
+   "options": "User"
+  },
+  {
+   "fieldname": "planned_start",
+   "fieldtype": "Date",
+   "label": "Planned Start"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Planned\nIn Progress\nCompleted\nCancelled",
+   "default": "Planned",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "completion_evidence",
+   "fieldtype": "Long Text",
+   "label": "Completion Evidence"
+  },
+  {
+   "fieldname": "completion_evidence_hash",
+   "fieldtype": "Data",
+   "label": "Completion Evidence Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "cancellation_reason",
+   "fieldtype": "Small Text",
+   "label": "Cancellation Reason"
+  },
+  {
+   "fieldname": "standardization_candidate",
+   "fieldtype": "Check",
+   "label": "Standardization Candidate"
+  },
+  {
+   "fieldname": "effectiveness",
+   "fieldtype": "Small Text",
+   "label": "Effectiveness"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Improvement Measure",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "istable": 1
+}

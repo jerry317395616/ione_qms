@@ -1,0 +1,422 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{policy_code}-{policy_version}",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "policy_code",
+  "policy_version",
+  "source_system",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "effective_from",
+  "effective_to",
+  "eligible_record_status",
+  "population_date_field",
+  "sample_rate_basis_points",
+  "minimum_sample_size",
+  "maximum_sample_size",
+  "expert_sample_rate_basis_points",
+  "expert_minimum_sample_size",
+  "expert_maximum_sample_size",
+  "rounding_mode",
+  "undersized_population_action",
+  "expert_non_pass_policy",
+  "archive_gate_enabled",
+  "mandatory_rule_manifest_json",
+  "mandatory_rule_manifest_hash",
+  "auto_allow_deterministic_pass",
+  "coder_allow_outcomes_json",
+  "expert_allow_outcomes_json",
+  "sampling_key_id",
+  "sampling_key_fingerprint",
+  "status",
+  "enabled",
+  "requested_by",
+  "requested_at",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment",
+  "approval_checksum",
+  "operated_by",
+  "operated_at",
+  "operation_comment",
+  "latest_operation"
+ ],
+ "fields": [
+  {
+   "fieldname": "policy_code",
+   "fieldtype": "Data",
+   "label": "Policy Code",
+   "reqd": 1,
+   "in_list_view": 1,
+   "length": 48
+  },
+  {
+   "fieldname": "policy_version",
+   "fieldtype": "Data",
+   "label": "Policy Version",
+   "reqd": 1,
+   "in_list_view": 1,
+   "length": 48
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Date",
+   "label": "Effective From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_to",
+   "fieldtype": "Date",
+   "label": "Effective To"
+  },
+  {
+   "fieldname": "eligible_record_status",
+   "fieldtype": "Select",
+   "label": "Eligible Record Status",
+   "options": "Final",
+   "reqd": 1
+  },
+  {
+   "fieldname": "population_date_field",
+   "fieldtype": "Select",
+   "label": "Population Date Field",
+   "options": "source_finalized_at",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sample_rate_basis_points",
+   "fieldtype": "Int",
+   "label": "Sample Rate (Basis Points)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "minimum_sample_size",
+   "fieldtype": "Int",
+   "label": "Minimum Sample Size",
+   "reqd": 1
+  },
+  {
+   "fieldname": "maximum_sample_size",
+   "fieldtype": "Int",
+   "label": "Maximum Sample Size",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expert_sample_rate_basis_points",
+   "fieldtype": "Int",
+   "label": "Expert Sample Rate (Basis Points)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expert_minimum_sample_size",
+   "fieldtype": "Int",
+   "label": "Expert Minimum Sample Size",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expert_maximum_sample_size",
+   "fieldtype": "Int",
+   "label": "Expert Maximum Sample Size",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rounding_mode",
+   "fieldtype": "Select",
+   "label": "Rounding Mode",
+   "options": "Ceiling\nFloor\nHalf Up",
+   "reqd": 1
+  },
+  {
+   "fieldname": "undersized_population_action",
+   "fieldtype": "Select",
+   "label": "Undersized Population Action",
+   "options": "Sample All\nFail",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expert_non_pass_policy",
+   "fieldtype": "Select",
+   "label": "Expert Non-pass Policy",
+   "options": "Always Expert Review\nSample Only",
+   "reqd": 1
+  },
+  {
+   "fieldname": "archive_gate_enabled",
+   "fieldtype": "Check",
+   "label": "Archive Gate Enabled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mandatory_rule_manifest_json",
+   "fieldtype": "Code",
+   "label": "Mandatory Rule Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "no_copy": 1,
+   "description": "Canonical sorted list of exact approved rule, rule_version, and rule_checksum identities. No clinical rule is implied."
+  },
+  {
+   "fieldname": "mandatory_rule_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Mandatory Rule Manifest Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "auto_allow_deterministic_pass",
+   "fieldtype": "Check",
+   "label": "Auto-Allow Deterministic Pass",
+   "reqd": 1,
+   "default": "0"
+  },
+  {
+   "fieldname": "coder_allow_outcomes_json",
+   "fieldtype": "Code",
+   "label": "Coder Allow Outcomes JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "expert_allow_outcomes_json",
+   "fieldtype": "Code",
+   "label": "Expert Allow Outcomes JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "sampling_key_id",
+   "fieldtype": "Data",
+   "label": "Sampling Key ID",
+   "reqd": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "sampling_key_fingerprint",
+   "fieldtype": "Data",
+   "label": "Sampling Key Fingerprint",
+   "reqd": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nApproved\nRejected\nSuspended\nRetired",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_checksum",
+   "fieldtype": "Data",
+   "label": "Approval Checksum",
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "operated_by",
+   "fieldtype": "Link",
+   "label": "Operated By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operated_at",
+   "fieldtype": "Datetime",
+   "label": "Operated At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "operation_comment",
+   "fieldtype": "Small Text",
+   "label": "Operation Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "latest_operation",
+   "fieldtype": "Link",
+   "label": "Latest Operation",
+   "options": "IONE Medical Record Sampling Policy Operation",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Record Sampling Policy",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Record Coder",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Expert Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "policy_code",
+ "search_fields": "policy_code,policy_version,source_system,hospital,campus,department,status",
+ "allow_import": 0
+}

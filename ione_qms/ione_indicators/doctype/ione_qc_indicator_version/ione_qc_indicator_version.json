@@ -1,0 +1,511 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{indicator}-{version}",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "indicator",
+  "active_parent_key",
+  "version",
+  "indicator_code_snapshot",
+  "indicator_name_snapshot",
+  "category_snapshot",
+  "definition_snapshot",
+  "parent_calculator_key_snapshot",
+  "parent_formula_json_snapshot",
+  "standard_snapshot",
+  "standard_version_snapshot",
+  "standard_clause_snapshot",
+  "standard_version_checksum_snapshot",
+  "standard_clause_hash_snapshot",
+  "authority_snapshot_json",
+  "authority_snapshot_hash",
+  "lineage_status",
+  "status",
+  "calculator_key",
+  "numerator_definition",
+  "denominator_definition",
+  "formula_json",
+  "dimensions_json",
+  "source_mapping",
+  "source_system_snapshot",
+  "mapping_version_snapshot",
+  "mapping_checksum_snapshot",
+  "query_contract_hash",
+  "physical_query_contract_json",
+  "physical_query_contract_hash",
+  "schema_signature_hash",
+  "calculator_version_snapshot",
+  "calculator_code_hash",
+  "publication_contract_json",
+  "publication_checksum",
+  "calculation_frequency",
+  "rolling_window_days",
+  "unit",
+  "multiplier",
+  "precision",
+  "target_value",
+  "target_min",
+  "target_max",
+  "warning_threshold",
+  "critical_threshold",
+  "direction",
+  "effective_from",
+  "effective_to",
+  "checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "indicator",
+   "fieldtype": "Link",
+   "label": "Indicator",
+   "options": "IONE QC Indicator",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1,
+   "read_only_depends_on": "eval:!doc.__islocal"
+  },
+  {
+   "fieldname": "active_parent_key",
+   "fieldtype": "Data",
+   "label": "Active Parent Key",
+   "hidden": 1,
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1,
+   "length": 32
+  },
+  {
+   "fieldname": "indicator_code_snapshot",
+   "fieldtype": "Data",
+   "label": "Indicator Code Snapshot",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicator_name_snapshot",
+   "fieldtype": "Data",
+   "label": "Indicator Name Snapshot",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "category_snapshot",
+   "fieldtype": "Data",
+   "label": "Category Snapshot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "definition_snapshot",
+   "fieldtype": "Text Editor",
+   "label": "Definition Snapshot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "parent_calculator_key_snapshot",
+   "fieldtype": "Data",
+   "label": "Parent Calculator Key Snapshot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "parent_formula_json_snapshot",
+   "fieldtype": "Code",
+   "label": "Parent Formula JSON Snapshot",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_snapshot",
+   "fieldtype": "Link",
+   "label": "Standard Snapshot",
+   "options": "IONE QC Standard",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_version_snapshot",
+   "fieldtype": "Link",
+   "label": "Standard Version Snapshot",
+   "options": "IONE QC Standard Version",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_clause_snapshot",
+   "fieldtype": "Link",
+   "label": "Standard Clause Snapshot",
+   "options": "IONE QC Standard Clause",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_version_checksum_snapshot",
+   "fieldtype": "Data",
+   "label": "Standard Version Checksum Snapshot",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "standard_clause_hash_snapshot",
+   "fieldtype": "Data",
+   "label": "Standard Clause Hash Snapshot",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "authority_snapshot_json",
+   "fieldtype": "Long Text",
+   "label": "Authority Snapshot JSON",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "authority_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Authority Snapshot Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "lineage_status",
+   "fieldtype": "Select",
+   "label": "Lineage Status",
+   "options": "Verified\nQuarantined",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nUnder Review\nPublished\nRetired",
+   "default": "Draft",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "calculator_key",
+   "fieldtype": "Data",
+   "label": "Calculator Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "numerator_definition",
+   "fieldtype": "Text Editor",
+   "label": "Numerator Definition"
+  },
+  {
+   "fieldname": "denominator_definition",
+   "fieldtype": "Text Editor",
+   "label": "Denominator Definition"
+  },
+  {
+   "fieldname": "formula_json",
+   "fieldtype": "Code",
+   "label": "Formula JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "dimensions_json",
+   "fieldtype": "Code",
+   "label": "Dimensions JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "source_mapping",
+   "fieldtype": "Link",
+   "label": "Source Mapping",
+   "options": "IONE Integration Mapping",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_system_snapshot",
+   "fieldtype": "Link",
+   "label": "Source System Snapshot",
+   "options": "IONE Source System",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_version_snapshot",
+   "fieldtype": "Data",
+   "label": "Mapping Version Snapshot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_checksum_snapshot",
+   "fieldtype": "Data",
+   "label": "Mapping Checksum Snapshot",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "query_contract_hash",
+   "fieldtype": "Data",
+   "label": "Query Contract Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "physical_query_contract_json",
+   "fieldtype": "Long Text",
+   "label": "Physical Query Contract JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "physical_query_contract_hash",
+   "fieldtype": "Data",
+   "label": "Physical Query Contract Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "schema_signature_hash",
+   "fieldtype": "Data",
+   "label": "Schema Signature Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "calculator_version_snapshot",
+   "fieldtype": "Data",
+   "label": "Calculator Version Snapshot",
+   "read_only": 1
+  },
+  {
+   "fieldname": "calculator_code_hash",
+   "fieldtype": "Data",
+   "label": "Calculator Code Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "publication_contract_json",
+   "fieldtype": "Long Text",
+   "label": "Publication Contract JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "publication_checksum",
+   "fieldtype": "Data",
+   "label": "Publication Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "calculation_frequency",
+   "fieldtype": "Select",
+   "label": "Calculation Frequency",
+   "options": "Daily\nWeekly\nMonthly\nQuarterly\nAnnual\nRolling",
+   "default": "Daily",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "rolling_window_days",
+   "fieldtype": "Int",
+   "label": "Rolling Window Days"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "label": "Unit"
+  },
+  {
+   "fieldname": "multiplier",
+   "fieldtype": "Float",
+   "label": "Multiplier",
+   "default": "100"
+  },
+  {
+   "fieldname": "precision",
+   "fieldtype": "Int",
+   "label": "Precision",
+   "default": "2"
+  },
+  {
+   "fieldname": "target_value",
+   "fieldtype": "Float",
+   "label": "Target Value"
+  },
+  {
+   "fieldname": "target_min",
+   "fieldtype": "Float",
+   "label": "Target Minimum"
+  },
+  {
+   "fieldname": "target_max",
+   "fieldtype": "Float",
+   "label": "Target Maximum"
+  },
+  {
+   "fieldname": "warning_threshold",
+   "fieldtype": "Float",
+   "label": "Warning Threshold"
+  },
+  {
+   "fieldname": "critical_threshold",
+   "fieldtype": "Float",
+   "label": "Critical Threshold"
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "Direction",
+   "options": "Higher is Better\nLower is Better\nTarget Range"
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Date",
+   "label": "Effective From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_to",
+   "fieldtype": "Date",
+   "label": "Effective To"
+  },
+  {
+   "fieldname": "checksum",
+   "fieldtype": "Data",
+   "label": "Checksum",
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Indicators",
+ "name": "IONE QC Indicator Version",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "indicator,version,checksum"
+}

@@ -1,0 +1,307 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:evaluation_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "evaluation_key",
+  "run_key",
+  "policy",
+  "policy_checksum",
+  "as_of_date",
+  "window_start",
+  "window_end",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "grouping_mode",
+  "group_key",
+  "rule",
+  "threshold",
+  "occurrence_count",
+  "outcome",
+  "finding_links_json",
+  "finding_set_hash",
+  "evaluation_hash",
+  "trigger_source",
+  "evaluated_by",
+  "evaluated_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "evaluation_key",
+   "fieldtype": "Data",
+   "label": "Evaluation Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "run_key",
+   "fieldtype": "Data",
+   "label": "Run Key",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Finding Recurrence Policy",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "policy_checksum",
+   "fieldtype": "Data",
+   "label": "Policy Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "as_of_date",
+   "fieldtype": "Date",
+   "label": "As-of Date",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "window_start",
+   "fieldtype": "Date",
+   "label": "Window Start",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "window_end",
+   "fieldtype": "Date",
+   "label": "Window End",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "grouping_mode",
+   "fieldtype": "Data",
+   "label": "Grouping Mode",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "group_key",
+   "fieldtype": "Data",
+   "label": "Group Key",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Link",
+   "label": "Rule",
+   "options": "IONE QC Rule",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "threshold",
+   "fieldtype": "Int",
+   "label": "Threshold",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "occurrence_count",
+   "fieldtype": "Int",
+   "label": "Occurrence Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "outcome",
+   "fieldtype": "Select",
+   "label": "Outcome",
+   "options": "Below Threshold\nTriggered",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "finding_links_json",
+   "fieldtype": "Code",
+   "label": "Finding Links JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "finding_set_hash",
+   "fieldtype": "Data",
+   "label": "Finding Set Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "evaluation_hash",
+   "fieldtype": "Data",
+   "label": "Evaluation Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "trigger_source",
+   "fieldtype": "Select",
+   "label": "Trigger Source",
+   "options": "Manual\nScheduled",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "evaluated_by",
+   "fieldtype": "Link",
+   "label": "Evaluated By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "evaluated_at",
+   "fieldtype": "Datetime",
+   "label": "Evaluated At",
+   "reqd": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Finding Recurrence Evaluation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "evaluation_key,run_key,policy,rule",
+ "allow_import": 0
+}

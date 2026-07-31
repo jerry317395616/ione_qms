@@ -1,0 +1,400 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "idempotency_key",
+  "event_type",
+  "event_time",
+  "source_system",
+  "endpoint",
+  "source_namespace",
+  "scope_policy_hash",
+  "mapping_record",
+  "mapping_code",
+  "mapping_version",
+  "mapping_checksum",
+  "mapping_snapshot",
+  "source_record_type",
+  "source_record_id",
+  "source_version",
+  "patient_reference",
+  "encounter_reference",
+  "department_reference",
+  "patient_index",
+  "encounter_index",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "responsible_staff",
+  "medical_staff",
+  "payload_reference",
+  "payload_json",
+  "processing_status",
+  "error_message",
+  "medical_group",
+  "disease",
+  "surgery",
+  "drg"
+ ],
+ "fields": [
+  {
+   "fieldname": "idempotency_key",
+   "fieldtype": "Data",
+   "label": "Idempotency Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "event_type",
+   "fieldtype": "Data",
+   "label": "Event Type",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "event_time",
+   "fieldtype": "Datetime",
+   "label": "Event Time",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "endpoint",
+   "fieldtype": "Link",
+   "label": "Integration Endpoint",
+   "options": "IONE Integration Endpoint",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_namespace",
+   "fieldtype": "Data",
+   "label": "Source Namespace",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "scope_policy_hash",
+   "fieldtype": "Data",
+   "label": "Scope Policy Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "mapping_record",
+   "fieldtype": "Link",
+   "label": "Mapping Record",
+   "options": "IONE Integration Mapping",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_code",
+   "fieldtype": "Data",
+   "label": "Mapping Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_version",
+   "fieldtype": "Data",
+   "label": "Mapping Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_checksum",
+   "fieldtype": "Data",
+   "label": "Mapping Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "mapping_snapshot",
+   "fieldtype": "Long Text",
+   "label": "Mapping Snapshot",
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 2
+  },
+  {
+   "fieldname": "source_record_type",
+   "fieldtype": "Data",
+   "label": "Source Record Type",
+   "reqd": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "source_record_id",
+   "fieldtype": "Data",
+   "label": "Source Record ID",
+   "reqd": 1,
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "source_version",
+   "fieldtype": "Data",
+   "label": "Source Version",
+   "reqd": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "patient_reference",
+   "fieldtype": "Data",
+   "label": "Patient Reference",
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "encounter_reference",
+   "fieldtype": "Data",
+   "label": "Encounter Reference",
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "department_reference",
+   "fieldtype": "Data",
+   "label": "Department Reference",
+   "length": 200
+  },
+  {
+   "fieldname": "patient_index",
+   "fieldtype": "Link",
+   "label": "Patient Index",
+   "options": "IONE Patient Index",
+   "search_index": 1
+  },
+  {
+   "fieldname": "encounter_index",
+   "fieldtype": "Link",
+   "label": "Encounter Index",
+   "options": "IONE Encounter Index",
+   "search_index": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1
+  },
+  {
+   "fieldname": "medical_staff",
+   "fieldtype": "Link",
+   "label": "Medical Staff",
+   "options": "IONE Medical Staff"
+  },
+  {
+   "fieldname": "payload_reference",
+   "fieldtype": "Link",
+   "label": "Payload Reference",
+   "options": "IONE Integration Message"
+  },
+  {
+   "fieldname": "payload_json",
+   "fieldtype": "Long Text",
+   "label": "Payload JSON",
+   "no_copy": 1,
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "processing_status",
+   "fieldtype": "Select",
+   "label": "Processing Status",
+   "options": "Pending\nProcessing\nCompleted\nError",
+   "default": "Pending",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Small Text",
+   "label": "Error Message",
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Clinical Quality Event",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "idempotency_key,event_type"
+}

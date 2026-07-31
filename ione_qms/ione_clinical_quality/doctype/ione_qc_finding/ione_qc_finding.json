@@ -1,0 +1,420 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "deduplication_key",
+  "title",
+  "description",
+  "status",
+  "severity",
+  "event",
+  "execution",
+  "rule",
+  "rule_version",
+  "standard",
+  "standard_clause",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "patient",
+  "encounter",
+  "responsible_staff",
+  "detected_at",
+  "due_date",
+  "ai_origin",
+  "ai_task",
+  "ai_candidate",
+  "evidence_hash",
+  "medical_group",
+  "disease",
+  "surgery",
+  "drg",
+  "source_system",
+  "mapping_record",
+  "mapping_version",
+  "mapping_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "deduplication_key",
+   "fieldtype": "Data",
+   "label": "Deduplication Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Candidate\nPending QC Review\nConfirmed\nAppealed\nAppeal Approved\nAppeal Rejected\nPending Rectification\nRectifying\nPending Department Approval\nPending Functional Review\nRework\nClosed",
+   "default": "Candidate",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "Severity",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "default": "Medium",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "IONE Clinical Quality Event"
+  },
+  {
+   "fieldname": "execution",
+   "fieldtype": "Link",
+   "label": "Execution",
+   "options": "IONE QC Execution"
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Link",
+   "label": "Rule",
+   "options": "IONE QC Rule"
+  },
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version"
+  },
+  {
+   "fieldname": "standard",
+   "fieldtype": "Link",
+   "label": "Standard",
+   "options": "IONE QC Standard"
+  },
+  {
+   "fieldname": "standard_clause",
+   "fieldtype": "Link",
+   "label": "Standard Clause",
+   "options": "IONE QC Standard Clause"
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter",
+   "fieldtype": "Link",
+   "label": "Encounter",
+   "options": "IONE Encounter Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "detected_at",
+   "fieldtype": "Datetime",
+   "label": "Detected At",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date",
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "ai_origin",
+   "fieldtype": "Check",
+   "label": "AI Origin",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ai_task",
+   "fieldtype": "Link",
+   "label": "AI Task",
+   "options": "IONE AI Analysis Task",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ai_candidate",
+   "fieldtype": "Link",
+   "label": "AI Candidate",
+   "options": "IONE AI Candidate Finding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "evidence_hash",
+   "fieldtype": "Data",
+   "label": "Evidence Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Indicator Source System",
+   "options": "IONE Source System",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_record",
+   "fieldtype": "Link",
+   "label": "Indicator Mapping Record",
+   "options": "IONE Integration Mapping",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_version",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_checksum",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Checksum",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE QC Finding",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Coder",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Expert Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "title",
+ "search_fields": "title,deduplication_key"
+}

@@ -1,0 +1,388 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "finding",
+  "execution",
+  "evidence_type",
+  "source_system_link",
+  "source_system",
+  "source_record_type",
+  "source_record_id",
+  "source_version",
+  "source_reference",
+  "field_path",
+  "operator",
+  "expected_json",
+  "actual_json",
+  "matched",
+  "evidence_text",
+  "evidence_json",
+  "context_summary",
+  "captured_at",
+  "recorded_at",
+  "rule_version",
+  "standard_clause",
+  "evidence_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "finding",
+   "fieldtype": "Link",
+   "label": "Finding",
+   "options": "IONE QC Finding",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "execution",
+   "fieldtype": "Link",
+   "label": "Execution",
+   "options": "IONE QC Execution"
+  },
+  {
+   "fieldname": "evidence_type",
+   "fieldtype": "Select",
+   "label": "Evidence Type",
+   "options": "Rule Evidence\nSource Snapshot\nWorkflow Transition\nReview Note\nOther",
+   "default": "Rule Evidence"
+  },
+  {
+   "fieldname": "source_system_link",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System"
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Data",
+   "label": "Source System"
+  },
+  {
+   "fieldname": "source_record_type",
+   "fieldtype": "Data",
+   "label": "Source Record Type",
+   "length": 200
+  },
+  {
+   "fieldname": "source_record_id",
+   "fieldtype": "Data",
+   "label": "Source Record ID",
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "source_version",
+   "fieldtype": "Data",
+   "label": "Source Version",
+   "length": 200
+  },
+  {
+   "fieldname": "source_reference",
+   "fieldtype": "Data",
+   "label": "Source Reference",
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "field_path",
+   "fieldtype": "Data",
+   "label": "Field Path"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Data",
+   "label": "Operator"
+  },
+  {
+   "fieldname": "expected_json",
+   "fieldtype": "Code",
+   "label": "Expected JSON",
+   "options": "JSON",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "actual_json",
+   "fieldtype": "Code",
+   "label": "Actual JSON",
+   "options": "JSON",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "matched",
+   "fieldtype": "Check",
+   "label": "Matched"
+  },
+  {
+   "fieldname": "evidence_text",
+   "fieldtype": "Long Text",
+   "label": "Evidence Text",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "evidence_json",
+   "fieldtype": "Long Text",
+   "label": "Evidence JSON",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "context_summary",
+   "fieldtype": "Small Text",
+   "label": "Context Summary"
+  },
+  {
+   "fieldname": "captured_at",
+   "fieldtype": "Datetime",
+   "label": "Captured At"
+  },
+  {
+   "fieldname": "recorded_at",
+   "fieldtype": "Datetime",
+   "label": "Recorded At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version"
+  },
+  {
+   "fieldname": "standard_clause",
+   "fieldtype": "Link",
+   "label": "Standard Clause",
+   "options": "IONE QC Standard Clause"
+  },
+  {
+   "fieldname": "evidence_hash",
+   "fieldtype": "Data",
+   "label": "Evidence Hash",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE QC Finding Evidence",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Coder",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Expert Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "finding,evidence_hash"
+}

@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "receipt_key",
+  "target_doctype",
+  "target_name",
+  "outcome",
+  "reason_code",
+  "previous_checksum",
+  "authority_snapshot_hash",
+  "migration_run_id",
+  "recorded_at",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "receipt_key",
+   "fieldtype": "Data",
+   "label": "Receipt Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "target_doctype",
+   "fieldtype": "Data",
+   "label": "Target DocType",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "target_name",
+   "fieldtype": "Data",
+   "label": "Target Name",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "outcome",
+   "fieldtype": "Select",
+   "label": "Outcome",
+   "options": "Backfilled\nQuarantined",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "reason_code",
+   "fieldtype": "Data",
+   "label": "Reason Code",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_checksum",
+   "fieldtype": "Data",
+   "label": "Previous Checksum",
+   "read_only": 1
+  },
+  {
+   "fieldname": "authority_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Authority Snapshot Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "migration_run_id",
+   "fieldtype": "Data",
+   "label": "Migration Run ID",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "recorded_at",
+   "fieldtype": "Datetime",
+   "label": "Recorded At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Quality Standards",
+ "name": "IONE Definition Lineage Receipt",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "target_doctype,target_name,outcome,reason_code,migration_run_id"
+}

@@ -1,0 +1,362 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "encounter_key",
+  "identity_key_contract",
+  "stable_source_key",
+  "source_namespace",
+  "encounter_no",
+  "source_system",
+  "source_encounter_id",
+  "patient",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "encounter_type",
+  "status",
+  "admission_time",
+  "discharge_time",
+  "responsible_staff",
+  "medical_staff",
+  "applied_source_version",
+  "applied_version_strategy",
+  "applied_event_time",
+  "applied_payload_hash",
+  "last_synced_at",
+  "medical_group",
+  "disease",
+  "surgery",
+  "drg",
+  "mapping_record",
+  "mapping_version",
+  "mapping_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "encounter_key",
+   "fieldtype": "Data",
+   "label": "Encounter Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "identity_key_contract",
+   "fieldtype": "Data",
+   "label": "Identity Key Contract",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stable_source_key",
+   "fieldtype": "Data",
+   "label": "Stable Source Key",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64,
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "source_namespace",
+   "fieldtype": "Data",
+   "label": "Source Namespace",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "encounter_no",
+   "fieldtype": "Data",
+   "label": "Encounter No",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_encounter_id",
+   "fieldtype": "Data",
+   "label": "Source Encounter ID",
+   "reqd": 1,
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter_type",
+   "fieldtype": "Select",
+   "label": "Encounter Type",
+   "options": "Outpatient\nEmergency\nInpatient\nDay Care\nDay Surgery\nObservation\nOther",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nDischarged\nCancelled\nClosed",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "admission_time",
+   "fieldtype": "Datetime",
+   "label": "Admission Time",
+   "search_index": 1
+  },
+  {
+   "fieldname": "discharge_time",
+   "fieldtype": "Datetime",
+   "label": "Discharge Time",
+   "search_index": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1
+  },
+  {
+   "fieldname": "medical_staff",
+   "fieldtype": "Link",
+   "label": "Medical Staff",
+   "options": "IONE Medical Staff"
+  },
+  {
+   "fieldname": "applied_source_version",
+   "fieldtype": "Data",
+   "label": "Applied Source Version",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "applied_version_strategy",
+   "fieldtype": "Data",
+   "label": "Applied Version Strategy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "applied_event_time",
+   "fieldtype": "Datetime",
+   "label": "Applied Event Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "applied_payload_hash",
+   "fieldtype": "Data",
+   "label": "Applied Payload Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "last_synced_at",
+   "fieldtype": "Datetime",
+   "label": "Last Synced At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_record",
+   "fieldtype": "Link",
+   "label": "Indicator Mapping Record",
+   "options": "IONE Integration Mapping",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_version",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_checksum",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Checksum",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Foundation",
+ "name": "IONE Encounter Index",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "title_field": "encounter_key",
+ "search_fields": "encounter_key"
+}

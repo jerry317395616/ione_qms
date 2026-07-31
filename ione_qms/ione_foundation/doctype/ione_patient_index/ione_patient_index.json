@@ -1,0 +1,265 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "patient_key",
+  "identity_key_contract",
+  "stable_source_key",
+  "tenant_hospital",
+  "source_namespace",
+  "source_system",
+  "source_patient_id",
+  "patient_name",
+  "gender",
+  "date_of_birth",
+  "identification_hash",
+  "phone_hash",
+  "status",
+  "applied_source_version",
+  "applied_version_strategy",
+  "applied_event_time",
+  "applied_payload_hash",
+  "last_synced_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "patient_key",
+   "fieldtype": "Data",
+   "label": "Patient Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "identity_key_contract",
+   "fieldtype": "Data",
+   "label": "Identity Key Contract",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stable_source_key",
+   "fieldtype": "Data",
+   "label": "Stable Source Key",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64,
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "tenant_hospital",
+   "fieldtype": "Link",
+   "label": "Tenant Hospital",
+   "options": "IONE Hospital",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_namespace",
+   "fieldtype": "Data",
+   "label": "Source Namespace",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_patient_id",
+   "fieldtype": "Data",
+   "label": "Source Patient ID",
+   "reqd": 1,
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "patient_name",
+   "fieldtype": "Data",
+   "label": "Patient Name",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "\nMale\nFemale\nUnknown"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "identification_hash",
+   "fieldtype": "Data",
+   "label": "Identification Hash",
+   "read_only": 1,
+   "permlevel": 9,
+   "mask": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "phone_hash",
+   "fieldtype": "Data",
+   "label": "Phone Hash",
+   "read_only": 1,
+   "permlevel": 9,
+   "mask": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nMerged\nInactive",
+   "default": "Active"
+  },
+  {
+   "fieldname": "applied_source_version",
+   "fieldtype": "Data",
+   "label": "Applied Source Version",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "applied_version_strategy",
+   "fieldtype": "Data",
+   "label": "Applied Version Strategy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "applied_event_time",
+   "fieldtype": "Datetime",
+   "label": "Applied Event Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "applied_payload_hash",
+   "fieldtype": "Data",
+   "label": "Applied Payload Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "last_synced_at",
+   "fieldtype": "Datetime",
+   "label": "Last Synced At",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Foundation",
+ "name": "IONE Patient Index",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "title_field": "patient_key",
+ "search_fields": "patient_key"
+}

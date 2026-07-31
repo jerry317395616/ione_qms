@@ -1,0 +1,312 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:authorization_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "authorization_key",
+  "request_hmac_key_id",
+  "indicator_result",
+  "result_series_key",
+  "result_revision",
+  "result_checksum",
+  "input_receipt_hash",
+  "source_manifest_count",
+  "purpose",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "max_source_records",
+  "max_reproductions",
+  "requested_ttl_hours",
+  "requested_by",
+  "requested_at",
+  "request_checksum",
+  "authorization_hmac_key_id",
+  "status",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment",
+  "expires_at",
+  "used_reproductions",
+  "last_accessed_at",
+  "authorization_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "authorization_key",
+   "fieldtype": "Data",
+   "label": "Authorization Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "request_hmac_key_id",
+   "fieldtype": "Data",
+   "label": "Request HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "indicator_result",
+   "fieldtype": "Link",
+   "label": "Indicator Result",
+   "options": "IONE Indicator Result",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "result_series_key",
+   "fieldtype": "Data",
+   "label": "Result Series Key",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "result_revision",
+   "fieldtype": "Int",
+   "label": "Result Revision",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "result_checksum",
+   "fieldtype": "Data",
+   "label": "Result Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "input_receipt_hash",
+   "fieldtype": "Data",
+   "label": "Input Receipt Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_manifest_count",
+   "fieldtype": "Int",
+   "label": "Source Manifest Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Small Text",
+   "label": "Purpose",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "max_source_records",
+   "fieldtype": "Int",
+   "label": "Maximum Source Records",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "max_reproductions",
+   "fieldtype": "Int",
+   "label": "Maximum Reproductions",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_ttl_hours",
+   "fieldtype": "Int",
+   "label": "Requested Lifetime Hours",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "request_checksum",
+   "fieldtype": "Data",
+   "label": "Request Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "authorization_hmac_key_id",
+   "fieldtype": "Data",
+   "label": "Authorization HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending Review\nApproved\nRejected\nExhausted",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expires_at",
+   "fieldtype": "Datetime",
+   "label": "Expires At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "used_reproductions",
+   "fieldtype": "Int",
+   "label": "Used Reproductions",
+   "default": "0",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_accessed_at",
+   "fieldtype": "Datetime",
+   "label": "Last Accessed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "authorization_checksum",
+   "fieldtype": "Data",
+   "label": "Authorization Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Indicators",
+ "name": "IONE Indicator Historical Audit Authorization",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "authorization_key,indicator_result,status,requested_by",
+ "allow_import": 0
+}

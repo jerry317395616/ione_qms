@@ -1,0 +1,238 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:receipt_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "receipt_key",
+  "request_id_hash",
+  "hmac_key_id",
+  "reader_user",
+  "purpose_code",
+  "reference_doctype",
+  "reference_hash",
+  "field_manifest_json",
+  "field_manifest_hash",
+  "disclosure_policy",
+  "policy_checksum",
+  "authorized_scope_json",
+  "authorization_basis_json",
+  "authorization_basis_hash",
+  "role_snapshot_json",
+  "role_snapshot_hash",
+  "session_hash",
+  "accessed_at",
+  "result_code",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "receipt_key",
+   "fieldtype": "Data",
+   "label": "Receipt Key",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "request_id_hash",
+   "fieldtype": "Data",
+   "label": "Request ID Hash",
+   "reqd": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "reader_user",
+   "fieldtype": "Link",
+   "label": "Reader User",
+   "options": "User",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "purpose_code",
+   "fieldtype": "Data",
+   "label": "Purpose Code",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Reference DocType",
+   "options": "DocType",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reference_hash",
+   "fieldtype": "Data",
+   "label": "Reference Hash",
+   "reqd": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "field_manifest_json",
+   "fieldtype": "Code",
+   "label": "Field Manifest JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "field_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Field Manifest Hash",
+   "reqd": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "disclosure_policy",
+   "fieldtype": "Link",
+   "label": "Disclosure Policy",
+   "options": "IONE PHI Disclosure Policy",
+   "reqd": 1
+  },
+  {
+   "fieldname": "policy_checksum",
+   "fieldtype": "Data",
+   "label": "Policy Checksum",
+   "reqd": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "authorized_scope_json",
+   "fieldtype": "Code",
+   "label": "Authorized Scope JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "authorization_basis_json",
+   "fieldtype": "Code",
+   "label": "Authorization Basis JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "authorization_basis_hash",
+   "fieldtype": "Data",
+   "label": "Authorization Basis Hash",
+   "reqd": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "role_snapshot_json",
+   "fieldtype": "Code",
+   "label": "Role Snapshot JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "role_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Role Snapshot Hash",
+   "reqd": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "session_hash",
+   "fieldtype": "Data",
+   "label": "Session Hash",
+   "reqd": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "accessed_at",
+   "fieldtype": "Datetime",
+   "label": "Accessed At",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "result_code",
+   "fieldtype": "Select",
+   "label": "Result Code",
+   "options": "AUTHORIZED",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE PHI Access Receipt",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "receipt_key,request_id_hash,reference_hash"
+}

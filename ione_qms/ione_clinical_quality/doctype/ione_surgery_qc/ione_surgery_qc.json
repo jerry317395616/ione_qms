@@ -1,0 +1,706 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "surgery_key",
+  "event",
+  "finding",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "patient",
+  "encounter",
+  "responsible_staff",
+  "surgery_no",
+  "surgery_type",
+  "surgery_level",
+  "surgery_time",
+  "surgeon",
+  "anesthesia_type",
+  "risk_level",
+  "compliant",
+  "unplanned_return",
+  "complication",
+  "status",
+  "details_json",
+  "procedure_code",
+  "surgery_phase",
+  "source_system",
+  "source_record_type",
+  "source_record_id_hash",
+  "source_version",
+  "source_event_time",
+  "source_finalized_at",
+  "record_snapshot_hash",
+  "procedure_policy",
+  "surgery_authorization",
+  "staff_qualification",
+  "mdt_record",
+  "safety_checklist",
+  "emergency_exception",
+  "governance_state",
+  "governance_checked_at",
+  "governance_reason_codes_json",
+  "governance_checksum",
+  "preanesthesia_status",
+  "preanesthesia_completed_at",
+  "intraoperative_monitoring_status",
+  "monitoring_started_at",
+  "monitoring_completed_at",
+  "recovery_status",
+  "recovery_completed_at",
+  "postoperative_followup_status",
+  "postoperative_followup_completed_at",
+  "cancellation_status",
+  "cancellation_reason_code",
+  "cancelled_at",
+  "unplanned_surgery_status",
+  "unplanned_surgery",
+  "unplanned_surgery_reason_code",
+  "unplanned_return_status",
+  "unplanned_return_at",
+  "complication_status",
+  "complication_code",
+  "complication_at",
+  "mortality_status",
+  "mortality_at",
+  "mortality",
+  "medical_group",
+  "disease",
+  "surgery",
+  "drg",
+  "mapping_record",
+  "mapping_version",
+  "mapping_checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "surgery_key",
+   "fieldtype": "Data",
+   "label": "Surgery Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "IONE Clinical Quality Event",
+   "read_only": 1
+  },
+  {
+   "fieldname": "finding",
+   "fieldtype": "Link",
+   "label": "Finding",
+   "options": "IONE QC Finding"
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter",
+   "fieldtype": "Link",
+   "label": "Encounter",
+   "options": "IONE Encounter Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgery_no",
+   "fieldtype": "Data",
+   "label": "Surgery No",
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgery_type",
+   "fieldtype": "Data",
+   "label": "Surgery Type",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgery_level",
+   "fieldtype": "Select",
+   "label": "Surgery Level",
+   "in_standard_filter": 1,
+   "options": "Level I\nLevel II\nLevel III\nLevel IV",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgery_time",
+   "fieldtype": "Datetime",
+   "label": "Surgery Time",
+   "reqd": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgeon",
+   "fieldtype": "Link",
+   "label": "Surgeon",
+   "options": "IONE Medical Staff",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "anesthesia_type",
+   "fieldtype": "Data",
+   "label": "Anesthesia Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "risk_level",
+   "fieldtype": "Select",
+   "label": "Risk Level",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "read_only": 1
+  },
+  {
+   "fieldname": "compliant",
+   "fieldtype": "Check",
+   "label": "Compliant",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unplanned_return",
+   "fieldtype": "Check",
+   "label": "Unplanned Return",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "complication",
+   "fieldtype": "Check",
+   "label": "Complication",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nPassed\nFailed\nNeeds Review",
+   "default": "Pending",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "details_json",
+   "fieldtype": "Long Text",
+   "label": "Details JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "procedure_code",
+   "fieldtype": "Data",
+   "label": "Procedure Code",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery_phase",
+   "fieldtype": "Select",
+   "label": "Surgery Phase",
+   "options": "Scheduled\nOccurred\nPostoperative Finalized\nCancelled",
+   "reqd": 1,
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_record_type",
+   "fieldtype": "Data",
+   "label": "Source Record Type",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "source_record_id_hash",
+   "fieldtype": "Data",
+   "label": "Source Record ID Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_version",
+   "fieldtype": "Data",
+   "label": "Source Version",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "source_event_time",
+   "fieldtype": "Datetime",
+   "label": "Source Event Time",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_finalized_at",
+   "fieldtype": "Datetime",
+   "label": "Source Finalized At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "record_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Record Snapshot Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "procedure_policy",
+   "fieldtype": "Link",
+   "label": "Procedure Policy",
+   "options": "IONE Surgery Procedure Policy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "surgery_authorization",
+   "fieldtype": "Link",
+   "label": "Surgery Authorization",
+   "options": "IONE Surgery Authorization",
+   "read_only": 1
+  },
+  {
+   "fieldname": "staff_qualification",
+   "fieldtype": "Link",
+   "label": "Staff Qualification",
+   "options": "IONE Staff Qualification",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mdt_record",
+   "fieldtype": "Link",
+   "label": "MDT Record",
+   "options": "IONE Surgery MDT Record",
+   "read_only": 1
+  },
+  {
+   "fieldname": "safety_checklist",
+   "fieldtype": "Link",
+   "label": "Safety Checklist",
+   "options": "IONE Surgery Safety Checklist",
+   "read_only": 1
+  },
+  {
+   "fieldname": "emergency_exception",
+   "fieldtype": "Link",
+   "label": "Emergency Exception",
+   "options": "IONE Surgery Emergency Exception",
+   "read_only": 1
+  },
+  {
+   "fieldname": "governance_state",
+   "fieldtype": "Select",
+   "label": "Governance State",
+   "options": "Pending Prerequisites\nPassed\nNoncompliant\nBlocked\nCancelled",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "governance_checked_at",
+   "fieldtype": "Datetime",
+   "label": "Governance Checked At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "governance_reason_codes_json",
+   "fieldtype": "Long Text",
+   "label": "Governance Reason Codes JSON",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "governance_checksum",
+   "fieldtype": "Data",
+   "label": "Governance Checksum",
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "preanesthesia_status",
+   "fieldtype": "Select",
+   "label": "Pre-anesthesia Assessment",
+   "options": "Not Applicable\nPending\nCompleted\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "preanesthesia_completed_at",
+   "fieldtype": "Datetime",
+   "label": "Pre-anesthesia Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "intraoperative_monitoring_status",
+   "fieldtype": "Select",
+   "label": "Intraoperative Monitoring",
+   "options": "Not Applicable\nPending\nCompleted\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "monitoring_started_at",
+   "fieldtype": "Datetime",
+   "label": "Monitoring Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "monitoring_completed_at",
+   "fieldtype": "Datetime",
+   "label": "Monitoring Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovery_status",
+   "fieldtype": "Select",
+   "label": "Post-anesthesia Recovery",
+   "options": "Not Applicable\nPending\nCompleted\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovery_completed_at",
+   "fieldtype": "Datetime",
+   "label": "Recovery Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "postoperative_followup_status",
+   "fieldtype": "Select",
+   "label": "Postoperative Follow-up",
+   "options": "Not Applicable\nPending\nCompleted\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "postoperative_followup_completed_at",
+   "fieldtype": "Datetime",
+   "label": "Postoperative Follow-up Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancellation_status",
+   "fieldtype": "Select",
+   "label": "Cancellation Status",
+   "options": "Not Cancelled\nConfirmed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancellation_reason_code",
+   "fieldtype": "Data",
+   "label": "Cancellation Reason Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancelled_at",
+   "fieldtype": "Datetime",
+   "label": "Cancelled At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unplanned_surgery_status",
+   "fieldtype": "Select",
+   "label": "Unplanned Surgery Status",
+   "options": "Not Observed\nNo\nYes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unplanned_surgery",
+   "fieldtype": "Check",
+   "label": "Unplanned Surgery",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unplanned_surgery_reason_code",
+   "fieldtype": "Data",
+   "label": "Unplanned Surgery Reason Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unplanned_return_status",
+   "fieldtype": "Select",
+   "label": "Unplanned Return Status",
+   "options": "Not Observed\nNo\nYes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unplanned_return_at",
+   "fieldtype": "Datetime",
+   "label": "Unplanned Return At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "complication_status",
+   "fieldtype": "Select",
+   "label": "Complication Status",
+   "options": "Not Observed\nNo\nYes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "complication_code",
+   "fieldtype": "Data",
+   "label": "Complication Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "complication_at",
+   "fieldtype": "Datetime",
+   "label": "Complication At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mortality_status",
+   "fieldtype": "Select",
+   "label": "Mortality Status",
+   "options": "Not Observed\nNo\nYes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mortality_at",
+   "fieldtype": "Datetime",
+   "label": "Mortality At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mortality",
+   "fieldtype": "Check",
+   "label": "Mortality",
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_record",
+   "fieldtype": "Link",
+   "label": "Indicator Mapping Record",
+   "options": "IONE Integration Mapping",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "mapping_version",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mapping_checksum",
+   "fieldtype": "Data",
+   "label": "Indicator Mapping Checksum",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Surgery QC",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "surgery_key,surgery_no,procedure_code,source_record_id_hash,encounter",
+ "allow_import": 0
+}

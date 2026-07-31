@@ -1,0 +1,95 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "default_time_zone",
+  "enable_realtime_rules",
+  "enable_ai",
+  "production_mode"
+ ],
+ "fields": [
+  {
+   "fieldname": "default_time_zone",
+   "fieldtype": "Data",
+   "label": "Default Time Zone",
+   "default": "Asia/Shanghai"
+  },
+  {
+   "fieldname": "enable_realtime_rules",
+   "fieldtype": "Check",
+   "label": "Enable Realtime Rules",
+   "default": "0"
+  },
+  {
+   "fieldname": "enable_ai",
+   "fieldtype": "Check",
+   "label": "Enable AI",
+   "default": "0"
+  },
+  {
+   "fieldname": "production_mode",
+   "fieldtype": "Check",
+   "label": "Production Mode",
+   "default": "0"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE System Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "issingle": 1
+}

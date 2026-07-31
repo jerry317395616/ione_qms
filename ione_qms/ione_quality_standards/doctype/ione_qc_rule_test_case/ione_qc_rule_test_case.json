@@ -1,0 +1,231 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "rule_version",
+  "case_name",
+  "sample_type",
+  "input_json",
+  "expected_result",
+  "actual_result",
+  "test_status",
+  "result_json",
+  "last_run_at",
+  "definition_hash",
+  "latest_execution_receipt"
+ ],
+ "fields": [
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "case_name",
+   "fieldtype": "Data",
+   "label": "Case Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sample_type",
+   "fieldtype": "Select",
+   "label": "Sample Type",
+   "options": "Positive\nNegative\nExclusion\nBoundary\nMissing Data\nReal World\nRegression",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "input_json",
+   "fieldtype": "Code",
+   "label": "Input JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_result",
+   "fieldtype": "Select",
+   "label": "Expected Result",
+   "options": "Passed\nFailed\nExcluded\nInsufficient Data\nError",
+   "reqd": 1
+  },
+  {
+   "fieldname": "actual_result",
+   "fieldtype": "Data",
+   "label": "Actual Result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "test_status",
+   "fieldtype": "Select",
+   "label": "Test Status",
+   "options": "Not Run\nPassed\nFailed",
+   "default": "Not Run",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "result_json",
+   "fieldtype": "Code",
+   "label": "Result JSON",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_run_at",
+   "fieldtype": "Datetime",
+   "label": "Last Run At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "definition_hash",
+   "fieldtype": "Data",
+   "label": "Definition Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "latest_execution_receipt",
+   "fieldtype": "Link",
+   "label": "Latest Execution Receipt",
+   "options": "IONE QC Rule Test Execution",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Quality Standards",
+ "name": "IONE QC Rule Test Case",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "if_owner": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "if_owner": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "case_name"
+}

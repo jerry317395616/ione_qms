@@ -1,0 +1,284 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:watermark_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "watermark_key",
+  "source_watermark_id",
+  "endpoint",
+  "source_system",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "complete_through",
+  "period_start",
+  "period_end",
+  "eligible_record_status",
+  "population_date_field",
+  "source_sequence",
+  "source_record_count",
+  "source_manifest_hash",
+  "request_hash",
+  "watermark_checksum",
+  "source_asserted_at",
+  "received_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "watermark_key",
+   "fieldtype": "Data",
+   "label": "Watermark Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_watermark_id",
+   "fieldtype": "Data",
+   "label": "Source Watermark ID",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "endpoint",
+   "fieldtype": "Link",
+   "label": "Endpoint",
+   "options": "IONE Integration Endpoint",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "reqd": 1,
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "complete_through",
+   "fieldtype": "Date",
+   "label": "Complete Through",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "Population Period Start",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Population Period End",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "eligible_record_status",
+   "fieldtype": "Select",
+   "label": "Eligible Record Status",
+   "options": "Final",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "population_date_field",
+   "fieldtype": "Select",
+   "label": "Population Date Field",
+   "options": "source_finalized_at",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_sequence",
+   "fieldtype": "Int",
+   "label": "Source Sequence",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_record_count",
+   "fieldtype": "Int",
+   "label": "Source Record Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Source Manifest Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "request_hash",
+   "fieldtype": "Data",
+   "label": "Request Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "watermark_checksum",
+   "fieldtype": "Data",
+   "label": "Watermark Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_asserted_at",
+   "fieldtype": "Datetime",
+   "label": "Source Asserted At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "received_at",
+   "fieldtype": "Datetime",
+   "label": "Received At",
+   "reqd": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Record Completeness Watermark",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Integration Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Integration Operator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "watermark_key,source_watermark_id,endpoint,source_system,hospital,campus,department,ward,complete_through,source_sequence",
+ "allow_import": 0
+}

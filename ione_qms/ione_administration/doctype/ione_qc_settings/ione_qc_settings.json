@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "default_finding_due_days",
+  "high_risk_requires_review",
+  "shadow_mode_default",
+  "evidence_hash_algorithm"
+ ],
+ "fields": [
+  {
+   "fieldname": "default_finding_due_days",
+   "fieldtype": "Int",
+   "label": "Default Finding Due Days",
+   "default": "7"
+  },
+  {
+   "fieldname": "high_risk_requires_review",
+   "fieldtype": "Check",
+   "label": "High Risk Requires Review",
+   "default": "1"
+  },
+  {
+   "fieldname": "shadow_mode_default",
+   "fieldtype": "Check",
+   "label": "Shadow Mode Default",
+   "default": "1"
+  },
+  {
+   "fieldname": "evidence_hash_algorithm",
+   "fieldtype": "Select",
+   "label": "Evidence Hash Algorithm",
+   "options": "SHA-256",
+   "default": "SHA-256"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE QC Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "issingle": 1
+}

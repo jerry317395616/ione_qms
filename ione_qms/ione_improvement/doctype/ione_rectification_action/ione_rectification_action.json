@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "action_code",
+  "action_description",
+  "owner_user",
+  "due_date",
+  "status",
+  "completion_evidence"
+ ],
+ "fields": [
+  {
+   "fieldname": "action_code",
+   "fieldtype": "Data",
+   "label": "Action Code"
+  },
+  {
+   "fieldname": "action_description",
+   "fieldtype": "Small Text",
+   "label": "Action Description",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "owner_user",
+   "fieldtype": "Link",
+   "label": "Owner User",
+   "options": "User"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nIn Progress\nCompleted\nCancelled",
+   "default": "Pending",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "completion_evidence",
+   "fieldtype": "Long Text",
+   "label": "Completion Evidence"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Rectification Action",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "istable": 1
+}

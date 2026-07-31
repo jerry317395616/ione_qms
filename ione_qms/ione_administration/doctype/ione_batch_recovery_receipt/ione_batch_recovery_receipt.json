@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:receipt_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "receipt_key",
+  "batch_run",
+  "recovery_sequence",
+  "prior_status",
+  "reason",
+  "reason_hash",
+  "requested_by",
+  "requested_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "receipt_key",
+   "fieldtype": "Data",
+   "label": "Receipt Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "batch_run",
+   "fieldtype": "Link",
+   "label": "Batch Run",
+   "options": "IONE Batch Run",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "recovery_sequence",
+   "fieldtype": "Int",
+   "label": "Recovery Sequence",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "prior_status",
+   "fieldtype": "Data",
+   "label": "Prior Status",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_hash",
+   "fieldtype": "Data",
+   "label": "Reason Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE Batch Recovery Receipt",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "title_field": "receipt_key",
+ "search_fields": "receipt_key,batch_run,requested_by,requested_at",
+ "allow_import": 0
+}

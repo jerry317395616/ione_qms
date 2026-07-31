@@ -1,0 +1,203 @@
+{
+ "app": "ione_qms",
+ "charts": [],
+ "content": "[]",
+ "creation": "2026-07-29 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "settings",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "IONE Administration",
+ "link_type": "DocType",
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE Administration",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "IONE QC Administrator"
+  },
+  {
+   "role": "IONE Agent Administrator"
+  },
+  {
+   "role": "IONE Integration Operator"
+  },
+  {
+   "role": "IONE Medical Affairs"
+  },
+  {
+   "role": "IONE Auditor"
+  }
+ ],
+ "sequence_id": 89.0,
+ "shortcuts": [],
+ "sidebar_items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Settings",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE System Settings",
+   "link_to": "IONE System Settings",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE QC Settings",
+   "link_to": "IONE QC Settings",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Integration Settings",
+   "link_to": "IONE Integration Settings",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE AI Settings",
+   "link_to": "IONE AI Settings",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Security Policy",
+   "link_to": "IONE Security Policy",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Feature Flag",
+   "link_to": "IONE Feature Flag",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Controlled Operations",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Data Export Request",
+   "link_to": "IONE Data Export Request",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Release Record",
+   "link_to": "IONE Release Record",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Privacy Governance",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE PHI Disclosure Policy",
+   "link_to": "IONE PHI Disclosure Policy",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE PHI Access Receipt",
+   "link_to": "IONE PHI Access Receipt",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "standard": 1,
+ "title": "IONE Administration",
+ "type": "Workspace"
+}

@@ -1,0 +1,230 @@
+{
+ "app": "ione_qms",
+ "charts": [],
+ "content": "[]",
+ "creation": "2026-07-29 00:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "building-2",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "IONE Foundation",
+ "link_type": "DocType",
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Foundation",
+ "name": "IONE Foundation",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "IONE QC Administrator"
+  },
+  {
+   "role": "IONE QC Reviewer"
+  },
+  {
+   "role": "IONE Medical Affairs"
+  },
+  {
+   "role": "IONE Department Director"
+  },
+  {
+   "role": "IONE Department QC Officer"
+  },
+  {
+   "role": "IONE Physician"
+  },
+  {
+   "role": "IONE Integration Administrator"
+  },
+  {
+   "role": "IONE Integration Operator"
+  },
+  {
+   "role": "IONE Auditor"
+  },
+  {
+   "role": "IONE PHI Identity Reader"
+  }
+ ],
+ "sequence_id": 81.0,
+ "shortcuts": [],
+ "sidebar_items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Organization",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Hospital",
+   "link_to": "IONE Hospital",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Hospital Campus",
+   "link_to": "IONE Hospital Campus",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Medical Department",
+   "link_to": "IONE Medical Department",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Ward",
+   "link_to": "IONE Ward",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "People and Authorization",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Medical Staff",
+   "link_to": "IONE Medical Staff",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Staff Qualification",
+   "link_to": "IONE Staff Qualification",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Surgery Authorization",
+   "link_to": "IONE Surgery Authorization",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Surgery Procedure Policy",
+   "link_to": "IONE Surgery Procedure Policy",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Clinical Index",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Patient Index",
+   "link_to": "IONE Patient Index",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Encounter Index",
+   "link_to": "IONE Encounter Index",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 0,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "IONE Diagnosis Procedure Mapping",
+   "link_to": "IONE Diagnosis Procedure Mapping",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "standard": 1,
+ "title": "IONE Foundation",
+ "type": "Workspace"
+}

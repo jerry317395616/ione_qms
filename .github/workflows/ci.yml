@@ -5,25 +5,397 @@ on:
     branches: [develop]
   pull_request:
     branches: [develop]
+  workflow_dispatch:
+  schedule:
+    - cron: "15 17 * * *"
 
 permissions:
   contents: read
 
+env:
+  FRAPPE_BENCH_VERSION: "5.31.0"
+  FRAPPE_SHA: "0a1eb8e38babeccfcd2e1845efa04b376a63366f"
+  FLOW_SHA: "4ac02293f656d9a979214c62b168512b5b6d008e"
+  MANAGER_FRAPPE_SHA: "5aef9956c7bf58d36cfd59e2242cc1a26d385ea2"
+  MANAGER_DRIVE_SHA: "cd3438d1ab0b0fc1b8c10e282639ec0bd2ee7d82"
+  GITLEAKS_VERSION: "8.30.1"
+  NODE_VERSION: "24.18.0"
+  PIP_VERSION: "26.2"
+  PIP_AUDIT_VERSION: "2.10.1"
+  PYTHON_VERSION: "3.14.6"
+  RUFF_VERSION: "0.15.22"
+  RUST_VERSION: "1.97.1"
+  UV_VERSION: "0.12.0"
+
+concurrency:
+  group: ci-ione-qms-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   static:
-    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          python-version: "3.14"
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7 commit
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          version: ${{ env.UV_VERSION }}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
       - name: Install static-analysis tools
-        run: uv tool install ruff
+        run: uv tool install "ruff==$RUFF_VERSION"
       - name: Ruff check
         run: ruff check .
       - name: Ruff format
         run: ruff format --check .
       - name: Compile Python
         run: python -m compileall -q ione_qms
+      - name: Run dependency-free safety tests
+        run: >-
+          python -m unittest
+          ione_qms.tests.test_rule_engine
+          ione_qms.tests.test_indicator_engine
+          ione_qms.tests.test_blueprint
+          ione_qms.tests.test_ai_output_safety
+          ione_qms.tests.test_crypto_identity_keys
+          ione_qms.tests.test_install_preflight
+          ione_qms.tests.test_migration_completion_gate
+          ione_qms.tests.test_sensitive_error_handling
+      - name: Run all dependency-free source-contract and request-boundary tests
+        run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Validate Desk JavaScript syntax
+        run: find ione_qms tests -name '*.js' -print0 | xargs -0 -r -n1 node --check
       - name: Validate application metadata
         run: python tools/validate_app.py
+
+  secret-scan:
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: "false"
+          GITLEAKS_VERSION: ${{ env.GITLEAKS_VERSION }}
+
+  frappe-tests:
+    name: Frappe tests (${{ matrix.runtime }})
+    timeout-minutes: 90
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runtime: develop
+            frappe_sha: "0a1eb8e38babeccfcd2e1845efa04b376a63366f"
+            include_drive: false
+          - runtime: manager
+            frappe_sha: "5aef9956c7bf58d36cfd59e2242cc1a26d385ea2"
+            include_drive: true
+    services:
+      mariadb:
+        image: mariadb:11.8.8@sha256:efb4959ef2c835cd735dbc388eb9ad6aab0c78dd64febcd51bc17481111890c4
+        ports:
+          - 3306:3306
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=10
+      redis:
+        image: redis:7.4.9-alpine@sha256:e7723ff73d963f5cc6d9c4643ea3d989527a402a319239054e9472a7fb9219a2
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: ione_qms
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7 commit
+        with:
+          version: ${{ env.UV_VERSION }}
+      - name: Install pinned Rust toolchain for manager Drive
+        if: matrix.include_drive
+        uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+      - name: Install manager Drive system dependency
+        if: matrix.include_drive
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --yes ffmpeg
+          rustc --version
+          cargo --version
+          ffmpeg -version
+      - name: Install Bench
+        run: uv tool install "frappe-bench==$FRAPPE_BENCH_VERSION"
+      - name: Materialize exact immutable sources from the user forks
+        env:
+          FRAPPE_EXACT_SHA: ${{ matrix.frappe_sha }}
+          INCLUDE_DRIVE: ${{ matrix.include_drive }}
+        run: |
+          set -euo pipefail
+          pinned_root="$RUNNER_TEMP/ione-pinned-sources"
+          mkdir -p "$pinned_root"
+
+          materialize() {
+            app="$1"
+            sha="$2"
+            url="https://github.com/jerry317395616/$app"
+            destination="$pinned_root/$app"
+            default_ref="$(git ls-remote --symref "$url" HEAD | awk '/^ref:/ {print $2}')"
+            test "$default_ref" = "refs/heads/develop"
+            git init --quiet "$destination"
+            git -C "$destination" remote add origin "$url"
+            git -C "$destination" fetch --no-tags --depth=1 origin "$sha"
+            test "$(git -C "$destination" rev-parse FETCH_HEAD)" = "$sha"
+            git -C "$destination" checkout --quiet --detach FETCH_HEAD
+            git -C "$destination" tag "ci-pinned-$app" "$sha"
+            test "$(git -C "$destination" rev-parse HEAD)" = "$sha"
+            test -z "$(git -C "$destination" status --porcelain --untracked-files=all)"
+          }
+
+          materialize frappe "$FRAPPE_EXACT_SHA"
+          materialize flow "$FLOW_SHA"
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            materialize drive "$MANAGER_DRIVE_SHA"
+          fi
+          echo "PINNED_SOURCE_ROOT=$pinned_root" >> "$GITHUB_ENV"
+      - name: Initialize Frappe Bench from the exact source tree
+        env:
+          FRAPPE_EXACT_SHA: ${{ matrix.frappe_sha }}
+        run: |
+          set -euo pipefail
+          bench init frappe-bench \
+            --frappe-path "$PINNED_SOURCE_ROOT/frappe" \
+            --frappe-branch ci-pinned-frappe \
+            --python python3 \
+            --skip-redis-config-generation \
+            --verbose
+          test "$(git -C frappe-bench/apps/frappe rev-parse HEAD)" = "$FRAPPE_EXACT_SHA"
+      - name: Configure test services
+        working-directory: frappe-bench
+        run: |
+          bench set-config -g redis_cache redis://localhost:6379
+          bench set-config -g redis_queue redis://localhost:6379
+          bench set-config -g redis_socketio redis://localhost:6379
+      - name: Add Flow, manager Drive, and IONE QMS
+        working-directory: frappe-bench
+        env:
+          INCLUDE_DRIVE: ${{ matrix.include_drive }}
+        run: |
+          set -euo pipefail
+          bench get-app --branch ci-pinned-flow "$PINNED_SOURCE_ROOT/flow"
+          test "$(git -C apps/flow rev-parse HEAD)" = "$FLOW_SHA"
+
+          # Flow's root package has no lockfile and Bench/Yarn v1 creates an
+          # empty untracked one after installing the locked frontend. It is not
+          # source or a release input, so remove only that exact generated file.
+          if [ -f apps/flow/yarn.lock ] && ! git -C apps/flow ls-files --error-unmatch yarn.lock >/dev/null 2>&1; then
+            rm -f apps/flow/yarn.lock
+          fi
+
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            bench get-app --branch ci-pinned-drive "$PINNED_SOURCE_ROOT/drive"
+            test "$(git -C apps/drive rev-parse HEAD)" = "$MANAGER_DRIVE_SHA"
+          fi
+
+          test "$(git -C "$GITHUB_WORKSPACE/ione_qms" rev-parse HEAD)" = "$GITHUB_SHA"
+          git -C "$GITHUB_WORKSPACE/ione_qms" tag ci-pinned-ione-qms "$GITHUB_SHA"
+          bench get-app --branch ci-pinned-ione-qms "$GITHUB_WORKSPACE/ione_qms"
+          test "$(git -C apps/ione_qms rev-parse HEAD)" = "$GITHUB_SHA"
+
+          bench validate-dependencies
+          env/bin/python -m pip check
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            printf 'drive\nflow\nfrappe\nione_qms\n' > /tmp/expected-apps.txt
+          else
+            printf 'flow\nfrappe\nione_qms\n' > /tmp/expected-apps.txt
+          fi
+          sort sites/apps.txt > /tmp/actual-apps.txt
+          diff -u /tmp/expected-apps.txt /tmp/actual-apps.txt
+      - name: Create site and install applications
+        working-directory: frappe-bench
+        env:
+          INCLUDE_DRIVE: ${{ matrix.include_drive }}
+        run: |
+          set -euo pipefail
+          bench new-site test.localhost \
+            --db-root-password root \
+            --admin-password admin \
+            --mariadb-user-host-login-scope='%'
+          identity_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
+          phi_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
+          rule_receipt_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
+          sensitive_hash_key="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
+          bench --site test.localhost set-config ione_identity_hmac_key_id ci-v1
+          bench --site test.localhost set-config ione_identity_hmac_key "$identity_key"
+          bench --site test.localhost set-config ione_phi_hmac_key_id ci-v1
+          bench --site test.localhost set-config ione_phi_hmac_key "$phi_key"
+          bench --site test.localhost set-config ione_rule_receipt_hmac_key_id ci-v1
+          bench --site test.localhost set-config ione_rule_receipt_hmac_key "$rule_receipt_key"
+          bench --site test.localhost set-config ione_sensitive_hash_hmac_key_id ci-v1
+          bench --site test.localhost set-config ione_sensitive_hash_hmac_key "$sensitive_hash_key"
+          bench --site test.localhost install-app flow
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            bench --site test.localhost install-app drive
+          fi
+          bench --site test.localhost install-app ione_qms
+          bench --site test.localhost migrate
+          bench --site test.localhost migrate
+          bench --site test.localhost execute \
+            ione_qms.tasks.migrations.run_post_migrate_backfills \
+            --kwargs '{"batch_size": 1000}'
+          bench --site test.localhost execute \
+            ione_qms.services.migration_state.assert_migration_complete \
+            --kwargs '{"operation": "accept the exact CI candidate"}'
+      - name: Build the complete exact application combination
+        working-directory: frappe-bench
+        run: bench build
+      - name: Run exact dependency and IONE QMS tests
+        working-directory: frappe-bench
+        env:
+          CI: "true"
+          INCLUDE_DRIVE: ${{ matrix.include_drive }}
+        run: |
+          set -euo pipefail
+          bench --site test.localhost run-tests --app flow
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            bench --site test.localhost run-tests --app drive
+          fi
+          bench --site test.localhost run-tests --app ione_qms
+          bench --site test.localhost run-tests --doctype File
+      - name: Prove exact SHAs and clean official application trees
+        working-directory: frappe-bench
+        env:
+          FRAPPE_EXACT_SHA: ${{ matrix.frappe_sha }}
+          INCLUDE_DRIVE: ${{ matrix.include_drive }}
+        run: |
+          set -euo pipefail
+          assert_clean_exact() {
+            app="$1"
+            expected_sha="$2"
+            test "$(git -C "apps/$app" rev-parse HEAD)" = "$expected_sha"
+            status="$(git -C "apps/$app" status --porcelain --untracked-files=all)"
+            if [ -n "$status" ]; then
+              printf '%s\n' "$status"
+              echo "$app source tree changed during the CI install/build/test lifecycle" >&2
+              exit 1
+            fi
+          }
+          assert_clean_exact frappe "$FRAPPE_EXACT_SHA"
+          assert_clean_exact flow "$FLOW_SHA"
+          if [ "$INCLUDE_DRIVE" = "true" ]; then
+            assert_clean_exact drive "$MANAGER_DRIVE_SHA"
+          fi
+          assert_clean_exact ione_qms "$GITHUB_SHA"
+      - name: Audit complete Bench Python environment and emit SBOM
+        run: |
+          set -euo pipefail
+          uv tool install "pip-audit==$PIP_AUDIT_VERSION"
+          site_packages="$(frappe-bench/env/bin/python -c 'import site; print(site.getsitepackages()[0])')"
+          pip-audit --strict --path "$site_packages"
+          pip-audit --path "$site_packages" \
+            --format cyclonedx-json \
+            --output "ione-qms-bench-${{ matrix.runtime }}.cdx.json"
+          {
+            printf 'runtime=%s\n' "${{ matrix.runtime }}"
+            printf 'runner_arch=%s\n' "$(uname -m)"
+            printf 'qms=%s\n' "$GITHUB_SHA"
+            printf 'frappe=%s\n' "${{ matrix.frappe_sha }}"
+            printf 'flow=%s\n' "$FLOW_SHA"
+            if [ "${{ matrix.include_drive }}" = "true" ]; then
+              printf 'drive=%s\n' "$MANAGER_DRIVE_SHA"
+            fi
+            frappe-bench/env/bin/python --version
+            node --version
+            yarn --version
+          } > "ione-qms-bench-${{ matrix.runtime }}.manifest.txt"
+      - name: Upload complete Bench Python SBOM
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: ione-qms-bench-${{ matrix.runtime }}-python-sbom
+          path: |
+            ione-qms-bench-${{ matrix.runtime }}.cdx.json
+            ione-qms-bench-${{ matrix.runtime }}.manifest.txt
+          if-no-files-found: error
+
+  supply-chain:
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7 commit
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          version: ${{ env.UV_VERSION }}
+      - name: Audit pinned Python dependencies and emit SBOM
+        run: |
+          uv tool install "pip-audit==$PIP_AUDIT_VERSION"
+          pip-audit --strict --requirement requirements.txt
+          pip-audit --requirement requirements.txt \
+            --format cyclonedx-json \
+            --output sbom.cdx.json
+      - name: Upload dependency SBOM
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: ione-qms-python-sbom
+          path: sbom.cdx.json
+          if-no-files-found: error
+
+  arm64-python-wheel-preflight:
+    name: ARM64 Python wheel resolvability (not Press acceptance)
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Resolve binary-only CPython 3.14 ARM64 application dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install "pip==$PIP_VERSION"
+          mkdir arm64-wheels
+          python -m pip download \
+            --requirement requirements.txt \
+            --dest arm64-wheels \
+            --only-binary=:all: \
+            --platform manylinux_2_28_aarch64 \
+            --implementation cp \
+            --python-version 3.14 \
+            --abi cp314
+          sha256sum arm64-wheels/* > qms-arm64-wheel-manifest.sha256
+          echo "::notice::This proves only QMS Python wheel resolution. A native ARM64 Press candidate build, install, migrate, full-app build, smoke, and rollback rehearsal remain mandatory."
+      - name: Upload ARM64 dependency manifest
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: ione-qms-arm64-python-wheel-manifest
+          path: qms-arm64-wheel-manifest.sha256
+          if-no-files-found: error

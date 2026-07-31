@@ -1,0 +1,332 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "policy_code",
+  "policy_version",
+  "policy_key",
+  "policy_name",
+  "purpose_code",
+  "purpose_description",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "allowed_fields_json",
+  "allowed_reader_roles_json",
+  "max_disclosures_per_user_per_minute",
+  "max_disclosures_per_record_per_minute",
+  "effective_from",
+  "effective_to",
+  "external_approval_reference",
+  "status",
+  "policy_scope_key",
+  "active_slot_key",
+  "requested_by",
+  "requested_at",
+  "submitted_by",
+  "submitted_at",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment",
+  "hmac_key_id",
+  "policy_checksum",
+  "retired_by",
+  "retired_at",
+  "retirement_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "policy_code",
+   "fieldtype": "Data",
+   "label": "Policy Code",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "policy_version",
+   "fieldtype": "Data",
+   "label": "Policy Version",
+   "reqd": 1,
+   "in_list_view": 1,
+   "length": 32
+  },
+  {
+   "fieldname": "policy_key",
+   "fieldtype": "Data",
+   "label": "Policy Key",
+   "reqd": 1,
+   "read_only": 1,
+   "unique": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "policy_name",
+   "fieldtype": "Data",
+   "label": "Policy Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "purpose_code",
+   "fieldtype": "Data",
+   "label": "Purpose Code",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "purpose_description",
+   "fieldtype": "Small Text",
+   "label": "Purpose Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "allowed_fields_json",
+   "fieldtype": "Code",
+   "label": "Allowed Fields JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "allowed_reader_roles_json",
+   "fieldtype": "Code",
+   "label": "Allowed Reader Roles JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "max_disclosures_per_user_per_minute",
+   "fieldtype": "Int",
+   "label": "Maximum Disclosures Per User Per Minute",
+   "reqd": 1,
+   "default": "30"
+  },
+  {
+   "fieldname": "max_disclosures_per_record_per_minute",
+   "fieldtype": "Int",
+   "label": "Maximum Disclosures Per Record Per Minute",
+   "reqd": 1,
+   "default": "5"
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Datetime",
+   "label": "Effective From",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "effective_to",
+   "fieldtype": "Datetime",
+   "label": "Effective To"
+  },
+  {
+   "fieldname": "external_approval_reference",
+   "fieldtype": "Data",
+   "label": "External Approval Reference",
+   "reqd": 1,
+   "length": 140
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nUnder Review\nScheduled\nActive\nRetired",
+   "default": "Draft",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "policy_scope_key",
+   "fieldtype": "Data",
+   "label": "Policy Scope Key",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "active_slot_key",
+   "fieldtype": "Data",
+   "label": "Active Slot Key",
+   "read_only": 1,
+   "unique": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_by",
+   "fieldtype": "Link",
+   "label": "Submitted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "HMAC Key ID",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "policy_checksum",
+   "fieldtype": "Data",
+   "label": "Policy Checksum",
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "retired_by",
+   "fieldtype": "Link",
+   "label": "Retired By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retired_at",
+   "fieldtype": "Datetime",
+   "label": "Retired At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retirement_reason",
+   "fieldtype": "Small Text",
+   "label": "Retirement Reason",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE PHI Disclosure Policy",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "policy_name",
+ "search_fields": "policy_code,policy_version,purpose_code"
+}

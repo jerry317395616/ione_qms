@@ -1,0 +1,47 @@
+{
+ "content": null,
+ "creation": "2026-07-29 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Analytics",
+ "name": "ione-quality-command-center",
+ "owner": "Administrator",
+ "page_name": "ione-quality-command-center",
+ "roles": [
+  {
+   "role": "IONE QC Administrator"
+  },
+  {
+   "role": "IONE QC Reviewer"
+  },
+  {
+   "role": "IONE Medical Affairs"
+  },
+  {
+   "role": "IONE Department Director"
+  },
+  {
+   "role": "IONE Department QC Officer"
+  },
+  {
+   "role": "IONE Physician"
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC"
+  },
+  {
+   "role": "IONE Agent Reviewer"
+  },
+  {
+   "role": "IONE Auditor"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "IONE 医疗质量驾驶舱"
+}

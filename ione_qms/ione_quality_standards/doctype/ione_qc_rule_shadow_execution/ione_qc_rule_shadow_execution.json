@@ -1,0 +1,317 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "execution_key",
+  "event",
+  "rule",
+  "rule_version",
+  "rule_checksum",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "result",
+  "event_hash",
+  "context_hash",
+  "evaluation_hash",
+  "executor_version",
+  "observed_at",
+  "completed_at",
+  "duration_ms",
+  "receipt_chain_scope",
+  "receipt_chain_sequence",
+  "receipt_chain_key",
+  "previous_receipt",
+  "previous_receipt_hmac",
+  "signature_version",
+  "hmac_key_id",
+  "receipt_hmac",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "execution_key",
+   "fieldtype": "Data",
+   "label": "Execution Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "IONE Clinical Quality Event",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Link",
+   "label": "Rule",
+   "options": "IONE QC Rule",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "rule_checksum",
+   "fieldtype": "Data",
+   "label": "Rule Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "result",
+   "fieldtype": "Select",
+   "label": "Result",
+   "options": "Passed\nFailed\nExcluded\nInsufficient Data\nError",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "event_hash",
+   "fieldtype": "Data",
+   "label": "Event Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "context_hash",
+   "fieldtype": "Data",
+   "label": "Context Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "evaluation_hash",
+   "fieldtype": "Data",
+   "label": "Evaluation Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "executor_version",
+   "fieldtype": "Data",
+   "label": "Executor Version",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "observed_at",
+   "fieldtype": "Datetime",
+   "label": "Observed At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration_ms",
+   "fieldtype": "Int",
+   "label": "Duration MS",
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_chain_scope",
+   "fieldtype": "Data",
+   "label": "Receipt Chain Scope",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_chain_sequence",
+   "fieldtype": "Int",
+   "label": "Receipt Chain Sequence",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_chain_key",
+   "fieldtype": "Data",
+   "label": "Receipt Chain Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "previous_receipt",
+   "fieldtype": "Link",
+   "label": "Previous Receipt",
+   "options": "IONE QC Rule Shadow Execution",
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_receipt_hmac",
+   "fieldtype": "Data",
+   "label": "Previous Receipt HMAC",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "signature_version",
+   "fieldtype": "Data",
+   "label": "Signature Version",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_hmac",
+   "fieldtype": "Data",
+   "label": "Receipt HMAC",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Quality Standards",
+ "name": "IONE QC Rule Shadow Execution",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "event,rule_version,rule_checksum,execution_key"
+}

@@ -1,0 +1,252 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "issue_key",
+  "source_system",
+  "message",
+  "event",
+  "execution",
+  "rule_version",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "source_record_type",
+  "source_record_id",
+  "issue_type",
+  "severity",
+  "status",
+  "field_path",
+  "expected_value",
+  "actual_value",
+  "description",
+  "detected_at",
+  "resolution",
+  "resolved_by",
+  "resolved_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "issue_key",
+   "fieldtype": "Data",
+   "label": "Issue Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System"
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Link",
+   "label": "Message",
+   "options": "IONE Integration Message"
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "IONE Clinical Quality Event"
+  },
+  {
+   "fieldname": "execution",
+   "fieldtype": "Link",
+   "label": "Execution",
+   "options": "IONE QC Execution"
+  },
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version"
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_record_type",
+   "fieldtype": "Data",
+   "label": "Source Record Type",
+   "length": 200
+  },
+  {
+   "fieldname": "source_record_id",
+   "fieldtype": "Data",
+   "label": "Source Record ID",
+   "permlevel": 9,
+   "mask": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "issue_type",
+   "fieldtype": "Data",
+   "label": "Issue Type",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "Severity",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "default": "Medium"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nInvestigating\nResolved\nAccepted",
+   "default": "Open",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "field_path",
+   "fieldtype": "Data",
+   "label": "Field Path"
+  },
+  {
+   "fieldname": "expected_value",
+   "fieldtype": "Small Text",
+   "label": "Expected Value",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "actual_value",
+   "fieldtype": "Small Text",
+   "label": "Actual Value",
+   "permlevel": 9,
+   "mask": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "detected_at",
+   "fieldtype": "Datetime",
+   "label": "Detected At",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "resolution",
+   "fieldtype": "Text Editor",
+   "label": "Resolution",
+   "read_only": 1
+  },
+  {
+   "fieldname": "resolved_by",
+   "fieldtype": "Link",
+   "label": "Resolved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "resolved_at",
+   "fieldtype": "Datetime",
+   "label": "Resolved At",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Integration",
+ "name": "IONE Data Quality Issue",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Integration Operator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "search_fields": "issue_key,issue_type"
+}

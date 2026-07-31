@@ -1,0 +1,352 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "revision_key",
+  "run_iteration",
+  "task",
+  "policy",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "patient",
+  "encounter",
+  "responsible_staff",
+  "execution_attempt",
+  "execution_token_hash",
+  "flow_agent",
+  "flow_model",
+  "model_id",
+  "flow_session",
+  "flow_run",
+  "status",
+  "tools_used",
+  "input_hash",
+  "output_hash",
+  "input_messages_hash",
+  "output_messages_hash",
+  "tool_trace_hash",
+  "attachment_text_hash",
+  "usage_json",
+  "started_at",
+  "completed_at",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "revision_key",
+   "fieldtype": "Data",
+   "label": "Revision Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "run_iteration",
+   "fieldtype": "Int",
+   "label": "Run Iteration",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "task",
+   "fieldtype": "Link",
+   "label": "Task",
+   "options": "IONE AI Analysis Task",
+   "reqd": 1
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Agent Policy",
+   "reqd": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter",
+   "fieldtype": "Link",
+   "label": "Encounter",
+   "options": "IONE Encounter Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_attempt",
+   "fieldtype": "Int",
+   "label": "Execution Attempt",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_token_hash",
+   "fieldtype": "Data",
+   "label": "Execution Token Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "flow_agent",
+   "fieldtype": "Link",
+   "label": "Flow Agent",
+   "options": "Flow Agent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "flow_model",
+   "fieldtype": "Link",
+   "label": "Flow Model",
+   "options": "Flow Model",
+   "reqd": 1
+  },
+  {
+   "fieldname": "model_id",
+   "fieldtype": "Data",
+   "label": "Model ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "flow_session",
+   "fieldtype": "Link",
+   "label": "Flow Session",
+   "options": "Flow Session"
+  },
+  {
+   "fieldname": "flow_run",
+   "fieldtype": "Link",
+   "label": "Flow Run",
+   "options": "Flow Run",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "tools_used",
+   "fieldtype": "Long Text",
+   "label": "Tools Used"
+  },
+  {
+   "fieldname": "input_hash",
+   "fieldtype": "Data",
+   "label": "Input Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "output_hash",
+   "fieldtype": "Data",
+   "label": "Output Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "input_messages_hash",
+   "fieldtype": "Data",
+   "label": "Input Messages Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "output_messages_hash",
+   "fieldtype": "Data",
+   "label": "Output Messages Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "tool_trace_hash",
+   "fieldtype": "Data",
+   "label": "Tool Trace Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "attachment_text_hash",
+   "fieldtype": "Data",
+   "label": "Attachment Set Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "usage_json",
+   "fieldtype": "Long Text",
+   "label": "Usage JSON"
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At"
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At"
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Flow AI",
+ "name": "IONE Flow Run Link",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Agent Service",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 0,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "task,flow_run,model_id"
+}

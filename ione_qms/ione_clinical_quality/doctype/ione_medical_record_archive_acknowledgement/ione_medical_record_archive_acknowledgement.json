@@ -1,0 +1,238 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:ack_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "ack_key",
+  "archive_decision",
+  "delivery",
+  "envelope_hash",
+  "assignment",
+  "endpoint",
+  "source_system",
+  "source_ack_id",
+  "source_ack_at",
+  "ack_status",
+  "message_code",
+  "request_hash",
+  "decision_checksum",
+  "source_record_id_hash",
+  "received_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "ack_key",
+   "fieldtype": "Data",
+   "label": "Acknowledgement Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "archive_decision",
+   "fieldtype": "Link",
+   "label": "Archive Decision",
+   "options": "IONE Medical Record Archive Decision",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "delivery",
+   "fieldtype": "Link",
+   "label": "Delivery",
+   "options": "IONE Medical Record Archive Delivery",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "envelope_hash",
+   "fieldtype": "Data",
+   "label": "Envelope Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "assignment",
+   "fieldtype": "Link",
+   "label": "Assignment",
+   "options": "IONE Medical Record Review Assignment",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "endpoint",
+   "fieldtype": "Link",
+   "label": "Endpoint",
+   "options": "IONE Integration Endpoint",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_ack_id",
+   "fieldtype": "Data",
+   "label": "Source Acknowledgement ID",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_ack_at",
+   "fieldtype": "Datetime",
+   "label": "Source Acknowledged At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ack_status",
+   "fieldtype": "Select",
+   "label": "Acknowledgement Status",
+   "options": "Applied\nRejected\nFailed",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "message_code",
+   "fieldtype": "Data",
+   "label": "Message Code",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "request_hash",
+   "fieldtype": "Data",
+   "label": "Request Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "decision_checksum",
+   "fieldtype": "Data",
+   "label": "Decision Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_record_id_hash",
+   "fieldtype": "Data",
+   "label": "Source Record ID Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "received_at",
+   "fieldtype": "Datetime",
+   "label": "Received At",
+   "reqd": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Record Archive Acknowledgement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Coder",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Expert Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "ack_key,archive_decision,assignment,endpoint,ack_status",
+ "allow_import": 0
+}

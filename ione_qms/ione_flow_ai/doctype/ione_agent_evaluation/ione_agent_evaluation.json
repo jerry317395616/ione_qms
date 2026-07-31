@@ -1,0 +1,359 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:evaluation_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "evaluation_key",
+  "agent",
+  "policy",
+  "agent_release",
+  "flow_model",
+  "release_checksum",
+  "test_suite_hash",
+  "model_configuration_hash",
+  "prompt_hash",
+  "instructions_hash",
+  "tool_schema_hash",
+  "policy_checksum",
+  "knowledge_base_manifest_hash",
+  "threshold_policy",
+  "threshold_policy_hash",
+  "evaluator_code_hash",
+  "category_matrix_hash",
+  "result_hash",
+  "receipt_hash",
+  "status",
+  "metrics_json",
+  "sample_count",
+  "passed_count",
+  "failed_count",
+  "evaluated_by",
+  "evaluated_at",
+  "requested_by",
+  "review_status",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment"
+ ],
+ "fields": [
+  {
+   "fieldname": "evaluation_key",
+   "fieldtype": "Data",
+   "label": "Evaluation Key",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "agent",
+   "fieldtype": "Link",
+   "label": "Flow Agent",
+   "options": "Flow Agent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Agent Policy",
+   "reqd": 1
+  },
+  {
+   "fieldname": "agent_release",
+   "fieldtype": "Link",
+   "label": "Agent Release",
+   "options": "IONE Agent Release",
+   "reqd": 1
+  },
+  {
+   "fieldname": "flow_model",
+   "fieldtype": "Link",
+   "label": "Flow Model",
+   "options": "Flow Model",
+   "reqd": 1
+  },
+  {
+   "fieldname": "release_checksum",
+   "fieldtype": "Data",
+   "label": "Release Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "test_suite_hash",
+   "fieldtype": "Data",
+   "label": "Test Suite Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "model_configuration_hash",
+   "fieldtype": "Data",
+   "label": "Model Configuration Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "prompt_hash",
+   "fieldtype": "Data",
+   "label": "Prompt Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "instructions_hash",
+   "fieldtype": "Data",
+   "label": "Instructions Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "tool_schema_hash",
+   "fieldtype": "Data",
+   "label": "Tool Schema Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "policy_checksum",
+   "fieldtype": "Data",
+   "label": "Policy Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "knowledge_base_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Knowledge Base Manifest Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "threshold_policy",
+   "fieldtype": "Link",
+   "label": "Threshold Policy",
+   "options": "IONE Agent Evaluation Threshold Policy",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "threshold_policy_hash",
+   "fieldtype": "Data",
+   "label": "Threshold Policy Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "evaluator_code_hash",
+   "fieldtype": "Data",
+   "label": "Evaluator Code Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "category_matrix_hash",
+   "fieldtype": "Data",
+   "label": "Category Matrix Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "result_hash",
+   "fieldtype": "Data",
+   "label": "Result Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_hash",
+   "fieldtype": "Data",
+   "label": "Receipt Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Passed\nFailed",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "metrics_json",
+   "fieldtype": "Long Text",
+   "label": "Metrics JSON",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sample_count",
+   "fieldtype": "Int",
+   "label": "Sample Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "passed_count",
+   "fieldtype": "Int",
+   "label": "Passed Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "failed_count",
+   "fieldtype": "Int",
+   "label": "Failed Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "evaluated_by",
+   "fieldtype": "Link",
+   "label": "Evaluated By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "evaluated_at",
+   "fieldtype": "Datetime",
+   "label": "Evaluated At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_status",
+   "fieldtype": "Select",
+   "label": "Review Status",
+   "options": "Pending Review\nApproved\nRejected",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Flow AI",
+ "name": "IONE Agent Evaluation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Agent Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,309 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:calculation_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "calculation_key",
+  "input_receipt_hash",
+  "input_receipt_json",
+  "series_key",
+  "result_revision",
+  "indicator_version",
+  "period_start",
+  "period_end",
+  "dimension_json",
+  "dimension_hash",
+  "receipt_status",
+  "receipt_checksum",
+  "status",
+  "started_at",
+  "completed_at",
+  "result",
+  "result_count",
+  "error_count",
+  "error_message"
+ ],
+ "fields": [
+  {
+   "fieldname": "calculation_key",
+   "fieldtype": "Data",
+   "label": "Calculation Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "input_receipt_hash",
+   "fieldtype": "Data",
+   "label": "Input Receipt Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "input_receipt_json",
+   "fieldtype": "Long Text",
+   "label": "Input Receipt JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "series_key",
+   "fieldtype": "Data",
+   "label": "Series Key",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "result_revision",
+   "fieldtype": "Int",
+   "label": "Result Revision",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicator_version",
+   "fieldtype": "Link",
+   "label": "Indicator Version",
+   "options": "IONE QC Indicator Version",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "Period Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Period End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "dimension_json",
+   "fieldtype": "Code",
+   "label": "Dimension JSON",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dimension_hash",
+   "fieldtype": "Data",
+   "label": "Dimension Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_status",
+   "fieldtype": "Select",
+   "label": "Receipt Status",
+   "options": "Verified\nBlocked",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_checksum",
+   "fieldtype": "Data",
+   "label": "Receipt Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nRunning\nCompleted\nPartial\nFailed",
+   "default": "Pending",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "result",
+   "fieldtype": "Link",
+   "label": "Result",
+   "options": "IONE Indicator Result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "result_count",
+   "fieldtype": "Int",
+   "label": "Result Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_count",
+   "fieldtype": "Int",
+   "label": "Error Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Small Text",
+   "label": "Error Message",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Indicators",
+ "name": "IONE Indicator Calculation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "allow_import": 0
+}

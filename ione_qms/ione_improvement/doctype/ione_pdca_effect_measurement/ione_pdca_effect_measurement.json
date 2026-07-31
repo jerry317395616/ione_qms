@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "measurement_code",
+  "indicator",
+  "baseline_source",
+  "actual_source",
+  "baseline_period_start",
+  "baseline_period_end",
+  "measurement_period_start",
+  "measurement_period_end",
+  "baseline_value",
+  "target_value",
+  "actual_value",
+  "source_snapshot_hash",
+  "verified_by",
+  "verified_at",
+  "verification_comment",
+  "measurement_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "measurement_code",
+   "fieldtype": "Data",
+   "label": "Measurement Code",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "indicator",
+   "fieldtype": "Link",
+   "label": "Indicator",
+   "options": "IONE QC Indicator",
+   "reqd": 1
+  },
+  {
+   "fieldname": "baseline_source",
+   "fieldtype": "Link",
+   "label": "Baseline Source",
+   "options": "IONE Indicator Result",
+   "reqd": 1
+  },
+  {
+   "fieldname": "actual_source",
+   "fieldtype": "Link",
+   "label": "Actual Source",
+   "options": "IONE Indicator Result",
+   "reqd": 1
+  },
+  {
+   "fieldname": "baseline_period_start",
+   "fieldtype": "Date",
+   "label": "Baseline Period Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "baseline_period_end",
+   "fieldtype": "Date",
+   "label": "Baseline Period End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "measurement_period_start",
+   "fieldtype": "Date",
+   "label": "Measurement Period Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "measurement_period_end",
+   "fieldtype": "Date",
+   "label": "Measurement Period End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "baseline_value",
+   "fieldtype": "Float",
+   "label": "Baseline Value",
+   "reqd": 1
+  },
+  {
+   "fieldname": "target_value",
+   "fieldtype": "Float",
+   "label": "Target Value",
+   "reqd": 1
+  },
+  {
+   "fieldname": "actual_value",
+   "fieldtype": "Float",
+   "label": "Actual Value",
+   "reqd": 1
+  },
+  {
+   "fieldname": "source_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Source Snapshot Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_at",
+   "fieldtype": "Datetime",
+   "label": "Verified At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verification_comment",
+   "fieldtype": "Small Text",
+   "label": "Verification Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "measurement_hash",
+   "fieldtype": "Data",
+   "label": "Measurement Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE PDCA Effect Measurement",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "istable": 1
+}

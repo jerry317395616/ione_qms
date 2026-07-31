@@ -1,0 +1,308 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{policy_code}-{policy_version}",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "policy_code",
+  "policy_version",
+  "hospital",
+  "campus",
+  "department",
+  "procedure_code",
+  "procedure_name",
+  "surgery_level",
+  "effective_from",
+  "effective_to",
+  "require_mdt",
+  "minimum_mdt_participants",
+  "required_mdt_roles_json",
+  "required_check_items_json",
+  "required_care_stages_json",
+  "postoperative_followup_due_hours",
+  "allow_emergency_exception",
+  "allowed_exception_scopes_json",
+  "maximum_exception_validity_hours",
+  "status",
+  "approved_by",
+  "approved_at",
+  "approval_comment",
+  "retired_by",
+  "retired_at",
+  "retirement_reason",
+  "checksum"
+ ],
+ "fields": [
+  {
+   "fieldname": "policy_code",
+   "fieldtype": "Data",
+   "label": "Policy Code",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "policy_version",
+   "fieldtype": "Data",
+   "label": "Policy Version",
+   "reqd": 1,
+   "in_list_view": 1,
+   "length": 32
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "procedure_code",
+   "fieldtype": "Data",
+   "label": "Procedure Code",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "procedure_name",
+   "fieldtype": "Data",
+   "label": "Procedure Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "surgery_level",
+   "fieldtype": "Select",
+   "label": "Surgery Level",
+   "options": "Level I\nLevel II\nLevel III\nLevel IV",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Date",
+   "label": "Effective From",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "effective_to",
+   "fieldtype": "Date",
+   "label": "Effective To"
+  },
+  {
+   "fieldname": "require_mdt",
+   "fieldtype": "Check",
+   "label": "Require MDT",
+   "default": "0"
+  },
+  {
+   "fieldname": "minimum_mdt_participants",
+   "fieldtype": "Int",
+   "label": "Minimum MDT Participants"
+  },
+  {
+   "fieldname": "required_mdt_roles_json",
+   "fieldtype": "Code",
+   "label": "Required MDT Roles JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "required_check_items_json",
+   "fieldtype": "Code",
+   "label": "Required Safety Check Items JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "required_care_stages_json",
+   "fieldtype": "Code",
+   "label": "Required Care Stages JSON",
+   "options": "JSON",
+   "reqd": 1
+  },
+  {
+   "fieldname": "postoperative_followup_due_hours",
+   "fieldtype": "Int",
+   "label": "Postoperative Follow-up Due Hours"
+  },
+  {
+   "fieldname": "allow_emergency_exception",
+   "fieldtype": "Check",
+   "label": "Allow Emergency Exception",
+   "default": "0"
+  },
+  {
+   "fieldname": "allowed_exception_scopes_json",
+   "fieldtype": "Code",
+   "label": "Allowed Exception Scopes JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "maximum_exception_validity_hours",
+   "fieldtype": "Int",
+   "label": "Maximum Exception Validity Hours"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nApproved\nRetired",
+   "default": "Draft",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_at",
+   "fieldtype": "Datetime",
+   "label": "Approved At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_comment",
+   "fieldtype": "Small Text",
+   "label": "Approval Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retired_by",
+   "fieldtype": "Link",
+   "label": "Retired By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retired_at",
+   "fieldtype": "Datetime",
+   "label": "Retired At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retirement_reason",
+   "fieldtype": "Small Text",
+   "label": "Retirement Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checksum",
+   "fieldtype": "Data",
+   "label": "Checksum",
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Foundation",
+ "name": "IONE Surgery Procedure Policy",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "policy_code,policy_version,procedure_code,procedure_name"
+}

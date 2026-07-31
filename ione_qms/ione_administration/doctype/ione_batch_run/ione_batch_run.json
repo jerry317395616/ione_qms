@@ -1,0 +1,384 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:run_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "run_key",
+  "batch_type",
+  "subject_key",
+  "period_start",
+  "period_end",
+  "source_doctype",
+  "source_index",
+  "status",
+  "phase",
+  "attempt_count",
+  "max_attempts",
+  "continuation_sequence",
+  "recovery_generation",
+  "manual_recovery_count",
+  "task_path",
+  "task_args_json",
+  "cursor_json",
+  "snapshot_start_cursor",
+  "high_water_json",
+  "freshness_watermark_json",
+  "manifest_hash",
+  "manifest_record_count",
+  "verification_hash",
+  "verification_record_count",
+  "work_total",
+  "work_completed",
+  "work_receipt_hash",
+  "work_receipt_count",
+  "lease_token",
+  "heartbeat_at",
+  "lease_expires_at",
+  "next_retry_at",
+  "completed_at",
+  "last_error_code",
+  "failure_work_item",
+  "recovered_by",
+  "recovered_at",
+  "recovery_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "run_key",
+   "fieldtype": "Data",
+   "label": "Run Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "batch_type",
+   "fieldtype": "Select",
+   "label": "Batch Type",
+   "options": "Indicator\nAnalytics",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "subject_key",
+   "fieldtype": "Data",
+   "label": "Subject Key",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "Period Start",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Period End",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_doctype",
+   "fieldtype": "Link",
+   "label": "Source DocType",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_index",
+   "fieldtype": "Int",
+   "label": "Source Index",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nRunning\nRetry Waiting\nCompleted\nDead Letter\nSuperseded",
+   "default": "Pending",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "phase",
+   "fieldtype": "Data",
+   "label": "Phase",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "attempt_count",
+   "fieldtype": "Int",
+   "label": "Attempt Count",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "max_attempts",
+   "fieldtype": "Int",
+   "label": "Maximum Attempts",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "continuation_sequence",
+   "fieldtype": "Int",
+   "label": "Continuation Sequence",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovery_generation",
+   "fieldtype": "Int",
+   "label": "Run Generation",
+   "default": "1",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "manual_recovery_count",
+   "fieldtype": "Int",
+   "label": "Manual Recovery Count",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_path",
+   "fieldtype": "Data",
+   "label": "Task Path",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "task_args_json",
+   "fieldtype": "Code",
+   "label": "Task Arguments",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "cursor_json",
+   "fieldtype": "Code",
+   "label": "Cursor",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "snapshot_start_cursor",
+   "fieldtype": "Code",
+   "label": "Snapshot Start Cursor",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "high_water_json",
+   "fieldtype": "Code",
+   "label": "High Water",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "freshness_watermark_json",
+   "fieldtype": "Code",
+   "label": "Freshness Watermark",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "manifest_hash",
+   "fieldtype": "Data",
+   "label": "Manifest Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "manifest_record_count",
+   "fieldtype": "Int",
+   "label": "Manifest Record Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verification_hash",
+   "fieldtype": "Data",
+   "label": "Verification Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "verification_record_count",
+   "fieldtype": "Int",
+   "label": "Verification Record Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_total",
+   "fieldtype": "Int",
+   "label": "Work Total",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_completed",
+   "fieldtype": "Int",
+   "label": "Work Completed",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_receipt_hash",
+   "fieldtype": "Data",
+   "label": "Work Receipt Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "work_receipt_count",
+   "fieldtype": "Int",
+   "label": "Work Receipt Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lease_token",
+   "fieldtype": "Data",
+   "label": "Lease Token",
+   "read_only": 1,
+   "hidden": 1,
+   "mask": 1,
+   "permlevel": 9,
+   "length": 64
+  },
+  {
+   "fieldname": "heartbeat_at",
+   "fieldtype": "Datetime",
+   "label": "Heartbeat At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lease_expires_at",
+   "fieldtype": "Datetime",
+   "label": "Lease Expires At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "next_retry_at",
+   "fieldtype": "Datetime",
+   "label": "Next Retry At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error_code",
+   "fieldtype": "Data",
+   "label": "Last Error Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "failure_work_item",
+   "fieldtype": "Link",
+   "label": "Failure Work Item",
+   "options": "IONE Batch Work Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovered_by",
+   "fieldtype": "Link",
+   "label": "Recovered By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovered_at",
+   "fieldtype": "Datetime",
+   "label": "Recovered At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recovery_reason",
+   "fieldtype": "Small Text",
+   "label": "Recovery Reason",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE Batch Run",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "title_field": "run_key",
+ "search_fields": "run_key,batch_type,subject_key,status",
+ "allow_import": 0
+}

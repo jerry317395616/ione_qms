@@ -1,0 +1,424 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:batch_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "batch_key",
+  "policy",
+  "policy_checksum",
+  "batch_kind",
+  "parent_batch",
+  "supplement_sequence",
+  "source_system",
+  "source_completeness_watermark",
+  "source_complete_through",
+  "source_completeness_hash",
+  "period_start",
+  "period_end",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "population_count",
+  "population_manifest_json",
+  "population_hash",
+  "sample_count",
+  "selection_manifest_json",
+  "selection_hash",
+  "expert_sample_count",
+  "expert_selection_manifest_json",
+  "expert_selection_hash",
+  "sampling_key_id",
+  "sampling_key_fingerprint",
+  "status",
+  "completed_at",
+  "created_by",
+  "created_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "batch_key",
+   "fieldtype": "Data",
+   "label": "Batch Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Medical Record Sampling Policy",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "policy_checksum",
+   "fieldtype": "Data",
+   "label": "Policy Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "batch_kind",
+   "fieldtype": "Select",
+   "label": "Batch Kind",
+   "options": "Initial\nSupplemental",
+   "reqd": 1,
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "parent_batch",
+   "fieldtype": "Link",
+   "label": "Parent Batch",
+   "options": "IONE Medical Record Review Batch",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "supplement_sequence",
+   "fieldtype": "Int",
+   "label": "Supplement Sequence",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_completeness_watermark",
+   "fieldtype": "Link",
+   "label": "Source Completeness Watermark",
+   "options": "IONE Medical Record Completeness Watermark",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "source_complete_through",
+   "fieldtype": "Date",
+   "label": "Source Complete Through",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_completeness_hash",
+   "fieldtype": "Data",
+   "label": "Source Completeness Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "Period Start",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Period End",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "population_count",
+   "fieldtype": "Int",
+   "label": "Population Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "population_manifest_json",
+   "fieldtype": "Code",
+   "label": "Population Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "population_hash",
+   "fieldtype": "Data",
+   "label": "Population Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "sample_count",
+   "fieldtype": "Int",
+   "label": "Sample Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "selection_manifest_json",
+   "fieldtype": "Code",
+   "label": "Selection Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "selection_hash",
+   "fieldtype": "Data",
+   "label": "Selection Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "expert_sample_count",
+   "fieldtype": "Int",
+   "label": "Expert Sample Count",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_selection_manifest_json",
+   "fieldtype": "Code",
+   "label": "Expert Selection Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "expert_selection_hash",
+   "fieldtype": "Data",
+   "label": "Expert Selection Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "sampling_key_id",
+   "fieldtype": "Data",
+   "label": "Sampling Key ID",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sampling_key_fingerprint",
+   "fieldtype": "Data",
+   "label": "Sampling Key Fingerprint",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "In Review\nCompleted",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Created At",
+   "reqd": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Record Review Batch",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Coder",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Expert Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "batch_key,policy,parent_batch,source_system,source_completeness_watermark,hospital,campus,department,status",
+ "allow_import": 0
+}

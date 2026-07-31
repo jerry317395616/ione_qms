@@ -1,0 +1,389 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "project_code",
+  "project_name",
+  "project_type",
+  "finding",
+  "indicator",
+  "recurrence_policy",
+  "recurrence_evaluation",
+  "recurrence_rule",
+  "recurrence_policy_checksum",
+  "recurrence_group_key",
+  "recurrence_case_key",
+  "active_recurrence_key",
+  "recurrence_snapshot_hash",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "status",
+  "problem_statement",
+  "goal",
+  "start_date",
+  "end_date",
+  "project_owner",
+  "analysis_method",
+  "root_cause_analysis_complete",
+  "root_cause_conclusion",
+  "root_causes",
+  "pareto_items",
+  "improvement_measures",
+  "effect_measurements",
+  "baseline_value",
+  "target_value",
+  "actual_value",
+  "standardization_decision",
+  "standardization_conclusion",
+  "standardization_evidence_reference",
+  "standardization_evidence_hash",
+  "standardized_by",
+  "standardized_at",
+  "summary"
+ ],
+ "fields": [
+  {
+   "fieldname": "project_code",
+   "fieldtype": "Data",
+   "label": "Project Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "label": "Project Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "project_type",
+   "fieldtype": "Select",
+   "label": "Project Type",
+   "options": "Regular\nSpecial Recurrence",
+   "default": "Regular",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "finding",
+   "fieldtype": "Link",
+   "label": "Finding",
+   "options": "IONE QC Finding"
+  },
+  {
+   "fieldname": "indicator",
+   "fieldtype": "Link",
+   "label": "Indicator",
+   "options": "IONE QC Indicator"
+  },
+  {
+   "fieldname": "recurrence_policy",
+   "fieldtype": "Link",
+   "label": "Recurrence Policy",
+   "options": "IONE Finding Recurrence Policy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recurrence_evaluation",
+   "fieldtype": "Link",
+   "label": "Recurrence Evaluation",
+   "options": "IONE Finding Recurrence Evaluation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recurrence_rule",
+   "fieldtype": "Link",
+   "label": "Recurrence Rule",
+   "options": "IONE QC Rule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recurrence_policy_checksum",
+   "fieldtype": "Data",
+   "label": "Recurrence Policy Checksum",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recurrence_group_key",
+   "fieldtype": "Data",
+   "label": "Recurrence Group Key",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "recurrence_case_key",
+   "fieldtype": "Data",
+   "label": "Recurrence Case Key",
+   "read_only": 1,
+   "unique": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "active_recurrence_key",
+   "fieldtype": "Data",
+   "label": "Active Recurrence Key",
+   "read_only": 1,
+   "unique": 1,
+   "hidden": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "recurrence_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Recurrence Snapshot Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Proposed\nApproved\nActive\nMeasuring\nClosed\nRejected\nCancelled",
+   "default": "Proposed",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "problem_statement",
+   "fieldtype": "Text Editor",
+   "label": "Problem Statement",
+   "reqd": 1
+  },
+  {
+   "fieldname": "goal",
+   "fieldtype": "Text Editor",
+   "label": "Goal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "project_owner",
+   "fieldtype": "Link",
+   "label": "Project Owner",
+   "options": "User"
+  },
+  {
+   "fieldname": "analysis_method",
+   "fieldtype": "Select",
+   "label": "Analysis Method",
+   "options": "\nFive Why\nFishbone\nPareto\nCombined\nOther"
+  },
+  {
+   "fieldname": "root_cause_analysis_complete",
+   "fieldtype": "Check",
+   "label": "Root Cause Analysis Complete",
+   "default": "0"
+  },
+  {
+   "fieldname": "root_cause_conclusion",
+   "fieldtype": "Long Text",
+   "label": "Root Cause Conclusion"
+  },
+  {
+   "fieldname": "root_causes",
+   "fieldtype": "Table",
+   "label": "Root Causes",
+   "options": "IONE Root Cause"
+  },
+  {
+   "fieldname": "pareto_items",
+   "fieldtype": "Table",
+   "label": "Pareto Analysis",
+   "options": "IONE Pareto Cause Item"
+  },
+  {
+   "fieldname": "improvement_measures",
+   "fieldtype": "Table",
+   "label": "Improvement Measures",
+   "options": "IONE Improvement Measure"
+  },
+  {
+   "fieldname": "effect_measurements",
+   "fieldtype": "Table",
+   "label": "Effect Measurements",
+   "options": "IONE PDCA Effect Measurement"
+  },
+  {
+   "fieldname": "baseline_value",
+   "fieldtype": "Float",
+   "label": "Baseline Value"
+  },
+  {
+   "fieldname": "target_value",
+   "fieldtype": "Float",
+   "label": "Target Value"
+  },
+  {
+   "fieldname": "actual_value",
+   "fieldtype": "Float",
+   "label": "Actual Value"
+  },
+  {
+   "fieldname": "standardization_decision",
+   "fieldtype": "Select",
+   "label": "Standardization Decision",
+   "options": "\nAdopted\nNot Adopted",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standardization_conclusion",
+   "fieldtype": "Long Text",
+   "label": "Standardization Conclusion",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standardization_evidence_reference",
+   "fieldtype": "Data",
+   "label": "Standardization Evidence Reference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standardization_evidence_hash",
+   "fieldtype": "Data",
+   "label": "Standardization Evidence Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "standardized_by",
+   "fieldtype": "Link",
+   "label": "Standardized By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "standardized_at",
+   "fieldtype": "Datetime",
+   "label": "Standardized At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Text Editor",
+   "label": "Summary"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE PDCA Project",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "project_name",
+ "search_fields": "project_code,project_name,recurrence_case_key",
+ "allow_import": 0
+}

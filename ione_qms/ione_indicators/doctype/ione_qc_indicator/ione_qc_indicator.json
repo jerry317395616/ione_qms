@@ -1,0 +1,243 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "indicator_code",
+  "indicator_name",
+  "category",
+  "standard",
+  "standard_clause",
+  "definition",
+  "calculator_key",
+  "formula_json",
+  "target_value",
+  "target_min",
+  "target_max",
+  "warning_threshold",
+  "critical_threshold",
+  "direction",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "indicator_code",
+   "fieldtype": "Data",
+   "label": "Indicator Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "indicator_name",
+   "fieldtype": "Data",
+   "label": "Indicator Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "standard",
+   "fieldtype": "Link",
+   "label": "Standard",
+   "options": "IONE QC Standard",
+   "reqd": 1
+  },
+  {
+   "fieldname": "standard_clause",
+   "fieldtype": "Link",
+   "label": "Standard Clause",
+   "options": "IONE QC Standard Clause",
+   "reqd": 1
+  },
+  {
+   "fieldname": "definition",
+   "fieldtype": "Text Editor",
+   "label": "Definition"
+  },
+  {
+   "fieldname": "calculator_key",
+   "fieldtype": "Data",
+   "label": "Calculator Key"
+  },
+  {
+   "fieldname": "formula_json",
+   "fieldtype": "Code",
+   "label": "Formula JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "target_value",
+   "fieldtype": "Float",
+   "label": "Target Value"
+  },
+  {
+   "fieldname": "target_min",
+   "fieldtype": "Float",
+   "label": "Target Minimum"
+  },
+  {
+   "fieldname": "target_max",
+   "fieldtype": "Float",
+   "label": "Target Maximum"
+  },
+  {
+   "fieldname": "warning_threshold",
+   "fieldtype": "Float",
+   "label": "Warning Threshold"
+  },
+  {
+   "fieldname": "critical_threshold",
+   "fieldtype": "Float",
+   "label": "Critical Threshold"
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "Direction",
+   "options": "Higher is Better\nLower is Better\nTarget Range"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nRetired",
+   "default": "Draft"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Indicators",
+ "name": "IONE QC Indicator",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "indicator_name",
+ "search_fields": "indicator_code,indicator_name"
+}

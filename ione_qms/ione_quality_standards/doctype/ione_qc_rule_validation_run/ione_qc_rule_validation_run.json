@@ -1,0 +1,329 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "run_key",
+  "rule_version",
+  "rule_checksum",
+  "run_type",
+  "status",
+  "window_start",
+  "window_end",
+  "event_count",
+  "passed_count",
+  "failed_count",
+  "excluded_count",
+  "insufficient_data_count",
+  "error_count",
+  "sample_hash",
+  "result_hash",
+  "outcome_manifest_json",
+  "executor_version",
+  "summary_json",
+  "requested_by",
+  "started_at",
+  "completed_at",
+  "receipt_chain_scope",
+  "receipt_chain_sequence",
+  "receipt_chain_key",
+  "previous_receipt",
+  "previous_receipt_hmac",
+  "signature_version",
+  "hmac_key_id",
+  "receipt_hmac",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "run_key",
+   "fieldtype": "Data",
+   "label": "Run Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "rule_checksum",
+   "fieldtype": "Data",
+   "label": "Rule Checksum",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "run_type",
+   "fieldtype": "Select",
+   "label": "Run Type",
+   "options": "Historical Replay",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Completed\nFailed",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "window_start",
+   "fieldtype": "Datetime",
+   "label": "Window Start",
+   "read_only": 1
+  },
+  {
+   "fieldname": "window_end",
+   "fieldtype": "Datetime",
+   "label": "Window End",
+   "read_only": 1
+  },
+  {
+   "fieldname": "event_count",
+   "fieldtype": "Int",
+   "label": "Event Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "passed_count",
+   "fieldtype": "Int",
+   "label": "Passed Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "failed_count",
+   "fieldtype": "Int",
+   "label": "Failed Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "excluded_count",
+   "fieldtype": "Int",
+   "label": "Excluded Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "insufficient_data_count",
+   "fieldtype": "Int",
+   "label": "Insufficient Data Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_count",
+   "fieldtype": "Int",
+   "label": "Error Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sample_hash",
+   "fieldtype": "Data",
+   "label": "Sample Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "result_hash",
+   "fieldtype": "Data",
+   "label": "Result Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "outcome_manifest_json",
+   "fieldtype": "Long Text",
+   "label": "Outcome Manifest JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "executor_version",
+   "fieldtype": "Data",
+   "label": "Executor Version",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_json",
+   "fieldtype": "Long Text",
+   "label": "Summary JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_chain_scope",
+   "fieldtype": "Data",
+   "label": "Receipt Chain Scope",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_chain_sequence",
+   "fieldtype": "Int",
+   "label": "Receipt Chain Sequence",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_chain_key",
+   "fieldtype": "Data",
+   "label": "Receipt Chain Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "previous_receipt",
+   "fieldtype": "Link",
+   "label": "Previous Receipt",
+   "options": "IONE QC Rule Validation Run",
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_receipt_hmac",
+   "fieldtype": "Data",
+   "label": "Previous Receipt HMAC",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "signature_version",
+   "fieldtype": "Data",
+   "label": "Signature Version",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_hmac",
+   "fieldtype": "Data",
+   "label": "Receipt HMAC",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Quality Standards",
+ "name": "IONE QC Rule Validation Run",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "run_key,rule_version,rule_checksum"
+}

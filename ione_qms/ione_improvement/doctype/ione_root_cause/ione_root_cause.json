@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "cause_code",
+  "analysis_method",
+  "why_level",
+  "parent_cause_code",
+  "category",
+  "cause",
+  "evidence",
+  "evidence_hash",
+  "confirmed"
+ ],
+ "fields": [
+  {
+   "fieldname": "cause_code",
+   "fieldtype": "Data",
+   "label": "Cause Code",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "analysis_method",
+   "fieldtype": "Select",
+   "label": "Analysis Method",
+   "options": "Five Why\nFishbone\nOther",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "why_level",
+   "fieldtype": "Int",
+   "label": "Why Level"
+  },
+  {
+   "fieldname": "parent_cause_code",
+   "fieldtype": "Data",
+   "label": "Parent Cause Code"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "label": "Category",
+   "options": "People\nProcess\nTechnology\nEnvironment\nPolicy\nData\nOther"
+  },
+  {
+   "fieldname": "cause",
+   "fieldtype": "Small Text",
+   "label": "Cause",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "evidence",
+   "fieldtype": "Long Text",
+   "label": "Evidence"
+  },
+  {
+   "fieldname": "evidence_hash",
+   "fieldtype": "Data",
+   "label": "Evidence Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "confirmed",
+   "fieldtype": "Check",
+   "label": "Confirmed"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Root Cause",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "istable": 1
+}

@@ -1,0 +1,87 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "participation_role",
+  "required_attendee",
+  "attendance_status",
+  "joined_at",
+  "left_at",
+  "attendance_evidence",
+  "absence_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "participation_role",
+   "fieldtype": "Data",
+   "label": "Participation Role",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "required_attendee",
+   "fieldtype": "Check",
+   "label": "Required Attendee",
+   "default": "0"
+  },
+  {
+   "fieldname": "attendance_status",
+   "fieldtype": "Select",
+   "label": "Attendance Status",
+   "options": "Pending\nAttended\nAbsent",
+   "default": "Pending",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "joined_at",
+   "fieldtype": "Datetime",
+   "label": "Joined At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "left_at",
+   "fieldtype": "Datetime",
+   "label": "Left At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "attendance_evidence",
+   "fieldtype": "Small Text",
+   "label": "Attendance Evidence",
+   "read_only": 1
+  },
+  {
+   "fieldname": "absence_reason",
+   "fieldtype": "Small Text",
+   "label": "Absence Reason",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Meeting Attendee",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "istable": 1
+}

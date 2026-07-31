@@ -1,0 +1,178 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "schema_revision",
+  "full_fingerprint",
+  "status",
+  "requested_at",
+  "started_at",
+  "last_batch_at",
+  "completed_at",
+  "batch_count",
+  "continuation_sequence",
+  "last_summary_json",
+  "completion_receipt",
+  "last_error_code",
+  "indicator_verification_cursor",
+  "indicator_verification_complete"
+ ],
+ "fields": [
+  {
+   "fieldname": "schema_revision",
+   "fieldtype": "Data",
+   "label": "Schema Revision",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "full_fingerprint",
+   "fieldtype": "Data",
+   "label": "Full Fingerprint",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nRunning\nBlocked\nCompleted\nFailed",
+   "default": "Pending",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Requested At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_batch_at",
+   "fieldtype": "Datetime",
+   "label": "Last Batch At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch_count",
+   "fieldtype": "Int",
+   "label": "Batch Count",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "continuation_sequence",
+   "fieldtype": "Int",
+   "label": "Continuation Sequence",
+   "default": "0",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_summary_json",
+   "fieldtype": "Code",
+   "label": "Last Summary JSON",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completion_receipt",
+   "fieldtype": "Link",
+   "label": "Completion Receipt",
+   "options": "IONE Migration Completion Receipt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error_code",
+   "fieldtype": "Data",
+   "label": "Last Error Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicator_verification_cursor",
+   "fieldtype": "Data",
+   "label": "Indicator Verification Cursor",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "indicator_verification_complete",
+   "fieldtype": "Check",
+   "label": "Indicator Verification Complete",
+   "default": "0",
+   "read_only": 1,
+   "hidden": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE Migration State",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "issingle": 1
+}

@@ -1,0 +1,274 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:incident_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "incident_key",
+  "incident_type",
+  "severity",
+  "status",
+  "detected_at",
+  "detected_by",
+  "flow_agent",
+  "policy",
+  "agent_release",
+  "analysis_task",
+  "flow_run",
+  "summary",
+  "details",
+  "patient_data_involved",
+  "external_notification_required",
+  "containment_actions",
+  "root_cause",
+  "corrective_actions",
+  "resolved_by",
+  "resolved_at",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "incident_key",
+   "fieldtype": "Data",
+   "label": "Incident Key",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "incident_type",
+   "fieldtype": "Select",
+   "label": "Incident Type",
+   "options": "Patient Data Exposure\nUnauthorized Tool Call\nUnauthorized Write\nPrompt Injection\nModel Safety Failure\nIncorrect Automatic Execution\nAvailability\nOther",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "Severity",
+   "options": "Low\nMedium\nHigh\nCritical",
+   "default": "High",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nInvestigating\nContained\nResolved\nClosed",
+   "default": "Open",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "detected_at",
+   "fieldtype": "Datetime",
+   "label": "Detected At",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "detected_by",
+   "fieldtype": "Link",
+   "label": "Detected By",
+   "options": "User"
+  },
+  {
+   "fieldname": "flow_agent",
+   "fieldtype": "Link",
+   "label": "Flow Agent",
+   "options": "Flow Agent"
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Agent Policy"
+  },
+  {
+   "fieldname": "agent_release",
+   "fieldtype": "Link",
+   "label": "Agent Release",
+   "options": "IONE Agent Release"
+  },
+  {
+   "fieldname": "analysis_task",
+   "fieldtype": "Link",
+   "label": "Analysis Task",
+   "options": "IONE AI Analysis Task"
+  },
+  {
+   "fieldname": "flow_run",
+   "fieldtype": "Link",
+   "label": "Flow Run",
+   "options": "Flow Run"
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Small Text",
+   "label": "Summary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Long Text",
+   "label": "Details",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "patient_data_involved",
+   "fieldtype": "Check",
+   "label": "Patient Data Involved",
+   "default": "0"
+  },
+  {
+   "fieldname": "external_notification_required",
+   "fieldtype": "Check",
+   "label": "External Notification Required",
+   "default": "0"
+  },
+  {
+   "fieldname": "containment_actions",
+   "fieldtype": "Long Text",
+   "label": "Containment Actions"
+  },
+  {
+   "fieldname": "root_cause",
+   "fieldtype": "Long Text",
+   "label": "Root Cause"
+  },
+  {
+   "fieldname": "corrective_actions",
+   "fieldtype": "Long Text",
+   "label": "Corrective Actions"
+  },
+  {
+   "fieldname": "resolved_by",
+   "fieldtype": "Link",
+   "label": "Resolved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "resolved_at",
+   "fieldtype": "Datetime",
+   "label": "Resolved At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Flow AI",
+ "name": "IONE Agent Incident",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE Agent Service",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 0,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Agent Administrator",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Agent Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 1
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "summary",
+ "search_fields": "incident_key,incident_type,summary,flow_run"
+}

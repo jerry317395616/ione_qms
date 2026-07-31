@@ -20,3 +20,86 @@
   font-family: var(--font-stack-monospace);
   overflow-wrap: anywhere;
 }
+:root {
+	--ione-brand: #0f766e;
+	--ione-brand-soft: #ccfbf1;
+	--ione-border: var(--border-color, #e5e7eb);
+}
+
+.ione-command-center {
+	padding: var(--padding-lg, 24px);
+	background: var(--subtle-fg, #f8fafc);
+	min-height: calc(100vh - 120px);
+}
+
+.ione-metric-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 14px;
+	margin-bottom: 16px;
+}
+
+.ione-metric-card,
+.ione-panel {
+	background: var(--card-bg, #fff);
+	border: 1px solid var(--ione-border);
+	border-radius: 12px;
+	box-shadow: 0 1px 2px rgb(15 23 42 / 5%);
+}
+
+.ione-metric-card {
+	padding: 18px;
+	border-top: 3px solid var(--ione-brand);
+}
+
+.ione-metric-label {
+	color: var(--text-muted, #64748b);
+	font-size: 0.85rem;
+}
+
+.ione-metric-value {
+	color: var(--text-color, #0f172a);
+	font-size: 1.8rem;
+	font-weight: 650;
+	margin-top: 6px;
+}
+
+.ione-chart-grid,
+.ione-table-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+.ione-panel {
+	padding: 18px;
+	min-width: 0;
+}
+
+.ione-panel h3 {
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 0 0 16px;
+}
+
+.ione-table-panel {
+	overflow-x: auto;
+}
+
+.ione-link {
+	color: var(--ione-brand);
+	cursor: pointer;
+	font-weight: 500;
+}
+
+@media (max-width: 900px) {
+	.ione-chart-grid,
+	.ione-table-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.ione-command-center {
+		padding: 12px;
+	}
+}

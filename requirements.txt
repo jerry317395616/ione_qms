@@ -1,1 +1,2 @@
-# Runtime dependencies are supplied by Frappe and Frappe Flow.
+# Frappe and Flow are supplied by the bench. Direct connector dependencies are pinned.
+oracledb==4.0.2

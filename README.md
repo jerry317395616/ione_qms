@@ -6,6 +6,11 @@ It covers standards, deterministic rules, clinical findings and evidence,
 indicators, rectification and PDCA, hospital-system integration, analytics,
 and governed Frappe Flow agents.
 
+Repository status: 104-DocType/9-module static implementation baseline.
+Realtime clinical rules and AI remain disabled. Production readiness remains
+NO-GO until the dated release, clinical, integration, security, capacity,
+backup/restore, and Press acceptance gates pass.
+
 ## Architecture contract
 
 - Frappe Framework and Frappe Flow remain unmodified upstream applications.
@@ -30,7 +35,7 @@ and governed Frappe Flow agents.
 8. IONE Analytics
 9. IONE Administration
 
-## Installation
+## Local development bench only
 
 Install Flow before IONE QMS:
 
@@ -42,8 +47,9 @@ bench --site <site> install-app ione_qms
 bench --site <site> migrate
 ```
 
-Production installation is performed through Press using immutable App
-Releases and a Deploy Candidate. Direct edits inside a running container are
+These commands are not the production deployment procedure. `manager` must be
+built, deployed, and installed through immutable Press App Release, Deploy
+Candidate, and Site App workflows. Direct edits inside a running container are
 not supported.
 
 ## Configuration
@@ -52,10 +58,24 @@ After installation:
 
 1. Configure hospital, campus, departments, and data-retention policies.
 2. Configure each source system and endpoint with least-privilege credentials.
-3. Configure the local Qwen OpenAI-compatible endpoint in Frappe Flow and IONE
+3. Configure the Qwen endpoint and encrypted credential in Flow, then
+   allowlist the approved model host and configure governance/retention in IONE
    AI Settings.
 4. Import or approve standards, indicators, and rule versions.
 5. Run rule replay and shadow mode before publishing clinical rules.
 
 See `docs/` for architecture, operations, security, interfaces, traceability,
 and release runbooks.
+
+Start with:
+
+- `docs/architecture.md`
+- `docs/security.md`
+- `docs/privacy-identity-access.md`
+- `docs/clinical-governance.md`
+- `docs/integration.md`
+- `docs/ai-qwen.md`
+- `docs/testing-and-acceptance.md`
+- `docs/hospital-production-inputs.md`
+- `docs/release-and-rollback.md`
+- `docs/production-readiness-checklist.md`

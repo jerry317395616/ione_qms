@@ -1,0 +1,290 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "feedback_key",
+  "execution_feedback_key",
+  "shadow_execution",
+  "rule_version",
+  "rule_checksum",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "gold_label",
+  "assessment",
+  "comment",
+  "reviewed_by",
+  "reviewed_at",
+  "receipt_chain_scope",
+  "receipt_chain_sequence",
+  "receipt_chain_key",
+  "previous_receipt",
+  "previous_receipt_hmac",
+  "signature_version",
+  "hmac_key_id",
+  "receipt_hmac",
+  "record_hash"
+ ],
+ "fields": [
+  {
+   "fieldname": "feedback_key",
+   "fieldtype": "Data",
+   "label": "Feedback Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_feedback_key",
+   "fieldtype": "Data",
+   "label": "Execution Feedback Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "shadow_execution",
+   "fieldtype": "Link",
+   "label": "Shadow Execution",
+   "options": "IONE QC Rule Shadow Execution",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "rule_version",
+   "fieldtype": "Link",
+   "label": "Rule Version",
+   "options": "IONE QC Rule Version",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rule_checksum",
+   "fieldtype": "Data",
+   "label": "Rule Checksum",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "gold_label",
+   "fieldtype": "Select",
+   "label": "Independent Gold Label",
+   "options": "Finding\nNo Finding\nExcluded\nInsufficient Data\nNeeds Review",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "assessment",
+   "fieldtype": "Select",
+   "label": "Assessment",
+   "options": "Confirmed Finding\nCorrect Pass\nCorrect Exclusion\nFalse Positive\nFalse Negative\nMissing Data\nRule Error\nNeeds Review",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "comment",
+   "fieldtype": "Small Text",
+   "label": "Comment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_chain_scope",
+   "fieldtype": "Data",
+   "label": "Receipt Chain Scope",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_chain_sequence",
+   "fieldtype": "Int",
+   "label": "Receipt Chain Sequence",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_chain_key",
+   "fieldtype": "Data",
+   "label": "Receipt Chain Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "previous_receipt",
+   "fieldtype": "Link",
+   "label": "Previous Receipt",
+   "options": "IONE QC Rule Shadow Feedback",
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_receipt_hmac",
+   "fieldtype": "Data",
+   "label": "Previous Receipt HMAC",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "signature_version",
+   "fieldtype": "Data",
+   "label": "Signature Version",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "HMAC Key ID",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "receipt_hmac",
+   "fieldtype": "Data",
+   "label": "Receipt HMAC",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "record_hash",
+   "fieldtype": "Data",
+   "label": "Record Hash",
+   "read_only": 1,
+   "length": 64
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Quality Standards",
+ "name": "IONE QC Rule Shadow Feedback",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "shadow_execution,rule_version,rule_checksum"
+}

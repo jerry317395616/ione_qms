@@ -1,0 +1,504 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:assignment_key",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "assignment_key",
+  "batch",
+  "policy",
+  "medical_record_qc",
+  "clinical_event",
+  "population_token",
+  "record_snapshot_hash",
+  "sampling_score_hash",
+  "coder_required",
+  "expert_required",
+  "mandatory_rule_manifest_hash",
+  "mandatory_execution_manifest_json",
+  "mandatory_execution_manifest_hash",
+  "deterministic_gate_status",
+  "deterministic_gate_reason_code",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "patient",
+  "encounter",
+  "responsible_staff",
+  "source_system",
+  "source_record_type",
+  "source_record_id_hash",
+  "status",
+  "assigned_coder",
+  "coder_claimed_at",
+  "coder_decision",
+  "coder_outcome",
+  "coder_reviewed_at",
+  "assigned_expert",
+  "expert_claimed_at",
+  "expert_decision",
+  "expert_outcome",
+  "expert_reviewed_at",
+  "latest_archive_decision",
+  "archive_acknowledgement",
+  "pending_archive_delivery",
+  "pending_archive_envelope_hash",
+  "archive_ack_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "assignment_key",
+   "fieldtype": "Data",
+   "label": "Assignment Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Link",
+   "label": "Batch",
+   "options": "IONE Medical Record Review Batch",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "policy",
+   "fieldtype": "Link",
+   "label": "Policy",
+   "options": "IONE Medical Record Sampling Policy",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "medical_record_qc",
+   "fieldtype": "Link",
+   "label": "Medical Record QC",
+   "options": "IONE Medical Record QC",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "clinical_event",
+   "fieldtype": "Link",
+   "label": "Clinical Event",
+   "options": "IONE Clinical Quality Event",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "population_token",
+   "fieldtype": "Data",
+   "label": "Population Token",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "record_snapshot_hash",
+   "fieldtype": "Data",
+   "label": "Record Snapshot Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "sampling_score_hash",
+   "fieldtype": "Data",
+   "label": "Sampling Score Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "coder_required",
+   "fieldtype": "Check",
+   "label": "Coder Required",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_required",
+   "fieldtype": "Check",
+   "label": "Expert Required",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "mandatory_rule_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Mandatory Rule Manifest Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "mandatory_execution_manifest_json",
+   "fieldtype": "Code",
+   "label": "Mandatory Execution Manifest JSON",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "mandatory_execution_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Mandatory Execution Manifest Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "deterministic_gate_status",
+   "fieldtype": "Select",
+   "label": "Deterministic Gate Status",
+   "options": "Passed\nHeld",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "deterministic_gate_reason_code",
+   "fieldtype": "Data",
+   "label": "Deterministic Gate Reason Code",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "IONE Patient Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "encounter",
+   "fieldtype": "Link",
+   "label": "Encounter",
+   "options": "IONE Encounter Index",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "responsible_staff",
+   "fieldtype": "Link",
+   "label": "Responsible Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_system",
+   "fieldtype": "Link",
+   "label": "Source System",
+   "options": "IONE Source System",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_record_type",
+   "fieldtype": "Data",
+   "label": "Source Record Type",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 200
+  },
+  {
+   "fieldname": "source_record_id_hash",
+   "fieldtype": "Data",
+   "label": "Source Record ID Hash",
+   "reqd": 1,
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Coder Review\nExpert Review\nClosed",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "assigned_coder",
+   "fieldtype": "Link",
+   "label": "Assigned Coder",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coder_claimed_at",
+   "fieldtype": "Datetime",
+   "label": "Coder Claimed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coder_decision",
+   "fieldtype": "Link",
+   "label": "Coder Decision",
+   "options": "IONE Medical Record Review Decision",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coder_outcome",
+   "fieldtype": "Select",
+   "label": "Coder Outcome",
+   "options": "\nPass\nDefect\nNeeds Correction\nUnable to Determine",
+   "read_only": 1
+  },
+  {
+   "fieldname": "coder_reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Coder Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "assigned_expert",
+   "fieldtype": "Link",
+   "label": "Assigned Expert",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_claimed_at",
+   "fieldtype": "Datetime",
+   "label": "Expert Claimed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_decision",
+   "fieldtype": "Link",
+   "label": "Expert Decision",
+   "options": "IONE Medical Record Review Decision",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_outcome",
+   "fieldtype": "Select",
+   "label": "Expert Outcome",
+   "options": "\nPass\nDefect\nNeeds Correction\nUnable to Determine",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expert_reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Expert Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "latest_archive_decision",
+   "fieldtype": "Link",
+   "label": "Latest Archive Decision",
+   "options": "IONE Medical Record Archive Decision",
+   "read_only": 1
+  },
+  {
+   "fieldname": "archive_acknowledgement",
+   "fieldtype": "Link",
+   "label": "Archive Acknowledgement",
+   "options": "IONE Medical Record Archive Acknowledgement",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pending_archive_delivery",
+   "fieldtype": "Link",
+   "label": "Pending Archive Delivery",
+   "options": "IONE Medical Record Archive Delivery",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pending_archive_envelope_hash",
+   "fieldtype": "Data",
+   "label": "Pending Archive Envelope Hash",
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "archive_ack_status",
+   "fieldtype": "Select",
+   "label": "Archive Acknowledgement Status",
+   "options": "\nApplied\nRejected\nFailed",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Clinical Quality",
+ "name": "IONE Medical Record Review Assignment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Coder",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Record Expert Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 1,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 0,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "assignment_key,batch,medical_record_qc,assigned_coder,assigned_expert,status",
+ "allow_import": 0
+}

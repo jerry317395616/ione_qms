@@ -1,0 +1,430 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "meeting",
+  "meeting_decision",
+  "finding",
+  "pdca_project",
+  "safety_event",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "title",
+  "description",
+  "assigned_to",
+  "verifier",
+  "due_date",
+  "status",
+  "created_by",
+  "created_at",
+  "started_by",
+  "started_at",
+  "current_submission_key",
+  "current_submission_checksum",
+  "verification_round_no",
+  "latest_verification_round",
+  "latest_verification_receipt_checksum",
+  "completion_evidence",
+  "effect_result",
+  "submitted_for_verification_by",
+  "submitted_for_verification_at",
+  "verification_comment",
+  "verified_by",
+  "verified_at",
+  "closed_by",
+  "closed_at",
+  "cancelled_by",
+  "cancelled_at",
+  "cancellation_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "meeting",
+   "fieldtype": "Link",
+   "label": "Meeting",
+   "options": "IONE Quality Meeting",
+   "read_only": 1
+  },
+  {
+   "fieldname": "meeting_decision",
+   "fieldtype": "Link",
+   "label": "Meeting Decision",
+   "options": "IONE Meeting Decision",
+   "read_only": 1
+  },
+  {
+   "fieldname": "finding",
+   "fieldtype": "Link",
+   "label": "Finding",
+   "options": "IONE QC Finding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pdca_project",
+   "fieldtype": "Link",
+   "label": "PDCA Project",
+   "options": "IONE PDCA Project",
+   "read_only": 1
+  },
+  {
+   "fieldname": "safety_event",
+   "fieldtype": "Link",
+   "label": "Safety Event",
+   "options": "IONE Medical Safety Event",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Long Text",
+   "label": "Description",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "label": "Assigned To",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "verifier",
+   "fieldtype": "Link",
+   "label": "Verifier",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nIn Progress\nPending Verification\nClosed\nCancelled",
+   "default": "Open",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Created At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "started_by",
+   "fieldtype": "Link",
+   "label": "Started By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_submission_key",
+   "fieldtype": "Data",
+   "label": "Current Submission Key",
+   "unique": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "current_submission_checksum",
+   "fieldtype": "Data",
+   "label": "Current Submission Checksum",
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "verification_round_no",
+   "fieldtype": "Int",
+   "label": "Verification Round No",
+   "default": "0",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "latest_verification_round",
+   "fieldtype": "Link",
+   "label": "Latest Verification Round",
+   "options": "IONE Quality Action Verification Round",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "latest_verification_receipt_checksum",
+   "fieldtype": "Data",
+   "label": "Latest Verification Receipt Checksum",
+   "read_only": 1,
+   "no_copy": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "completion_evidence",
+   "fieldtype": "Long Text",
+   "label": "Completion Evidence",
+   "read_only": 1
+  },
+  {
+   "fieldname": "effect_result",
+   "fieldtype": "Long Text",
+   "label": "Effect Result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_for_verification_by",
+   "fieldtype": "Link",
+   "label": "Submitted for Verification By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_for_verification_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted for Verification At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verification_comment",
+   "fieldtype": "Small Text",
+   "label": "Verification Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_by",
+   "fieldtype": "Link",
+   "label": "Verified By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "verified_at",
+   "fieldtype": "Datetime",
+   "label": "Verified At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "closed_by",
+   "fieldtype": "Link",
+   "label": "Closed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "closed_at",
+   "fieldtype": "Datetime",
+   "label": "Closed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancelled_by",
+   "fieldtype": "Link",
+   "label": "Cancelled By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancelled_at",
+   "fieldtype": "Datetime",
+   "label": "Cancelled At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cancellation_reason",
+   "fieldtype": "Small Text",
+   "label": "Cancellation Reason",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Improvement",
+ "name": "IONE Quality Action Item",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Physician",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "title",
+ "search_fields": "title,meeting,meeting_decision,finding,pdca_project,safety_event",
+ "allow_import": 0
+}
