@@ -519,6 +519,7 @@ def ensure_evaluation_threshold_policy() -> None:
 	if not frappe.db.exists("DocType", "IONE Agent Evaluation Threshold Policy"):
 		return
 	from ione_qms.ai.evaluation_contract import EVALUATION_CATEGORIES, canonical_json
+	from ione_qms.services.agent_evaluations import evaluation_threshold_policy_checksum
 
 	policy_name = "IONE-EVAL-THRESHOLDS-V1"
 	values = {
@@ -547,14 +548,21 @@ def ensure_evaluation_threshold_policy() -> None:
 				"Reserved Agent Evaluation Threshold Policy drifted: " + ", ".join(sorted(mismatches))
 			)
 		return
-	frappe.get_doc(
+	policy = frappe.get_doc(
 		{
 			"doctype": "IONE Agent Evaluation Threshold Policy",
 			"threshold_policy_key": policy_name,
+			"owner": frappe.session.user,
 			**values,
 			"status": "Draft",
 		}
-	).insert(ignore_permissions=True)
+	)
+	# During the same process that installs the app, its global doc_events cache
+	# may predate the newly installed hooks. Populate the mandatory derived field
+	# explicitly, then let the normal validation hook recompute and verify it
+	# whenever that hook is already active.
+	policy.checksum = evaluation_threshold_policy_checksum(policy)
+	policy.insert(ignore_permissions=True)
 
 
 def disable_ione_flow_triggers() -> int:

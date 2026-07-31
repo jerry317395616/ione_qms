@@ -354,6 +354,9 @@ class TestAIProductionEvaluationWiring(unittest.TestCase):
 		self.assertIn('"Receipt Hash"', generator)
 		self.assertIn("validate_evaluation_threshold_policy", hooks)
 		self.assertIn('"on_trash": "ione_qms.services.immutability.prevent_delete"', hooks)
+		install = (ROOT / "ione_qms" / "setup" / "install.py").read_text(encoding="utf-8")
+		self.assertIn("evaluation_threshold_policy_checksum", install)
+		self.assertIn("policy.checksum = evaluation_threshold_policy_checksum(policy)", install)
 
 	def test_changed_modules_remain_valid_python(self) -> None:
 		for path in (EVALUATION, EVALUATION_SERVICE, RELEASE, GENERATOR, HOOKS):

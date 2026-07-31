@@ -181,8 +181,7 @@ def validate_evaluation_threshold_policy(doc, method: str | None = None) -> None
 		frappe.throw(str(exc))
 	doc.categories_json = canonical_json(sorted(categories))
 	doc.thresholds_json = canonical_json(thresholds)
-	payload = _threshold_policy_payload(doc)
-	expected_checksum = sha256_json(payload)
+	expected_checksum = evaluation_threshold_policy_checksum(doc)
 
 	if previous is None:
 		if status != "Draft":
@@ -739,6 +738,11 @@ def _threshold_policy_payload(doc) -> dict[str, Any]:
 	}
 
 
+def evaluation_threshold_policy_checksum(doc) -> str:
+	"""Return the canonical checksum, including the accountable policy author."""
+	return sha256_json(_threshold_policy_payload(doc))
+
+
 def _threshold_approval_signature(doc) -> str:
 	signing_key = str(frappe.conf.get("encryption_key") or "")
 	if len(signing_key) < 16:
@@ -767,7 +771,7 @@ def _assert_threshold_policy_integrity(doc, *, require_approved: bool = True) ->
 		frappe.throw("Agent Evaluation Threshold Policy singleton binding is invalid")
 	if not require_approved and doc.get("active_parent_key"):
 		frappe.throw("Retired Agent Evaluation Threshold Policy cannot remain active")
-	expected_checksum = sha256_json(_threshold_policy_payload(doc))
+	expected_checksum = evaluation_threshold_policy_checksum(doc)
 	if not hmac.compare_digest(str(doc.get("checksum") or ""), expected_checksum):
 		frappe.throw("Agent Evaluation Threshold Policy checksum is invalid")
 	if not doc.get("approved_by") or not doc.get("approved_at"):
