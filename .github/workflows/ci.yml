@@ -290,30 +290,33 @@ jobs:
           INCLUDE_DRIVE: ${{ matrix.include_drive }}
         run: |
           set -euo pipefail
-          # Frappe's File integration suite mutates System Settings and fetches
-          # test images through the development web server. Reproduce those
-          # upstream test preconditions explicitly on this ephemeral site. Run
-          # it before Drive's suite creates linked activity-log fixtures.
-          bench --site test.localhost execute frappe.db.set_single_value \
-            --args '["System Settings", {"language": "en", "time_zone": "Asia/Shanghai"}]'
-          bench --site test.localhost set-config host_name http://test.localhost:8000
-          echo "127.0.0.1 test.localhost" | sudo tee -a /etc/hosts >/dev/null
-          bench serve --port 8000 >/tmp/ione-qms-file-test-server.log 2>&1 &
-          file_test_server_pid=$!
-          trap 'kill "$file_test_server_pid" 2>/dev/null || true' EXIT
-          for attempt in {1..30}; do
-            if curl --fail --silent --show-error --max-time 3 \
-              http://test.localhost:8000/api/method/ping >/dev/null; then
-              break
-            fi
-            sleep 1
-          done
-          curl --fail --silent --show-error --max-time 5 \
-            http://test.localhost:8000/_test/assets/image.jpg >/dev/null
-          bench --site test.localhost run-tests --doctype File
-          kill "$file_test_server_pid" 2>/dev/null || true
-          wait "$file_test_server_pid" 2>/dev/null || true
-          trap - EXIT
+          if [ "$INCLUDE_DRIVE" != "true" ]; then
+            # Frappe's File integration suite mutates System Settings and fetches
+            # test images through the development web server. Reproduce those
+            # upstream test preconditions explicitly on this ephemeral site.
+            # Drive's install fixtures contain protected linked files, so its
+            # own suite plus IONE's effective-controller MRO test cover manager.
+            bench --site test.localhost execute frappe.db.set_single_value \
+              --args '["System Settings", {"language": "en", "time_zone": "Asia/Shanghai"}]'
+            bench --site test.localhost set-config host_name http://test.localhost:8000
+            echo "127.0.0.1 test.localhost" | sudo tee -a /etc/hosts >/dev/null
+            bench serve --port 8000 >/tmp/ione-qms-file-test-server.log 2>&1 &
+            file_test_server_pid=$!
+            trap 'kill "$file_test_server_pid" 2>/dev/null || true' EXIT
+            for attempt in {1..30}; do
+              if curl --fail --silent --show-error --max-time 3 \
+                http://test.localhost:8000/api/method/ping >/dev/null; then
+                break
+              fi
+              sleep 1
+            done
+            curl --fail --silent --show-error --max-time 5 \
+              http://test.localhost:8000/_test/assets/image.jpg >/dev/null
+            bench --site test.localhost run-tests --doctype File
+            kill "$file_test_server_pid" 2>/dev/null || true
+            wait "$file_test_server_pid" 2>/dev/null || true
+            trap - EXIT
+          fi
 
           bench --site test.localhost run-tests --app flow
           if [ "$INCLUDE_DRIVE" = "true" ]; then
@@ -354,8 +357,8 @@ jobs:
           set -euo pipefail
           uv tool install "pip-audit==$PIP_AUDIT_VERSION"
           site_packages="$(frappe-bench/env/bin/python -c 'import site; print(site.getsitepackages()[0])')"
-          pip-audit --strict --path "$site_packages"
-          pip-audit --path "$site_packages" \
+          pip-audit --strict --skip-editable --path "$site_packages"
+          pip-audit --skip-editable --path "$site_packages" \
             --format cyclonedx-json \
             --output "ione-qms-bench-${{ matrix.runtime }}.cdx.json"
           {
