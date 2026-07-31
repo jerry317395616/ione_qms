@@ -32,7 +32,7 @@ class TestPHIDisclosureLifecycle(IntegrationTestCase):
 		)
 		self.hospital = f"PHI-H-{self.suffix}"
 		frappe.set_user("Administrator")
-		frappe.get_doc(
+		hospital = frappe.get_doc(
 			{
 				"doctype": "IONE Hospital",
 				"hospital_code": self.hospital,
@@ -40,7 +40,9 @@ class TestPHIDisclosureLifecycle(IntegrationTestCase):
 				"status": "Active",
 			}
 		).insert(ignore_permissions=True)
-		frappe.clear_cache(doctype="IONE Hospital")
+		# IONE Hospital uses hash autonaming; links must bind the inserted
+		# document name rather than its external hospital code.
+		self.hospital = hospital.name
 		self.source = f"PHI-SRC-{self.suffix}"
 		source = frappe.get_doc(
 			{

@@ -1013,7 +1013,7 @@ class TestMedicalRecordArchiveGate(TestCase):
 			"envelope_hash": assignment.pending_archive_envelope_hash,
 			"source_record_id_hash": decision.source_record_id_hash,
 			"source_ack_id": "ACK-1",
-			"source_ack_at": "2026-07-30T19:30:00+08:00",
+			"source_ack_at": "2026-07-30T11:30:00+08:00",
 			"ack_status": "Applied",
 			"message_code": "ARCHIVE_APPLIED",
 		}
@@ -1059,6 +1059,7 @@ class TestMedicalRecordArchiveGate(TestCase):
 			patch.object(review, "assert_integration_endpoint_runtime", side_effect=runtime),
 			patch.object(review, "verify_request", side_effect=verify),
 			patch.object(review, "_archive_ack_payload", side_effect=parse),
+			patch.object(review, "get_system_timezone", return_value="Asia/Shanghai"),
 			patch.object(review, "now_datetime", return_value=review.get_datetime("2026-07-30 11:31:00")),
 			patch.object(review, "_medical_record_archive_lock", return_value=_lock()),
 			patch.object(review.frappe.db, "advisory_lock", return_value=_lock()),

@@ -213,7 +213,7 @@ class TestDataExportScopeSecurity(TestCase):
 			)
 
 	def test_medical_affairs_remains_global_but_administrator_is_denied(self) -> None:
-		doc = _export_request(scope_mode="Unscoped", campus=None, department=None)
+		doc = _export_request(scope_mode="Unscoped", hospital=None, campus=None, department=None)
 		medical_affairs = _context("IONE Medical Affairs", user="ma@example.test")
 		with patch.object(permissions, "get_access_context", return_value=medical_affairs):
 			self.assertEqual(permissions.data_export_request_query(medical_affairs.user), "1=1")

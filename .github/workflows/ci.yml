@@ -292,7 +292,12 @@ jobs:
           set -euo pipefail
           bench --site test.localhost run-tests --app flow
           if [ "$INCLUDE_DRIVE" = "true" ]; then
+            # Drive's backend test discovery imports its Cypress helper, whose
+            # official guard requires this site flag even when no browser test
+            # is launched. The flag changes only the ephemeral CI site.
+            bench --site test.localhost set-config enable_ui_tests true
             bench --site test.localhost run-tests --app drive
+            bench --site test.localhost set-config enable_ui_tests false
           fi
           bench --site test.localhost run-tests --app ione_qms
           bench --site test.localhost run-tests --doctype File

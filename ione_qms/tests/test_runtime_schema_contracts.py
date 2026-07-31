@@ -635,6 +635,7 @@ class TestProjectionHelpers(TestCase):
 	def test_candidate_review_rolls_back_when_workflow_fails(self) -> None:
 		candidate = MagicMock()
 		candidate.name = "AIC-0001"
+		candidate.task = "TASK-1"
 		candidate.status = "Pending Review"
 		with (
 			patch("ione_qms.api.ai.require_role"),
@@ -643,6 +644,10 @@ class TestProjectionHelpers(TestCase):
 				SimpleNamespace(user="reviewer@example.test"),
 			),
 			patch("ione_qms.api.ai.frappe.get_doc", return_value=candidate),
+			patch(
+				"ione_qms.api.ai.frappe.db.get_value",
+				return_value="requester@example.test",
+			),
 			patch(
 				"ione_qms.api.ai.frappe.db.advisory_lock",
 				return_value=nullcontext(),

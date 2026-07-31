@@ -731,9 +731,11 @@ def medical_staff_query(user: str | None = None) -> str:
 	if context.has_department_clinical_scope:
 		departments = _authorized_departments(context, "IONE Medical Staff")
 		if departments:
-			return f"({integrity}) and {table}.department in ({_sql_values(departments)})"
+			scoped = f"{table}.department in ({_sql_values(departments)})"
+			return scoped if integrity == "1=1" else f"({integrity}) and {scoped}"
 	if context.has_personal_clinical_scope:
-		return f"({integrity}) and {table}.user = {frappe.db.escape(context.user)}"
+		scoped = f"{table}.user = {frappe.db.escape(context.user)}"
+		return scoped if integrity == "1=1" else f"({integrity}) and {scoped}"
 	return "1=0"
 
 
@@ -933,7 +935,9 @@ def _ai_query(doctype: str, user: str | None = None) -> str:
 		return integrity
 	scoped = _scope_clauses(doctype, table, context, include_ai_review=True)
 	if "IONE Auditor" in context.roles:
-		authorized = "(" + " or ".join(scoped) + ")" if scoped else "1=0"
+		if not scoped:
+			return "1=0"
+		authorized = "(" + " or ".join(scoped) + ")"
 		return f"({integrity}) and ({authorized})"
 	if _has_field(doctype, "requested_by"):
 		scoped.append(f"{table}.requested_by = {frappe.db.escape(context.user)}")
@@ -2486,6 +2490,16 @@ def _clinical_condition(
 	integrity = scope_integrity_sql(doctype, table)
 	if context.has_global_clinical_read:
 		return "" if integrity == "1=1" else integrity
+	if (
+		context.has_personal_clinical_scope
+		and not context.staff_records
+		and not context.has_department_clinical_scope
+		and not context.has_explicit_clinical_scope
+	):
+		# A personal clinical role is activated by an authoritative Medical
+		# Staff mapping. Without it, even a matching user-valued field must not
+		# become an alternate route into clinical records.
+		return "1=0"
 	clauses = _scope_clauses(doctype, table, context, include_personal=include_personal)
 	if not clauses:
 		return "1=0"
@@ -2575,6 +2589,13 @@ def _clinical_permission(
 	if ptype not in {"read", "select"} and context.has_global_clinical_write:
 		return True
 	if ptype in {"delete", "cancel", "amend"}:
+		return False
+	if (
+		context.has_personal_clinical_scope
+		and not context.staff_records
+		and not context.has_department_clinical_scope
+		and not context.has_explicit_clinical_scope
+	):
 		return False
 	department = getattr(doc, "department", None)
 	hospital = getattr(doc, "hospital", None)

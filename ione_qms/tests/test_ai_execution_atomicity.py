@@ -47,8 +47,8 @@ def _task(**overrides) -> _Document:
 		"patient": None,
 		"encounter": None,
 		"responsible_staff": None,
-		"input_summary": "",
-		"input_summary_hash": orchestrator._hash_text(""),
+		"input_summary": "governed prompt",
+		"input_hash": orchestrator._hash_text("governed prompt"),
 	}
 	values.update(overrides)
 	return _Document(**values)
