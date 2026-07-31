@@ -78,6 +78,7 @@ GOVERNED_PHI_COMMANDS = frozenset(
 )
 
 _MAX_INSPECTION_DEPTH = 12
+_MAX_ARTIFACT_INSPECTION_DEPTH = 64
 _MAX_INSPECTION_NODES = 20_000
 _MAX_JSON_STRING_LENGTH = 2 * 1024 * 1024
 _MAX_REQUEST_BYTES = 2 * 1024 * 1024
@@ -196,7 +197,11 @@ def validate_phi_query_artifact(doc, method: str | None = None) -> None:
 			f"{doc.doctype} cannot target an identity-bearing IONE QMS DocType.",
 			frappe.PermissionError,
 		)
-	if _contains_phi_field_reference(value, root_doctypes=roots):
+	if _contains_phi_field_reference(
+		value,
+		root_doctypes=roots,
+		max_depth=_MAX_ARTIFACT_INSPECTION_DEPTH,
+	):
 		frappe.throw(
 			f"{doc.doctype} cannot reference protected patient identity fields.",
 			frappe.PermissionError,
@@ -291,7 +296,11 @@ def assert_no_legacy_phi_query_bypasses() -> None:
 					f"Legacy {doctype} '{name}' targets an identity-bearing IONE QMS "
 					"DocType. Retire it under approved change control before migration."
 				)
-			if _contains_phi_field_reference(value, root_doctypes=roots):
+			if _contains_phi_field_reference(
+				value,
+				root_doctypes=roots,
+				max_depth=_MAX_ARTIFACT_INSPECTION_DEPTH,
+			):
 				frappe.throw(
 					f"Legacy {doctype} '{name}' references a protected patient identity "
 					"field. Retire it under approved change control before migration."
@@ -600,6 +609,7 @@ def _contains_phi_field_reference(
 	value: Any,
 	*,
 	root_doctypes: frozenset[str] = frozenset(),
+	max_depth: int = _MAX_INSPECTION_DEPTH,
 ) -> bool:
 	nodes = 0
 	texts: list[str] = []
@@ -607,7 +617,7 @@ def _contains_phi_field_reference(
 	def inspect(candidate: Any, depth: int) -> None:
 		nonlocal nodes
 		nodes += 1
-		if nodes > _MAX_INSPECTION_NODES or depth > _MAX_INSPECTION_DEPTH:
+		if nodes > _MAX_INSPECTION_NODES or depth > max_depth:
 			frappe.throw("PHI query inspection exceeded its safe bounded input contract.")
 		if isinstance(candidate, Mapping):
 			for key, item in candidate.items():

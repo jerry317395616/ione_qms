@@ -226,6 +226,43 @@ class TestPHIQueryGuardUnit(unittest.TestCase):
 		)
 		self.guard.validate_phi_query_artifact(notification)
 
+	def test_legitimate_deep_print_format_structure_uses_bounded_artifact_budget(self) -> None:
+		class _Document(dict):
+			__getattr__ = dict.get
+
+			def as_dict(self):
+				return dict(self)
+
+		layout = {"fieldname": "qty"}
+		for _level in range(20):
+			layout = {"merged_fields": [layout]}
+		print_format = _Document(
+			doctype="Print Format",
+			name="Delivery Note Bordered",
+			doc_type="Delivery Note",
+			format_data=layout,
+		)
+		self.guard.validate_phi_query_artifact(print_format)
+
+	def test_artifact_depth_budget_still_fails_closed(self) -> None:
+		class _Document(dict):
+			__getattr__ = dict.get
+
+			def as_dict(self):
+				return dict(self)
+
+		layout = {"fieldname": "qty"}
+		for _level in range(70):
+			layout = {"merged_fields": [layout]}
+		print_format = _Document(
+			doctype="Print Format",
+			name="Overly Deep Format",
+			doc_type="Delivery Note",
+			format_data=layout,
+		)
+		with self.assertRaisesRegex(_GuardRejected, "bounded input contract"):
+			self.guard.validate_phi_query_artifact(print_format)
+
 	def test_technical_administrator_cannot_enumerate_phi_sidecars(self) -> None:
 		self.frappe.session.user = "Administrator"
 		for doctype in (
