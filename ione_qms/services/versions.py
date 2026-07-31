@@ -3252,9 +3252,20 @@ def _materialize_standard_snapshot(doc, standard) -> None:
 	if standard is None:
 		frappe.throw("Standard version requires a governed standard parent")
 	_require_standard_parent_identity(standard)
-	archived_source_hash = _require_archived_standard_source(standard)
 	previous = doc.get_doc_before_save()
 	previous_state = str(previous.get("approval_status") or "Draft") if previous else "Draft"
+	current_state = str(doc.get("approval_status") or "Draft")
+	if standard.get("source_file"):
+		archived_source_hash = _require_archived_standard_source(standard)
+		lineage_status = "Verified"
+	elif current_state == "Draft":
+		# Installation may seed URL-only templates, but they remain explicitly
+		# non-reviewable until a named author archives the real authority bytes.
+		archived_source_hash = ""
+		lineage_status = "Pending Archive"
+	else:
+		archived_source_hash = _require_archived_standard_source(standard)
+		lineage_status = "Verified"
 	if previous is None or previous_state == "Draft":
 		for snapshot_field, source_field in STANDARD_SNAPSHOT_FIELD_MAP.items():
 			doc.set(snapshot_field, standard.get(source_field))
@@ -3262,7 +3273,7 @@ def _materialize_standard_snapshot(doc, standard) -> None:
 			"source_file_hash",
 			archived_source_hash,
 		)
-		doc.set("lineage_status", "Verified")
+		doc.set("lineage_status", lineage_status)
 	else:
 		changed = [
 			fieldname

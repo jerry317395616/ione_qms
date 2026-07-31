@@ -214,6 +214,54 @@ class TestDefinitionVersionSnapshots(TestCase):
 		self.assertEqual(doc.get("risk_level_snapshot"), "High")
 		self.assertEqual(doc.get("plugin_key"), "RULE-1")
 
+	def test_url_only_standard_template_remains_pending_archive_while_draft(self) -> None:
+		doc = _Document(
+			doctype="IONE QC Standard Version",
+			name="STD-1-v1",
+			values={"approval_status": "Draft"},
+		)
+		standard = _Row(
+			name="STD-1",
+			standard_code="STD-1",
+			standard_name="Draft Template",
+			standard_category="Template",
+			source_type="National Policy",
+			responsible_department="Quality",
+			issue_date="2026-01-01",
+			source_url="https://authority.example.test/standard.pdf",
+			source_file=None,
+			description="Not reviewable until archived",
+		)
+		versions._materialize_standard_snapshot(doc, standard)
+		self.assertEqual(doc.get("lineage_status"), "Pending Archive")
+		self.assertEqual(doc.get("source_file_hash"), "")
+		self.assertEqual(doc.get("standard_code_snapshot"), "STD-1")
+
+	def test_url_only_standard_cannot_leave_draft_without_archived_bytes(self) -> None:
+		doc = _Document(
+			doctype="IONE QC Standard Version",
+			name="STD-1-v1",
+			values={"approval_status": "Under Review"},
+			previous={"approval_status": "Draft"},
+		)
+		standard = _Row(
+			name="STD-1",
+			standard_code="STD-1",
+			standard_name="Draft Template",
+			standard_category="Template",
+			source_type="National Policy",
+			responsible_department="Quality",
+			issue_date="2026-01-01",
+			source_url="https://authority.example.test/standard.pdf",
+			source_file=None,
+			description="Not reviewable until archived",
+		)
+		with (
+			patch.object(versions.frappe, "throw", side_effect=_raise_runtime),
+			self.assertRaisesRegex(RuntimeError, "cannot enter verified review"),
+		):
+			versions._materialize_standard_snapshot(doc, standard)
+
 	def test_draft_version_can_change_snapshotted_semantics(self) -> None:
 		previous = {
 			"status": "Draft",

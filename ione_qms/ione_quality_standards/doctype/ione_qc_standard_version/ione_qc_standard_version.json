@@ -122,7 +122,7 @@
    "fieldname": "lineage_status",
    "fieldtype": "Select",
    "label": "Lineage Status",
-   "options": "Verified\nQuarantined",
+   "options": "Pending Archive\nVerified\nQuarantined",
    "read_only": 1,
    "in_standard_filter": 1
   },
