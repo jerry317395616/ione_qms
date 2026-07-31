@@ -328,7 +328,7 @@ jobs:
             bench --site test.localhost set-config enable_ui_tests false
           fi
           bench --site test.localhost run-tests --app ione_qms
-      - name: Prove exact SHAs and clean official application trees
+      - name: Prove exact SHAs and leave official application trees clean
         working-directory: frappe-bench
         env:
           FRAPPE_EXACT_SHA: ${{ matrix.frappe_sha }}
@@ -349,6 +349,20 @@ jobs:
           assert_clean_exact frappe "$FRAPPE_EXACT_SHA"
           assert_clean_exact flow "$FLOW_SHA"
           if [ "$INCLUDE_DRIVE" = "true" ]; then
+            drive_status="$(git -C apps/drive status --porcelain --untracked-files=all)"
+            expected_drive_status=$' M frontend/components.d.ts\n M frontend/yarn.lock'
+            if [ "$drive_status" != "$expected_drive_status" ]; then
+              printf '%s\n' "$drive_status"
+              echo "Drive produced changes outside its two known generated frontend files" >&2
+              exit 1
+            fi
+            # The official Drive build regenerates these two tracked files in the
+            # disposable CI clone. Restore them to the pinned release so the
+            # verified official source tree is byte-for-byte clean afterwards.
+            git -C apps/drive restore \
+              --source="$MANAGER_DRIVE_SHA" \
+              --worktree \
+              -- frontend/components.d.ts frontend/yarn.lock
             assert_clean_exact drive "$MANAGER_DRIVE_SHA"
           fi
           assert_clean_exact ione_qms "$GITHUB_SHA"
@@ -356,9 +370,16 @@ jobs:
         run: |
           set -euo pipefail
           uv tool install "pip-audit==$PIP_AUDIT_VERSION"
-          site_packages="$(frappe-bench/env/bin/python -c 'import site; print(site.getsitepackages()[0])')"
-          pip-audit --strict --skip-editable --path "$site_packages"
-          pip-audit --skip-editable --path "$site_packages" \
+          requirements="ione-qms-bench-${{ matrix.runtime }}.requirements.txt"
+          frappe-bench/env/bin/python -m pip list \
+            --format=freeze \
+            --exclude-editable > "$requirements"
+          test -s "$requirements"
+          # Every non-editable distribution in the effective Bench environment
+          # is now fully pinned. Local editable app sources are covered by exact
+          # SHA, clean-tree, static-analysis, build, and application test gates.
+          pip-audit --strict --disable-pip --no-deps --requirement "$requirements"
+          pip-audit --disable-pip --no-deps --requirement "$requirements" \
             --format cyclonedx-json \
             --output "ione-qms-bench-${{ matrix.runtime }}.cdx.json"
           {
@@ -381,6 +402,7 @@ jobs:
           path: |
             ione-qms-bench-${{ matrix.runtime }}.cdx.json
             ione-qms-bench-${{ matrix.runtime }}.manifest.txt
+            ione-qms-bench-${{ matrix.runtime }}.requirements.txt
           if-no-files-found: error
 
   supply-chain:
