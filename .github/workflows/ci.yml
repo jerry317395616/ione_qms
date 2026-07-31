@@ -194,8 +194,7 @@ jobs:
             --frappe-path "$PINNED_SOURCE_ROOT/frappe" \
             --frappe-branch ci-pinned-frappe \
             --python python3 \
-            --skip-redis-config-generation \
-            --verbose
+            --skip-redis-config-generation
           test "$(git -C frappe-bench/apps/frappe rev-parse HEAD)" = "$FRAPPE_EXACT_SHA"
       - name: Configure test services
         working-directory: frappe-bench
@@ -203,10 +202,8 @@ jobs:
           bench set-config -g redis_cache redis://localhost:6379
           bench set-config -g redis_queue redis://localhost:6379
           bench set-config -g redis_socketio redis://localhost:6379
-      - name: Add Flow, manager Drive, and IONE QMS
+      - name: Add exact Flow source
         working-directory: frappe-bench
-        env:
-          INCLUDE_DRIVE: ${{ matrix.include_drive }}
         run: |
           set -euo pipefail
           bench get-app --branch ci-pinned-flow "$PINNED_SOURCE_ROOT/flow"
@@ -218,17 +215,27 @@ jobs:
           if [ -f apps/flow/yarn.lock ] && ! git -C apps/flow ls-files --error-unmatch yarn.lock >/dev/null 2>&1; then
             rm -f apps/flow/yarn.lock
           fi
-
-          if [ "$INCLUDE_DRIVE" = "true" ]; then
-            bench get-app --branch ci-pinned-drive "$PINNED_SOURCE_ROOT/drive"
-            test "$(git -C apps/drive rev-parse HEAD)" = "$MANAGER_DRIVE_SHA"
-          fi
-
+      - name: Add exact manager Drive source
+        if: matrix.include_drive
+        working-directory: frappe-bench
+        run: |
+          set -euo pipefail
+          bench get-app --branch ci-pinned-drive "$PINNED_SOURCE_ROOT/drive"
+          test "$(git -C apps/drive rev-parse HEAD)" = "$MANAGER_DRIVE_SHA"
+      - name: Add exact IONE QMS source
+        working-directory: frappe-bench
+        run: |
+          set -euo pipefail
           test "$(git -C "$GITHUB_WORKSPACE/ione_qms" rev-parse HEAD)" = "$GITHUB_SHA"
           git -C "$GITHUB_WORKSPACE/ione_qms" tag ci-pinned-ione-qms "$GITHUB_SHA"
           bench get-app --branch ci-pinned-ione-qms "$GITHUB_WORKSPACE/ione_qms"
           test "$(git -C apps/ione_qms rev-parse HEAD)" = "$GITHUB_SHA"
-
+      - name: Validate exact Bench application combination
+        working-directory: frappe-bench
+        env:
+          INCLUDE_DRIVE: ${{ matrix.include_drive }}
+        run: |
+          set -euo pipefail
           bench validate-dependencies
           env/bin/python -m pip check
           if [ "$INCLUDE_DRIVE" = "true" ]; then
