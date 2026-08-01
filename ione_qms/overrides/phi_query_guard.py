@@ -146,13 +146,13 @@ def prevent_unsafe_phi_query_request() -> None:
 	path = str(getattr(request, "path", "") or "")
 	form_dict = getattr(frappe, "form_dict", None) or {}
 	command = _request_command(path, form_dict)
-	is_administrator = str(getattr(getattr(frappe, "session", None), "user", "") or "") == ("Administrator")
-	if is_administrator and command.startswith("ione_qms."):
+	is_restricted_administrator = _is_restricted_technical_administrator()
+	if is_restricted_administrator and command.startswith("ione_qms."):
 		_deny_technical_administrator()
 	if command in GOVERNED_PHI_COMMANDS:
 		return
 	if command in {"upload_file", "frappe.utils.file_manager.upload_file"}:
-		if is_administrator:
+		if is_restricted_administrator:
 			_deny_technical_administrator()
 		return
 	_assert_bounded_generic_request(request, path, form_dict)
@@ -390,8 +390,7 @@ def _technical_administrator_targets_ione(
 	form_dict: Mapping[str, Any],
 	root_doctypes: frozenset[str],
 ) -> bool:
-	session = getattr(frappe, "session", None)
-	if str(getattr(session, "user", "") or "") != "Administrator":
+	if not _is_restricted_technical_administrator():
 		return False
 	if command.startswith("ione_qms."):
 		return True
@@ -403,6 +402,14 @@ def _technical_administrator_targets_ione(
 	if any(f"/{doctype}/" in f"{decoded_path}/" for doctype in PHI_METADATA_DOCTYPES):
 		return True
 	return _contains_explicit_ione_doctype(form_dict)
+
+
+def _is_restricted_technical_administrator() -> bool:
+	session = getattr(frappe, "session", None)
+	if str(getattr(session, "user", "") or "") != "Administrator":
+		return False
+	conf = getattr(frappe, "conf", None) or getattr(getattr(frappe, "local", None), "conf", None) or {}
+	return not _truthy_config(conf.get("ione_qms_allow_technical_administrator"))
 
 
 def _contains_explicit_ione_doctype(value: Any, depth: int = 0) -> bool:

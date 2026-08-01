@@ -50,6 +50,7 @@ def _load_guard():
 	fake_frappe.form_dict = {}
 	fake_frappe.db = _FakeDatabase()
 	fake_frappe.session = SimpleNamespace(user="ione.user@example.test")
+	fake_frappe.conf = {}
 
 	def throw(message: str, exception=None) -> None:
 		raise (exception or _GuardRejected)(message)
@@ -107,6 +108,7 @@ class TestPHIQueryGuardUnit(unittest.TestCase):
 
 	def setUp(self) -> None:
 		self.frappe.session.user = "ione.user@example.test"
+		self.frappe.conf = {}
 		self.frappe.local.request = SimpleNamespace(method="GET", path="/", content_length=0)
 		self.frappe.form_dict = {}
 
@@ -291,6 +293,21 @@ class TestPHIQueryGuardUnit(unittest.TestCase):
 				"/printview",
 				doctype="IONE Patient Index",
 				name="PATIENT-OPAQUE",
+			)
+
+	def test_site_can_explicitly_allow_technical_administrator_without_disabling_phi_guards(self) -> None:
+		self.frappe.session.user = "Administrator"
+		self.frappe.conf = {"ione_qms_allow_technical_administrator": 1}
+		self._request(
+			"GET",
+			"/api/method/ione_qms.api.dashboard.get_command_center",
+			cmd="ione_qms.api.dashboard.get_command_center",
+		)
+		with self.assertRaisesRegex(_GuardRejected, "Protected patient identity"):
+			self._request(
+				"GET",
+				"/api/resource/IONE%20Patient%20Index",
+				filters={"patient_name": "Example"},
 			)
 
 	def test_communication_child_link_cannot_persist_a_protected_sidecar(self) -> None:
