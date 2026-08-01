@@ -16,6 +16,12 @@ from typing import Any
 import frappe
 from frappe.utils import get_datetime, now_datetime
 
+from ione_qms.production_contracts import (
+	MANIFEST_FORMAT,
+	MAX_PRODUCTION_APPROVAL_DAYS,
+	RELEASE_MANIFEST_FORMAT,
+	REQUIRED_GATE_CODES,
+)
 from ione_qms.services.crypto_keys import active_hmac_key, verification_hmac_key
 from ione_qms.services.immutability import canonical_record_hash
 from ione_qms.services.migration_state import (
@@ -28,26 +34,8 @@ from ione_qms.services.migration_state import (
 ASSESSMENT_DOCTYPE = "IONE Production Readiness Assessment"
 EVENT_DOCTYPE = "IONE Production Activation Event"
 RELEASE_DOCTYPE = "IONE Release Record"
-MANIFEST_FORMAT = "ione-production-evidence-manifest-v1"
-RELEASE_MANIFEST_FORMAT = "ione-release-manifest-v1"
 MAX_MANIFEST_BYTES = 1024 * 1024
-MAX_APPROVAL_DAYS = 90
-REQUIRED_GATE_CODES = (
-	"release_integrity",
-	"hospital_scope",
-	"source_contracts",
-	"clinical_content",
-	"data_reconciliation",
-	"ai_governance",
-	"identity_access",
-	"security_privacy",
-	"performance_capacity",
-	"high_availability",
-	"backup_restore",
-	"clinical_uat",
-	"change_approval",
-	"oncall_observability",
-)
+MAX_APPROVAL_DAYS = MAX_PRODUCTION_APPROVAL_DAYS
 ASSESSOR_ROLES = frozenset({"IONE QC Administrator", "IONE Medical Affairs"})
 REVIEWER_ROLES = frozenset({"IONE QMS Auditor"})
 ACTIVATOR_ROLES = frozenset({"IONE QC Administrator", "IONE Medical Affairs"})

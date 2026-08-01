@@ -86,6 +86,12 @@ Each child row's reference, digest, signatory, signature time, expiry, and gate
 must exactly match one manifest artifact. The manifest File becomes immutable
 when the assessment leaves Draft.
 
+Use the offline hash-only generator described in
+`production-evidence-manifest-tool.md` to build the manifest and the matching
+14 child rows from signed evidence files. Its example register is deliberately
+non-production data and must be replaced with hospital-approved identities,
+timestamps, bindings, and artifact paths.
+
 ## Release record manifest
 
 The linked append-only `IONE Release Record` must have `Deployed` status and a

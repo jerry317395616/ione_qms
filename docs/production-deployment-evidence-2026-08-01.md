@@ -15,17 +15,21 @@ triggers, or production mode. Those switches therefore remain fail-closed.
 This report supersedes runtime statements in the 2026-07-29 static gap audit
 and the 2026-07-30 read-only Press audit. Those files remain historical records.
 
+Snapshot boundary: this repository document records candidate 53 before the
+offline evidence-manifest generator was added. It is intentionally historical,
+because a Git commit cannot contain its own final SHA. Each promoted successor
+must store its exact CI, SBOM, Press, backup, migration, runtime, and all-app-SHA
+evidence in the external checksum-bound release package and `IONE Release
+Record`, not by rewriting this snapshot as self-attestation.
+
 ## Immutable release and source controls
 
-- Site: `manager.myyr.top`, Active on Bench `bench-0002-000050-f1`.
-- Deploy Candidate: `deploy-0002-000050`; ARM64 patch build `qud9siop66`,
+- Site: `manager.myyr.top`, Active on Bench `bench-0002-000053-f1`.
+- Deploy Candidate: `deploy-0002-000053`; ARM64 full build `hd2tmrrpib`,
   Success.
 - Installed IONE baseline at the time of this audit:
-  `61c386e37946357081b9499dd0ea0074d656770f` from App Release `mp818kfgoi`.
-- The documentation and evidence correction recorded after this audit baseline
-  must receive a new immutable commit, successful CI, Press release/candidate,
-  migration, and acceptance run before it replaces the installed baseline.
-- Candidate comparison against `deploy-0002-000049` proves that only
+  `a3b39206947e0e1b0dd079ef3f599946e0101737` from App Release `tkhnm0408m`.
+- Candidate comparison against `deploy-0002-000052` proves that only
   `ione_qms` changed. Every other app retained its exact App Release and hash.
 - The 16 Frappe-ecosystem official forks used by the candidate point to the
   user's GitHub organization and use `develop` as both the GitHub default
@@ -39,12 +43,13 @@ and the 2026-07-30 read-only Press audit. Those files remain historical records.
 
 ## Source, schema, and automated verification
 
-- Metadata validator: 124 DocTypes and 9 modules, passed.
-- Dependency-free safety suite: 78 tests, passed.
-- Source-contract/request-boundary suite: 289 tests, passed.
+- Metadata validator: 127 DocTypes and 9 modules, passed.
+- Dependency-free source test suite: 295 tests, passed for the deployed
+  production-gate commit.
 - Python compilation includes both application code and release tools.
-- The remote CI for the replacement commit is a mandatory release gate; local
-  results never substitute for the pinned remote workflow and Press build.
+- GitHub Actions Run `30694206135` for the deployed commit completed every
+  required job successfully; local results never substitute for that pinned
+  workflow and Press build.
 - The manager site reports 21 installed applications including `ione_qms` and
   Flow. Installation and two consecutive migrations completed successfully.
 - The hash-bound `IONE Migration Completion Receipt` verifies the schema,
@@ -74,8 +79,8 @@ and the 2026-07-30 read-only Press audit. Those files remain historical records.
 | 14 | Capacity, queues, degradation, 99.9%, RPO/RTO and load targets | Queue recovery verified; isolated restore RTO 143.818 seconds | Capacity, load/HA and RPO remain NO-GO |
 | 15 | Controlled environments and pinned container deployment | Press ARM64 image, candidate, site install, migration and rollback evidence | Deployment verified; offsite/DR incomplete |
 | 16 | Controller/service boundaries and hooks | Hook targets validate under the required Python 3.14 runtime and manager scheduler/workers run | Verified |
-| 17 | Develop workflow, immutable release and CI/CD | Default branches, pinned releases and Press build verified | Replacement commit still requires CI/Press promotion |
-| 18 | Unit, integration, permission, AI, performance and disaster tests | 78 safety and 289 source-contract tests plus runtime/restore checks | Clinical, load, HA and signed UAT remain external |
+| 17 | Develop workflow, immutable release and CI/CD | Default branches, pinned releases, green CI and Press build verified | Verified |
+| 18 | Unit, integration, permission, AI, performance and disaster tests | 295 source tests plus runtime/restore checks | Clinical, load, HA and signed UAT remain external |
 | 19 | Phased rollout and pilot departments | Platform phase is installed | Pilot scope and exit criteria not supplied |
 | 20 | Governance organization, staffing and budget | No software substitute is valid | Hospital decision/sign-off required |
 | 21 | Functional, data/rule and management-effect acceptance | Software acceptance evidence exists; real-data KPIs and 3–6 month outcomes do not | Formal acceptance NO-GO |
@@ -96,9 +101,22 @@ and the 2026-07-30 read-only Press audit. Those files remain historical records.
 - Helpdesk SQLite FTS integrity is `ok`; source/index counts match. Its legacy
   RediSearch index also matches its source records. No new search error or
   failed scheduled-job log was produced by the acceptance run.
-- Press GitHub release polling completed twice after the proxy correction,
-  with 42 eligible sources processed in approximately 42 seconds each. All
-  four queues ended empty with no failed, started, or deferred jobs.
+- The final Press short/default/long/sync queues ended empty with no failed,
+  started, or deferred jobs. Build-only temporary egress was removed and the
+  platform Docker proxy configuration was restored after the successful build.
+
+- The dedicated production HMAC key family is configured independently of all
+  other IONE keys. Runtime adversarial acceptance proves that direct production
+  setting writes and forged activation-event inserts fail closed. There are no
+  readiness assessments or activation events, and all production/real-time/AI
+  switches remain disabled.
+- Production activation requires all 14 exact evidence domains, a private
+  byte-verified manifest, a current release/schema/migration/all-app-SHA
+  binding, and three distinct named actors. The repository revision following
+  this snapshot adds an offline hash-only manifest generator and a
+  non-production register example; these do not replace hospital evidence or
+  approval, and their eventual Press promotion needs a new external evidence
+  package.
 
 Operational changes enabling that result are configuration-only: the official
 RedisSearch module shipped in the image is loaded through Redis configuration,
@@ -109,6 +127,8 @@ GitHub hosts. Official application source files remain untouched.
 
 - The current full local Press backup includes database, site configuration,
   public files, and private files.
+- The immediate pre-update backup is `219qvarkv2`; its Press Agent job and all
+  four backup artifacts verified successfully.
 - An isolated non-routable temporary site was restored on the exact current
   Bench. Scheduler, email, DNS, and proxy exposure remained disabled during the
   exercise.
@@ -126,24 +146,23 @@ GitHub hosts. Official application source files remain untouched.
 
 ## Open production activation gates
 
-1. Restart the shared `press-f1` virtual machine in an approved maintenance
-   window, verify the configured 200 GiB root device, grow the partition and
-   filesystem if required, then repeat all site/container smoke checks. Until
-   then the guest exposes 117 GiB with approximately 92% used.
-2. Configure an independently administered S3/OSS-compatible bucket, region or
+1. Configure an independently administered S3/OSS-compatible bucket, region or
    endpoint, access policy, encryption, retention, and credentials in Press.
    Create a current offsite backup and repeat an isolated restore with a
    recovery point no older than 15 minutes.
-3. Supply signed hospital/campus/department/ward and staff master data;
+2. Supply signed hospital/campus/department/ward and staff master data;
    source-system/API/Oracle contracts, read-only grants, mappings and
    reconciliation queries; and notification/escalation ownership.
-4. Supply approved standards, exact rule/indicator definitions, all required
+3. Supply approved standards, exact rule/indicator definitions, all required
    gold cases, replay/shadow results, false-positive/negative thresholds,
    meeting/action governance, and clinical/privacy/security sign-offs.
-5. Complete representative 1,000-user, 5-million-event/day and
+4. Complete representative 1,000-user, 5-million-event/day and
    10-million-rule/day testing; Web/worker/Redis/MariaDB/storage failure
    exercises; monitoring/on-call acceptance; SSO/MFA; vulnerability and
    penetration testing; and signed role/browser UAT.
+5. Create the immutable deployed `IONE Release Record` under a named real
+   deployer, generate the private evidence manifest from signed artifacts, and
+   complete the required named assessor/auditor/independent-activator flow.
 6. Replace weak administrative credentials, adopt managed key-only access
    where approved, and record credential rotation and break-glass ownership.
 

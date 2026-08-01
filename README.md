@@ -11,8 +11,10 @@ Press candidate has been built and installed on `manager.myyr.top`; realtime
 clinical rules and AI remain disabled. Production activation remains NO-GO
 until the dated clinical, integration, security, capacity, offsite-backup,
 performance/HA, and hospital-acceptance gates pass. See
-`docs/production-deployment-evidence-2026-08-01.md` for the current evidence
-and the fail-closed activation boundary.
+`docs/production-deployment-evidence-2026-08-01.md` for the candidate 53
+historical snapshot and the fail-closed activation boundary. The current
+release evidence is an external hash-bound package; it is not rewritten inside
+the commit that it attests.
 
 ## Architecture contract
 
@@ -82,3 +84,5 @@ Start with:
 - `docs/hospital-production-inputs.md`
 - `docs/release-and-rollback.md`
 - `docs/production-readiness-checklist.md`
+- `docs/production-activation-governance.md`
+- `docs/production-evidence-manifest-tool.md`

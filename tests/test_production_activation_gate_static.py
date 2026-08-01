@@ -14,6 +14,7 @@ class TestProductionActivationGateStatic(TestCase):
 
 	def test_all_word_spec_production_gates_are_mandatory_and_exactly_mirrored(self) -> None:
 		service = (PACKAGE / "services" / "production_readiness.py").read_text(encoding="utf-8")
+		contracts = (PACKAGE / "production_contracts.py").read_text(encoding="utf-8")
 		child = self._doctype(
 			"ione_administration/doctype/ione_production_gate_evidence/ione_production_gate_evidence.json"
 		)
@@ -37,7 +38,9 @@ class TestProductionActivationGateStatic(TestCase):
 		}
 		self.assertEqual(gate_codes, expected)
 		for gate_code in expected:
-			self.assertIn(f'\t"{gate_code}",', service)
+			self.assertIn(f'\t"{gate_code}",', contracts)
+		self.assertIn("from ione_qms.production_contracts import", service)
+		self.assertIn("REQUIRED_GATE_CODES", service)
 		self.assertIn("exactly {len(REQUIRED_GATE_CODES)} gate rows", service)
 		self.assertIn("seen != set(REQUIRED_GATE_CODES)", service)
 

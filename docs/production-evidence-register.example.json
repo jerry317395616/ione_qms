@@ -1,0 +1,123 @@
+{
+  "format": "ione-production-evidence-register-v1",
+  "site": "manager.example.internal",
+  "release_record": "REL-YYYY-NNNN",
+  "schema_revision": "<assessment schema revision>",
+  "migration_completion_receipt": "<assessment migration receipt>",
+  "generated_at": "2026-08-01T09:00:00+08:00",
+  "assessment_valid_until": "2026-08-31T23:59:59+08:00",
+  "artifacts": [
+    {
+      "id": "RELEASE-INTEGRITY-YYYY-NNNN",
+      "path": "evidence/release-integrity.pdf",
+      "gate_codes": ["release_integrity"],
+      "owner": "release-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "HOSPITAL-SCOPE-YYYY-NNNN",
+      "path": "evidence/hospital-scope.pdf",
+      "gate_codes": ["hospital_scope"],
+      "owner": "scope-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "SOURCE-CONTRACTS-YYYY-NNNN",
+      "path": "evidence/source-contracts.pdf",
+      "gate_codes": ["source_contracts"],
+      "owner": "integration-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "CLINICAL-CONTENT-YYYY-NNNN",
+      "path": "evidence/clinical-content.pdf",
+      "gate_codes": ["clinical_content"],
+      "owner": "clinical-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "DATA-RECONCILIATION-YYYY-NNNN",
+      "path": "evidence/data-reconciliation.pdf",
+      "gate_codes": ["data_reconciliation"],
+      "owner": "data-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "AI-GOVERNANCE-YYYY-NNNN",
+      "path": "evidence/ai-governance.pdf",
+      "gate_codes": ["ai_governance"],
+      "owner": "ai-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "IDENTITY-ACCESS-YYYY-NNNN",
+      "path": "evidence/identity-access.pdf",
+      "gate_codes": ["identity_access"],
+      "owner": "identity-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "SECURITY-PRIVACY-YYYY-NNNN",
+      "path": "evidence/security-privacy.pdf",
+      "gate_codes": ["security_privacy"],
+      "owner": "security-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "PERFORMANCE-CAPACITY-YYYY-NNNN",
+      "path": "evidence/performance-capacity.pdf",
+      "gate_codes": ["performance_capacity"],
+      "owner": "capacity-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "HIGH-AVAILABILITY-YYYY-NNNN",
+      "path": "evidence/high-availability.pdf",
+      "gate_codes": ["high_availability"],
+      "owner": "availability-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "BACKUP-RESTORE-YYYY-NNNN",
+      "path": "evidence/backup-restore.pdf",
+      "gate_codes": ["backup_restore"],
+      "owner": "backup-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "CLINICAL-UAT-YYYY-NNNN",
+      "path": "evidence/clinical-uat.pdf",
+      "gate_codes": ["clinical_uat"],
+      "owner": "uat-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "CHANGE-APPROVAL-YYYY-NNNN",
+      "path": "evidence/change-approval.pdf",
+      "gate_codes": ["change_approval"],
+      "owner": "change-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    },
+    {
+      "id": "ONCALL-OBSERVABILITY-YYYY-NNNN",
+      "path": "evidence/oncall-observability.pdf",
+      "gate_codes": ["oncall_observability"],
+      "owner": "oncall-owner@hospital.example",
+      "signed_at": "2026-08-01T08:00:00+08:00",
+      "expires_at": "2026-08-31T23:59:59+08:00"
+    }
+  ]
+}

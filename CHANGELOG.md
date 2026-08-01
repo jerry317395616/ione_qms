@@ -9,3 +9,6 @@ All notable changes to IONE QMS are documented here.
   domains, private immutable manifests, exact release/schema/commit binding,
   three-person separation of duties, domain-separated HMAC signatures, and
   append-only activation/deactivation/revocation events.
+- Add a dependency-free, atomic hash-only evidence-manifest generator that
+  rejects missing/overlapping gates, technical signatories, invalid validity
+  windows, empty artifacts, and accidental output overwrites.
