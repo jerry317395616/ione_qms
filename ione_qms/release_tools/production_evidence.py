@@ -205,6 +205,16 @@ def _write_json(path: Path, payload: Any, *, force: bool) -> None:
 			Path(temporary_name).unlink(missing_ok=True)
 
 
+def _preflight_outputs(paths: tuple[Path, Path], *, force: bool) -> None:
+	resolved = tuple(path.resolve() for path in paths)
+	if resolved[0] == resolved[1]:
+		raise EvidenceRegisterError("manifest and gate-row outputs must be different files")
+	if not force:
+		existing = [str(path) for path in resolved if path.exists()]
+		if existing:
+			raise EvidenceRegisterError(f"output already exists (use --force): {existing}")
+
+
 def main(argv: list[str] | None = None) -> int:
 	parser = argparse.ArgumentParser(description=__doc__)
 	parser.add_argument("register", type=Path, help="signed-evidence register JSON")
@@ -213,6 +223,10 @@ def main(argv: list[str] | None = None) -> int:
 	parser.add_argument("--force", action="store_true")
 	args = parser.parse_args(argv)
 	try:
+		_preflight_outputs(
+			(args.manifest_output, args.gate_rows_output),
+			force=args.force,
+		)
 		manifest, rows = generate(args.register)
 		_write_json(args.manifest_output, manifest, force=args.force)
 		_write_json(args.gate_rows_output, rows, force=args.force)

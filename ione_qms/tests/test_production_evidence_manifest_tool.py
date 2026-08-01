@@ -133,6 +133,33 @@ class TestProductionEvidenceManifestTool(unittest.TestCase):
 				]
 			)
 
+		manifest_path.unlink()
+		with self.assertRaises(SystemExit):
+			main(
+				[
+					str(self.register_path),
+					"--manifest-output",
+					str(manifest_path),
+					"--gate-rows-output",
+					str(rows_path),
+				]
+			)
+		self.assertFalse(manifest_path.exists())
+
+	def test_cli_rejects_same_output_path(self) -> None:
+		output = self.root / "combined.json"
+		with self.assertRaises(SystemExit):
+			main(
+				[
+					str(self.register_path),
+					"--manifest-output",
+					str(output),
+					"--gate-rows-output",
+					str(output),
+				]
+			)
+		self.assertFalse(output.exists())
+
 
 if __name__ == "__main__":
 	unittest.main()

@@ -34,9 +34,9 @@ python -m ione_qms.release_tools.production_evidence \
   --gate-rows-output /controlled/release/production-gate-rows.json
 ```
 
-The command refuses to overwrite an existing output unless `--force` is
-explicit. It writes both JSON files atomically and prints the exact manifest
-SHA-256 plus the row count.
+The command preflights both distinct output paths and refuses to overwrite
+either existing output unless `--force` is explicit. It writes each JSON file
+atomically and prints the exact manifest SHA-256 plus the row count.
 
 1. Review the generated manifest and printed digest under the hospital change
    record.
