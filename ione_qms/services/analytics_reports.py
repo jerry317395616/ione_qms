@@ -265,7 +265,7 @@ def execute_rule_quality_report(
 	execution_groups = _permissioned_rows(
 		"IONE QC Execution",
 		filters=execution_filters,
-		fields=("rule", "rule_version", "result", "count(name) as total"),
+		fields=("rule", "rule_version", "result", {"COUNT": "name", "as": "total"}),
 		order_by="rule asc, rule_version asc, result asc",
 		group_by="rule, rule_version, result",
 		limit=REPORT_MAX_GROUP_ROWS,
@@ -281,7 +281,7 @@ def execute_rule_quality_report(
 	finding_groups = _permissioned_rows(
 		"IONE QC Finding",
 		filters=finding_filters,
-		fields=("rule", "rule_version", "count(name) as total"),
+		fields=("rule", "rule_version", {"COUNT": "name", "as": "total"}),
 		order_by="rule asc, rule_version asc",
 		group_by="rule, rule_version",
 		limit=REPORT_MAX_GROUP_ROWS,
@@ -2320,7 +2320,7 @@ def _permissioned_rows(
 	doctype: str,
 	*,
 	filters: Any,
-	fields: tuple[str, ...],
+	fields: tuple[Any, ...],
 	order_by: str,
 	limit: int,
 	group_by: str | None = None,
@@ -2462,7 +2462,7 @@ def _require_aggregate_source_bound(doctype: str, filters: Any) -> None:
 	rows = _permissioned_rows(
 		doctype,
 		filters=filters,
-		fields=("count(name) as total",),
+		fields=({"COUNT": "name", "as": "total"},),
 		order_by="",
 		limit=1,
 	)

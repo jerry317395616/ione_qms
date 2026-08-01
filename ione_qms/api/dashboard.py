@@ -313,29 +313,29 @@ def _empty_workbench_response(
 def _count(doctype: str, filters: dict[str, Any]) -> int:
 	if not frappe.db.exists("DocType", doctype) or not frappe.has_permission(doctype, "read"):
 		return 0
-	rows = frappe.get_list(doctype, filters=filters, fields=["count(name) as total"])
+	rows = frappe.get_list(
+		doctype,
+		filters=filters,
+		fields=[{"COUNT": "name", "as": "total"}],
+	)
 	return int(rows[0].total or 0) if rows else 0
 
 
 def _finding_trend(filters: dict[str, Any], days: int) -> list[dict[str, Any]]:
 	start = getdate(add_days(nowdate(), -(days - 1)))
-	detected_rows = frappe.get_list(
+	detected_rows = _permissioned_daily_counts(
 		"IONE QC Finding",
+		date_field="detected_at",
 		filters={**filters, "detected_at": [">=", start]},
-		fields=["date(detected_at) as day", "count(name) as total"],
-		group_by="date(detected_at)",
-		order_by="day asc",
 	)
-	closed_rows = frappe.get_list(
+	closed_rows = _permissioned_daily_counts(
 		"IONE QC Finding",
+		date_field="modified",
 		filters={
 			**filters,
 			"modified": [">=", start],
 			"status": ["in", ["Closed", "Appeal Approved"]],
 		},
-		fields=["date(modified) as day", "count(name) as total"],
-		group_by="date(modified)",
-		order_by="day asc",
 	)
 	detected = {getdate(row.day).isoformat(): int(row.total or 0) for row in detected_rows if row.day}
 	closed = {getdate(row.day).isoformat(): int(row.total or 0) for row in closed_rows if row.day}
@@ -353,11 +353,33 @@ def _status_distribution(filters: dict[str, Any]) -> list[dict[str, Any]]:
 	rows = frappe.get_list(
 		"IONE QC Finding",
 		filters=filters,
-		fields=["status", "count(name) as total"],
+		fields=["status", {"COUNT": "name", "as": "total"}],
 		group_by="status",
 		order_by="total desc",
 	)
 	return [{"status": str(row.status or "未分类"), "count": int(row.total or 0)} for row in rows]
+
+
+def _permissioned_daily_counts(
+	doctype: str,
+	*,
+	date_field: str,
+	filters: dict[str, Any],
+) -> list[dict[str, Any]]:
+	"""Aggregate calendar-day counts through Frappe's permission-aware query path."""
+	from frappe.query_builder.functions import Count, Date
+
+	table = frappe.qb.DocType(doctype)
+	day = Date(table[date_field])
+	query = frappe.qb.get_query(
+		doctype,
+		fields=[day.as_("day"), Count(table.name).as_("total")],
+		filters=filters,
+		order_by="",
+		ignore_permissions=False,
+		user=frappe.session.user,
+	)
+	return query.groupby(day).orderby(day).run(as_dict=True)
 
 
 def _indicator_alerts(department: str | None) -> list[dict[str, Any]]:

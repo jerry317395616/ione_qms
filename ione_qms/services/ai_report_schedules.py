@@ -894,7 +894,7 @@ def _quality_summary_data(
 	finding_groups = _permissioned_rows(
 		"IONE QC Finding",
 		filters=finding_filters,
-		fields=("severity", "status", "count(name) as total"),
+		fields=("severity", "status", {"COUNT": "name", "as": "total"}),
 		group_by="severity, status",
 		order_by="severity asc, status asc",
 		limit=REPORT_SNAPSHOT_MAX_GROUPS,
@@ -914,7 +914,7 @@ def _quality_summary_data(
 				"finding": ["in", finding_name_values],
 				**{key: value for key, value in scope.items() if value},
 			},
-			fields=("status", "count(name) as total"),
+			fields=("status", {"COUNT": "name", "as": "total"}),
 			group_by="status",
 			order_by="status asc",
 			limit=REPORT_SNAPSHOT_MAX_GROUPS,
@@ -927,7 +927,7 @@ def _quality_summary_data(
 	pdca_groups = _permissioned_rows(
 		"IONE PDCA Project",
 		filters=pdca_filters,
-		fields=("status", "count(name) as total"),
+		fields=("status", {"COUNT": "name", "as": "total"}),
 		group_by="status",
 		order_by="status asc",
 		limit=REPORT_SNAPSHOT_MAX_GROUPS,
@@ -1795,7 +1795,7 @@ def _permissioned_rows(
 	doctype: str,
 	*,
 	filters: Any,
-	fields: tuple[str, ...],
+	fields: tuple[Any, ...],
 	order_by: str,
 	limit: int,
 	group_by: str | None = None,
@@ -1826,7 +1826,7 @@ def _assert_permissioned_count(doctype: str, filters: Any) -> None:
 	rows = _permissioned_rows(
 		doctype,
 		filters=filters,
-		fields=("count(name) as total",),
+		fields=({"COUNT": "name", "as": "total"},),
 		order_by="",
 		limit=1,
 	)

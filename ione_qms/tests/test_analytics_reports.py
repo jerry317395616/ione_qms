@@ -111,7 +111,14 @@ class TestAnalyticsReports(TestCase):
 					{"rule": "RULE-1", "rule_version": "RV-1", "result": "Excluded", "total": 1},
 					{"rule": "RULE-1", "rule_version": "RV-1", "result": "Passed", "total": 1},
 				]
-			if doctype == "IONE QC Finding" and "count(name) as total" in fields:
+			if (
+				doctype == "IONE QC Finding"
+				and {
+					"COUNT": "name",
+					"as": "total",
+				}
+				in fields
+			):
 				return [{"rule": "RULE-1", "rule_version": "RV-1", "total": 2}]
 			if doctype == "IONE QC Finding Appeal":
 				return [
