@@ -121,7 +121,7 @@ _WORKBENCH_DATASETS: tuple[dict[str, Any], ...] = (
 )
 
 
-@frappe.whitelist(methods=["GET"])
+@frappe.whitelist(methods=["GET", "POST"])
 def get_command_center(
 	department: str | None = None,
 	days: int = 30,
@@ -183,7 +183,7 @@ def get_command_center(
 	}
 
 
-@frappe.whitelist(methods=["GET"])
+@frappe.whitelist(methods=["GET", "POST"])
 def get_role_workbench() -> dict[str, Any]:
 	"""Return one permission-filtered, field-minimized work queue for the current user."""
 	user = str(frappe.session.user or "")

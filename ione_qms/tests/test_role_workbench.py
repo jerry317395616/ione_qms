@@ -397,3 +397,12 @@ class TestRoleWorkbenchStaticContracts(TestCase):
 		):
 			with self.subTest(prohibited=prohibited):
 				self.assertNotIn(prohibited, source)
+
+	def test_xcall_read_endpoints_accept_get_and_post(self) -> None:
+		source = DASHBOARD_PATH.read_text(encoding="utf-8")
+		for function_name in ("get_command_center", "get_role_workbench"):
+			with self.subTest(function_name=function_name):
+				self.assertIn(
+					f'@frappe.whitelist(methods=["GET", "POST"])\ndef {function_name}',
+					source,
+				)

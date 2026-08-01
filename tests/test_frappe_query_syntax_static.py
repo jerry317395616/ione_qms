@@ -12,6 +12,25 @@ FUNCTION_FIELD = re.compile(r"^\s*[A-Za-z_][A-Za-z0-9_]*\s*\(")
 
 
 class TestFrappeQuerySyntaxStatic(TestCase):
+	def test_dashboard_xcall_endpoints_allow_get_and_post(self) -> None:
+		source = DASHBOARD_PATH.read_text(encoding="utf-8")
+		tree = ast.parse(source)
+		functions = {node.name: node for node in tree.body if isinstance(node, ast.FunctionDef)}
+		for function_name in ("get_command_center", "get_role_workbench"):
+			decorator = next(
+				item
+				for item in functions[function_name].decorator_list
+				if isinstance(item, ast.Call)
+				and isinstance(item.func, ast.Attribute)
+				and item.func.attr == "whitelist"
+			)
+			methods_keyword = next(keyword for keyword in decorator.keywords if keyword.arg == "methods")
+			self.assertIsInstance(methods_keyword.value, ast.List)
+			self.assertEqual(
+				{item.value for item in methods_keyword.value.elts if isinstance(item, ast.Constant)},
+				{"GET", "POST"},
+			)
+
 	def test_permissioned_list_fields_use_modern_function_dictionary_syntax(self) -> None:
 		violations: list[str] = []
 		for path in sorted(APP_ROOT.rglob("*.py")):
