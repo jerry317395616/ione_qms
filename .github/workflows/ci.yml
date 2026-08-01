@@ -67,6 +67,7 @@ jobs:
           ione_qms.tests.test_install_preflight
           ione_qms.tests.test_migration_completion_gate
           ione_qms.tests.test_sensitive_error_handling
+          ione_qms.tests.test_production_evidence_manifest_tool
       - name: Run all dependency-free source-contract and request-boundary tests
         run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Validate Desk JavaScript syntax
