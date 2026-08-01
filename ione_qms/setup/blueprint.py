@@ -256,23 +256,41 @@ CORE_RULE_TEMPLATES = (
 )
 
 
+_BLUEPRINT_STANDARD_CODE = "NHC-QSA-2026"
+
+
 def seed_quality_blueprint() -> dict[str, int]:
-	"""Install disabled clinical templates without claiming hospital approval.
+	"""Create disabled clinical templates only in an empty reserved namespace.
 
 	The templates translate the ten 2026 national goals into versioned clauses,
 	executable aggregate indicator definitions, and representative deterministic
 	rules. All records remain Draft/Shadow until local mappings, replay tests, and
-	clinical approval are complete.
+	clinical approval are complete. Upgrades never update an existing standard,
+	indicator, or rule: any reserved-code collision skips the whole blueprint so
+	hospital-maintained content cannot be silently attached to or overwritten.
 	"""
 	import frappe
 
 	if not frappe.db.exists("DocType", "IONE QC Standard"):
 		return {}
-	standard = _upsert(
+	collisions = _reserved_blueprint_collisions()
+	if collisions:
+		frappe.logger("ione_qms").warning(
+			"Quality blueprint seed skipped because reserved records already exist: %s",
+			", ".join(collisions),
+		)
+		return {
+			"standards": 0,
+			"clauses": 0,
+			"indicators": 0,
+			"rules": 0,
+			"skipped_existing": len(collisions),
+		}
+	standard = _insert_reserved_blueprint(
 		"IONE QC Standard",
-		{"standard_code": "NHC-QSA-2026"},
+		{"standard_code": _BLUEPRINT_STANDARD_CODE},
 		{
-			"standard_code": "NHC-QSA-2026",
+			"standard_code": _BLUEPRINT_STANDARD_CODE,
 			"standard_name": "2026 年国家医疗质量安全改进目标",
 			"standard_category": "国家医疗质量安全改进目标",
 			"source_type": "National Policy",
@@ -289,7 +307,7 @@ def seed_quality_blueprint() -> dict[str, int]:
 			),
 		},
 	)
-	version = _upsert(
+	version = _insert_reserved_blueprint(
 		"IONE QC Standard Version",
 		{"standard": standard, "version": "2026.1"},
 		{
@@ -310,7 +328,7 @@ def seed_quality_blueprint() -> dict[str, int]:
 	clauses: dict[str, str] = {}
 	indicators = 0
 	for goal in NATIONAL_GOALS:
-		clause = _upsert(
+		clause = _insert_reserved_blueprint(
 			"IONE QC Standard Clause",
 			{"standard_version": version, "clause_code": goal["code"]},
 			{
@@ -329,7 +347,7 @@ def seed_quality_blueprint() -> dict[str, int]:
 			str(goal["denominator_event"]),
 		)
 		validate_formula_schema(formula)
-		indicator = _upsert(
+		indicator = _insert_reserved_blueprint(
 			"IONE QC Indicator",
 			{"indicator_code": goal["code"]},
 			{
@@ -348,7 +366,7 @@ def seed_quality_blueprint() -> dict[str, int]:
 				"status": "Draft",
 			},
 		)
-		_upsert(
+		_insert_reserved_blueprint(
 			"IONE QC Indicator Version",
 			{"indicator": indicator, "version": "2026.1"},
 			{
@@ -380,7 +398,7 @@ def seed_quality_blueprint() -> dict[str, int]:
 		if exclusions:
 			validate_rule_definition_schema(exclusions)
 		clause = clauses[str(template["goal"])]
-		rule = _upsert(
+		rule = _insert_reserved_blueprint(
 			"IONE QC Rule",
 			{"rule_code": template["code"]},
 			{
@@ -398,7 +416,7 @@ def seed_quality_blueprint() -> dict[str, int]:
 				),
 			},
 		)
-		_upsert(
+		_insert_reserved_blueprint(
 			"IONE QC Rule Version",
 			{"rule": rule, "version": "2026.1"},
 			{
@@ -416,6 +434,22 @@ def seed_quality_blueprint() -> dict[str, int]:
 		)
 		rules += 1
 	return {"standards": 1, "clauses": len(clauses), "indicators": indicators, "rules": rules}
+
+
+def _reserved_blueprint_collisions() -> list[str]:
+	"""Return existing reserved parent records without reading or mutating content."""
+	import frappe
+
+	reserved = [
+		("IONE QC Standard", "standard_code", _BLUEPRINT_STANDARD_CODE),
+		*(("IONE QC Indicator", "indicator_code", str(goal["code"])) for goal in NATIONAL_GOALS),
+		*(("IONE QC Rule", "rule_code", str(template["code"])) for template in CORE_RULE_TEMPLATES),
+	]
+	return [
+		f"{doctype}:{code}"
+		for doctype, fieldname, code in reserved
+		if frappe.db.exists(doctype, {fieldname: code})
+	]
 
 
 def _event_rate_formula(numerator_event: str, denominator_event: str) -> dict[str, Any]:
@@ -437,16 +471,20 @@ def _event_rate_formula(numerator_event: str, denominator_event: str) -> dict[st
 	}
 
 
-def _upsert(doctype: str, filters: dict[str, Any], values: dict[str, Any]) -> str:
+def _insert_reserved_blueprint(
+	doctype: str,
+	filters: dict[str, Any],
+	values: dict[str, Any],
+) -> str:
+	"""Insert one template and fail closed if a concurrent collision appears."""
 	import frappe
 
 	name = frappe.db.get_value(doctype, filters, "name")
 	if name:
-		doc = frappe.get_doc(doctype, name)
-		doc.update(values)
-		doc.flags.ignore_permissions = True
-		doc.save()
-		return doc.name
+		frappe.throw(
+			f"Reserved quality blueprint record appeared during seed: {doctype}:{name}. "
+			"No existing record was overwritten."
+		)
 	doc = frappe.get_doc({"doctype": doctype, **values})
 	_validate_new_blueprint_document(doc)
 	doc.insert(ignore_permissions=True)

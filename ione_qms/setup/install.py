@@ -70,6 +70,7 @@ def after_migrate() -> None:
 	ensure_flow_configuration()
 	ensure_evaluation_threshold_policy()
 	disable_ione_flow_triggers()
+	seed_quality_blueprint()
 	schedule_post_migrate_backfills()
 	frappe.clear_cache()
 

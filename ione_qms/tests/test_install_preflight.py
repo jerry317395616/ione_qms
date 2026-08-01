@@ -64,6 +64,7 @@ def _load_install(*, role_collision: bool = True, duplicate_crypto_secrets: bool
 		throw=reject,
 		conf={},
 		flags=SimpleNamespace(),
+		clear_cache=lambda: None,
 	)
 	stubs = {
 		"frappe": frappe,
@@ -220,3 +221,33 @@ class TestInstallPreflight(TestCase):
 			for step in mocks:
 				self.assertEqual(step.call_count, 2)
 			self.assertEqual(database.mutations, [("commit",), ("commit",)])
+
+	def test_after_migrate_reconciles_blueprint_without_committing(self) -> None:
+		with _load_install(role_collision=False) as (install, database):
+			step_names = (
+				"_validate_cryptographic_configuration",
+				"_assert_phi_query_boundary_is_clean",
+				"ensure_identity_source_uniqueness",
+				"ensure_batch_source_epoch_rows",
+				"ensure_roles",
+				"ensure_settings",
+				"ensure_flow_log_retention",
+				"ensure_workflows",
+				"ensure_flow_tools",
+				"ensure_flow_configuration",
+				"ensure_evaluation_threshold_policy",
+				"disable_ione_flow_triggers",
+				"seed_quality_blueprint",
+				"schedule_post_migrate_backfills",
+			)
+			patchers = [patch.object(install, name) for name in step_names]
+			mocks = [patcher.start() for patcher in patchers]
+			try:
+				install.after_migrate()
+				install.after_migrate()
+			finally:
+				for patcher in reversed(patchers):
+					patcher.stop()
+			for step in mocks:
+				self.assertEqual(step.call_count, 2)
+			self.assertEqual(database.mutations, [])
