@@ -53,4 +53,6 @@ class TestModuleCollisionStatic(TestCase):
 		self.assertIn("QMS_DOCTYPES = (", source)
 		self.assertIn("ANALYTICS_QMS_DOCTYPES = (", source)
 		self.assertIn("MODULE_MIGRATIONS = (", source)
+		self.assertIn("QMS_MODULE_ARTIFACTS = {", source)
+		self.assertIn('("Report", "IONE Rule Quality")', source)
 		self.assertIn("frappe.local.module_app[scrub(old_module)] = COLLISION_APP", source)

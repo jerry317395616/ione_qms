@@ -32,6 +32,24 @@ MODULE_MIGRATIONS = (
 	(OLD_MODULE, NEW_MODULE, QMS_DOCTYPES),
 	(ANALYTICS_OLD_MODULE, ANALYTICS_NEW_MODULE, ANALYTICS_QMS_DOCTYPES),
 )
+QMS_MODULE_ARTIFACTS = {
+	OLD_MODULE: (("Workspace", "IONE Integration"),),
+	ANALYTICS_OLD_MODULE: (
+		("Workspace", "IONE Analytics"),
+		("Page", "ione-quality-action-workbench"),
+		("Page", "ione-quality-command-center"),
+		("Page", "ione-quality-workbench"),
+		("Report", "IONE 2026 National Ten-Goal Progress"),
+		("Report", "IONE AI Usage and Adoption"),
+		("Report", "IONE Finding Distribution and Closure"),
+		("Report", "IONE Improvement Governance Overview"),
+		("Report", "IONE Indicator Trend and Quality Profile"),
+		("Report", "IONE Integration Reconciliation"),
+		("Report", "IONE Medical Record Review Governance"),
+		("Report", "IONE Rule Quality"),
+		("Report", "IONE Surgery Governance and Outcomes"),
+	),
+}
 
 
 def _set_module_owner(module: str, app_name: str) -> None:
@@ -94,6 +112,15 @@ def _migrate_qms_module(
 			frappe.db.set_value(
 				"DocType",
 				doctype,
+				"module",
+				new_module,
+				update_modified=False,
+			)
+	for artifact_doctype, artifact_name in QMS_MODULE_ARTIFACTS.get(old_module, ()):
+		if frappe.db.exists(artifact_doctype, artifact_name):
+			frappe.db.set_value(
+				artifact_doctype,
+				artifact_name,
 				"module",
 				new_module,
 				update_modified=False,

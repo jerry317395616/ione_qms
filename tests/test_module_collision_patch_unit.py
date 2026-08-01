@@ -80,6 +80,8 @@ class TestModuleCollisionPatch(TestCase):
 		for old_module, _new_module, doctypes in module.MODULE_MIGRATIONS:
 			for doctype in doctypes:
 				database.doctypes[doctype] = old_module
+			for _artifact_doctype, artifact_name in module.QMS_MODULE_ARTIFACTS[old_module]:
+				database.doctypes[artifact_name] = old_module
 
 		module.execute()
 		module.execute()
@@ -93,6 +95,8 @@ class TestModuleCollisionPatch(TestCase):
 		for _old_module, new_module, doctypes in module.MODULE_MIGRATIONS:
 			for doctype in doctypes:
 				self.assertEqual(database.doctypes[doctype], new_module)
+			for _artifact_doctype, artifact_name in module.QMS_MODULE_ARTIFACTS[_old_module]:
+				self.assertEqual(database.doctypes[artifact_name], new_module)
 		self.assertEqual(local.module_app["ione_integration"], module.COLLISION_APP)
 		self.assertEqual(local.module_app["ione_quality_integration"], module.QMS_APP)
 		self.assertEqual(local.module_app["ione_analytics"], module.COLLISION_APP)
