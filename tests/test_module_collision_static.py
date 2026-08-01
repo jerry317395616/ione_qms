@@ -28,7 +28,8 @@ class TestModuleCollisionStatic(TestCase):
 	def test_pre_model_sync_patch_releases_foreign_module(self) -> None:
 		patches = (APP_ROOT / "patches.txt").read_text(encoding="utf-8")
 		self.assertIn("[pre_model_sync]", patches)
-		self.assertIn("ione_qms.patches.rename_integration_module.execute", patches)
+		self.assertIn("ione_qms.patches.rename_integration_module", patches)
+		self.assertNotIn("ione_qms.patches.rename_integration_module.execute", patches)
 		source = (APP_ROOT / "patches" / "rename_integration_module.py").read_text(encoding="utf-8")
 		self.assertIn('COLLISION_APP = "ione_medical_insurance"', source)
 		self.assertIn("QMS_DOCTYPES = (", source)
