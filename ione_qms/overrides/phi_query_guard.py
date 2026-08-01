@@ -38,7 +38,7 @@ PHI_QUERY_ARTIFACT_DOCTYPES = frozenset(
 )
 RELEASE_CONTROLLED_PROTECTED_REPORTS = {
 	"IONE Rule Quality": {
-		"module": "IONE Analytics",
+		"module": "IONE Quality Analytics",
 		"ref_doctype": "IONE QC Execution",
 		"report_type": "Script Report",
 	}

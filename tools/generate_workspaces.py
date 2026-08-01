@@ -260,7 +260,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 	},
 	{
 		"label": "IONE Analytics",
-		"module": "IONE Analytics",
+		"module": "IONE Quality Analytics",
 		"icon": "layout-dashboard",
 		"roles": [
 			"IONE QC Reviewer",

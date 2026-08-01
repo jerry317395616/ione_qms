@@ -7,9 +7,11 @@ from unittest import TestCase
 
 ROOT = Path(__file__).resolve().parents[1]
 SERVICE_PATH = ROOT / "ione_qms" / "services" / "analytics_reports.py"
-REPORT_ROOT = ROOT / "ione_qms" / "ione_analytics" / "report"
+REPORT_ROOT = ROOT / "ione_qms" / "ione_quality_analytics" / "report"
 WORKSPACE_GENERATOR = ROOT / "tools" / "generate_workspaces.py"
-WORKSPACE_JSON = ROOT / "ione_qms" / "ione_analytics" / "workspace" / "ione_analytics" / "ione_analytics.json"
+WORKSPACE_JSON = (
+	ROOT / "ione_qms" / "ione_quality_analytics" / "workspace" / "ione_analytics" / "ione_analytics.json"
+)
 HOOKS_PATH = ROOT / "ione_qms" / "hooks.py"
 
 REPORTS = {

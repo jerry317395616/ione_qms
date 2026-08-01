@@ -15,7 +15,7 @@ PERMISSIONS = ROOT / "ione_qms" / "permissions.py"
 DATA_EXPORT = ROOT / "ione_qms" / "services" / "data_export.py"
 SCOPE = ROOT / "ione_qms" / "services" / "scope_hierarchy.py"
 QUALITY_TASKS = ROOT / "ione_qms" / "tasks" / "quality.py"
-WORKBENCH_ROOT = ROOT / "ione_qms" / "ione_analytics" / "page" / "ione_quality_action_workbench"
+WORKBENCH_ROOT = ROOT / "ione_qms" / "ione_quality_analytics" / "page" / "ione_quality_action_workbench"
 WORKSPACE = (
 	ROOT / "ione_qms" / "ione_improvement" / "workspace" / "ione_improvement" / "ione_improvement.json"
 )

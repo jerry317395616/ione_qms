@@ -13,8 +13,14 @@ PATCH_PATH = ROOT / "ione_qms" / "patches" / "rename_integration_module.py"
 
 class _Database:
 	def __init__(self) -> None:
-		self.modules = {"IONE Integration": "ione_qms"}
-		self.doctypes = {"IONE Integration Error": "IONE Integration"}
+		self.modules = {
+			"IONE Integration": "ione_qms",
+			"IONE Analytics": "ione_qms",
+		}
+		self.doctypes = {
+			"IONE Integration Error": "IONE Integration",
+			"IONE Improvement Project": "IONE Analytics",
+		}
 
 	def exists(self, doctype: str, name: str) -> bool:
 		rows = self.modules if doctype == "Module Def" else self.doctypes
@@ -71,16 +77,23 @@ def _load_patch() -> tuple[types.ModuleType, _Database, types.SimpleNamespace]:
 class TestModuleCollisionPatch(TestCase):
 	def test_patch_separates_qms_and_medical_insurance_modules_idempotently(self) -> None:
 		module, database, local = _load_patch()
-		for doctype in module.QMS_DOCTYPES:
-			database.doctypes[doctype] = module.OLD_MODULE
+		for old_module, _new_module, doctypes in module.MODULE_MIGRATIONS:
+			for doctype in doctypes:
+				database.doctypes[doctype] = old_module
 
 		module.execute()
 		module.execute()
 
 		self.assertEqual(database.modules[module.OLD_MODULE], module.COLLISION_APP)
 		self.assertEqual(database.modules[module.NEW_MODULE], module.QMS_APP)
+		self.assertEqual(database.modules[module.ANALYTICS_OLD_MODULE], module.COLLISION_APP)
+		self.assertEqual(database.modules[module.ANALYTICS_NEW_MODULE], module.QMS_APP)
 		self.assertEqual(database.doctypes["IONE Integration Error"], module.OLD_MODULE)
-		for doctype in module.QMS_DOCTYPES:
-			self.assertEqual(database.doctypes[doctype], module.NEW_MODULE)
+		self.assertEqual(database.doctypes["IONE Improvement Project"], module.ANALYTICS_OLD_MODULE)
+		for _old_module, new_module, doctypes in module.MODULE_MIGRATIONS:
+			for doctype in doctypes:
+				self.assertEqual(database.doctypes[doctype], new_module)
 		self.assertEqual(local.module_app["ione_integration"], module.COLLISION_APP)
 		self.assertEqual(local.module_app["ione_quality_integration"], module.QMS_APP)
+		self.assertEqual(local.module_app["ione_analytics"], module.COLLISION_APP)
+		self.assertEqual(local.module_app["ione_quality_analytics"], module.QMS_APP)

@@ -1,0 +1,321 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-07-29 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "fact_key",
+  "month",
+  "indicator",
+  "indicator_version",
+  "dimension_json",
+  "dimension_hash",
+  "medical_staff",
+  "medical_group",
+  "physician",
+  "disease",
+  "surgery",
+  "drg",
+  "numerator",
+  "denominator",
+  "indicator_value",
+  "target_value",
+  "target_min",
+  "target_max",
+  "status",
+  "result_count",
+  "source_revision_manifest_hash",
+  "source_revision_count",
+  "lineage_json",
+  "hospital",
+  "campus",
+  "department",
+  "ward",
+  "source_modified"
+ ],
+ "fields": [
+  {
+   "fieldname": "fact_key",
+   "fieldtype": "Data",
+   "label": "Fact Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Date",
+   "label": "Month",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "indicator",
+   "fieldtype": "Link",
+   "label": "Indicator",
+   "options": "IONE QC Indicator",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "indicator_version",
+   "fieldtype": "Link",
+   "label": "Indicator Version",
+   "options": "IONE QC Indicator Version",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "dimension_json",
+   "fieldtype": "Code",
+   "label": "Dimension JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "dimension_hash",
+   "fieldtype": "Data",
+   "label": "Dimension Hash",
+   "search_index": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "medical_staff",
+   "fieldtype": "Link",
+   "label": "Medical Staff",
+   "options": "IONE Medical Staff",
+   "search_index": 1
+  },
+  {
+   "fieldname": "medical_group",
+   "fieldtype": "Data",
+   "label": "Medical Group",
+   "search_index": 1
+  },
+  {
+   "fieldname": "physician",
+   "fieldtype": "Link",
+   "label": "Physician",
+   "options": "IONE Medical Staff",
+   "search_index": 1
+  },
+  {
+   "fieldname": "disease",
+   "fieldtype": "Data",
+   "label": "Disease",
+   "search_index": 1
+  },
+  {
+   "fieldname": "surgery",
+   "fieldtype": "Data",
+   "label": "Surgery",
+   "search_index": 1
+  },
+  {
+   "fieldname": "drg",
+   "fieldtype": "Data",
+   "label": "DRG",
+   "search_index": 1
+  },
+  {
+   "fieldname": "numerator",
+   "fieldtype": "Float",
+   "label": "Numerator"
+  },
+  {
+   "fieldname": "denominator",
+   "fieldtype": "Float",
+   "label": "Denominator"
+  },
+  {
+   "fieldname": "indicator_value",
+   "fieldtype": "Float",
+   "label": "Indicator Value"
+  },
+  {
+   "fieldname": "target_value",
+   "fieldtype": "Float",
+   "label": "Target Value"
+  },
+  {
+   "fieldname": "target_min",
+   "fieldtype": "Float",
+   "label": "Target Minimum"
+  },
+  {
+   "fieldname": "target_max",
+   "fieldtype": "Float",
+   "label": "Target Maximum"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "result_count",
+   "fieldtype": "Int",
+   "label": "Result Count"
+  },
+  {
+   "fieldname": "source_revision_manifest_hash",
+   "fieldtype": "Data",
+   "label": "Source Revision Manifest Hash",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "source_revision_count",
+   "fieldtype": "Int",
+   "label": "Source Revision Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lineage_json",
+   "fieldtype": "Long Text",
+   "label": "Lineage JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hospital",
+   "fieldtype": "Link",
+   "label": "Hospital",
+   "options": "IONE Hospital",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "campus",
+   "fieldtype": "Link",
+   "label": "Campus",
+   "options": "IONE Hospital Campus",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "IONE Medical Department",
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Link",
+   "label": "Ward",
+   "options": "IONE Ward",
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_modified",
+   "fieldtype": "Datetime",
+   "label": "Source Modified",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-07-29 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Quality Analytics",
+ "name": "IONE Monthly Quality Fact",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Reviewer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department Director",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Department QC Officer",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE Nursing/Pharmacy/IC QC",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  },
+  {
+   "role": "IONE QMS Auditor",
+   "permlevel": 0,
+   "create": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "if_owner": 0,
+   "print": 0,
+   "read": 1,
+   "report": 1,
+   "share": 0,
+   "write": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "search_fields": "fact_key"
+}

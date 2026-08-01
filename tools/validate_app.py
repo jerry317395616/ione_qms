@@ -254,7 +254,7 @@ REQUIRED_DOCTYPES_BY_MODULE = {
 		"IONE Flow Run Link",
 		"IONE Quality Report Snapshot",
 	},
-	"IONE Analytics": {
+	"IONE Quality Analytics": {
 		"IONE Agent Analysis Fact",
 		"IONE Daily Quality Fact",
 		"IONE Finding Analysis Fact",

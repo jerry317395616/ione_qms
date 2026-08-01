@@ -4696,7 +4696,7 @@ def _extend_ai_schemas() -> None:
 
 def _fact_schema(name: str, extra_fields: list[dict[str, Any]]) -> None:
 	SCHEMAS[name] = schema(
-		"IONE Analytics",
+		"IONE Quality Analytics",
 		[
 			field("Fact Key", "fact_key", reqd=1, unique=1, read_only=1),
 			*extra_fields,

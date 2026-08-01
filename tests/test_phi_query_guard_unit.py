@@ -344,7 +344,7 @@ class TestPHIQueryGuardUnit(unittest.TestCase):
 			"doctype": "Report",
 			"ref_doctype": "IONE QC Execution",
 			"report_type": "Script Report",
-			"module": "IONE Analytics",
+			"module": "IONE Quality Analytics",
 			"is_standard": "Yes",
 			"prepared_report": 0,
 			"disable_prepared_report_automation": 1,

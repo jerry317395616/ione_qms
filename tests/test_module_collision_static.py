@@ -7,8 +7,11 @@ from unittest import TestCase
 ROOT = Path(__file__).resolve().parents[1]
 APP_ROOT = ROOT / "ione_qms"
 INTEGRATION_ROOT = APP_ROOT / "ione_quality_integration"
+ANALYTICS_ROOT = APP_ROOT / "ione_quality_analytics"
 OLD_MODULE = "IONE Integration"
 NEW_MODULE = "IONE Quality Integration"
+OLD_ANALYTICS_MODULE = "IONE Analytics"
+NEW_ANALYTICS_MODULE = "IONE Quality Analytics"
 
 
 class TestModuleCollisionStatic(TestCase):
@@ -25,6 +28,21 @@ class TestModuleCollisionStatic(TestCase):
 		for path in metadata:
 			self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["module"], NEW_MODULE)
 
+	def test_analytics_module_has_unique_route_and_package(self) -> None:
+		modules = (APP_ROOT / "modules.txt").read_text(encoding="utf-8").splitlines()
+		self.assertIn(NEW_ANALYTICS_MODULE, modules)
+		self.assertNotIn(OLD_ANALYTICS_MODULE, modules)
+		self.assertTrue(ANALYTICS_ROOT.is_dir())
+		self.assertFalse((APP_ROOT / "ione_analytics").exists())
+
+	def test_all_qms_analytics_metadata_uses_unique_module(self) -> None:
+		metadata = sorted(ANALYTICS_ROOT.glob("**/*.json"))
+		self.assertGreaterEqual(len(metadata), 18)
+		for path in metadata:
+			value = json.loads(path.read_text(encoding="utf-8")).get("module")
+			if value:
+				self.assertEqual(value, NEW_ANALYTICS_MODULE, path)
+
 	def test_pre_model_sync_patch_releases_foreign_module(self) -> None:
 		patches = (APP_ROOT / "patches.txt").read_text(encoding="utf-8")
 		self.assertIn("[pre_model_sync]", patches)
@@ -33,4 +51,6 @@ class TestModuleCollisionStatic(TestCase):
 		source = (APP_ROOT / "patches" / "rename_integration_module.py").read_text(encoding="utf-8")
 		self.assertIn('COLLISION_APP = "ione_medical_insurance"', source)
 		self.assertIn("QMS_DOCTYPES = (", source)
-		self.assertIn("frappe.local.module_app[scrub(OLD_MODULE)] = COLLISION_APP", source)
+		self.assertIn("ANALYTICS_QMS_DOCTYPES = (", source)
+		self.assertIn("MODULE_MIGRATIONS = (", source)
+		self.assertIn("frappe.local.module_app[scrub(old_module)] = COLLISION_APP", source)

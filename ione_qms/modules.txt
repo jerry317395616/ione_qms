@@ -5,5 +5,5 @@ IONE Indicators
 IONE Improvement
 IONE Quality Integration
 IONE Flow AI
-IONE Analytics
+IONE Quality Analytics
 IONE Administration

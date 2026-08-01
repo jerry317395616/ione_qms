@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, patch
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 DASHBOARD_PATH = PACKAGE_ROOT / "api" / "dashboard.py"
-PAGE_ROOT = PACKAGE_ROOT / "ione_analytics" / "page" / "ione_quality_workbench"
+PAGE_ROOT = PACKAGE_ROOT / "ione_quality_analytics" / "page" / "ione_quality_workbench"
 PAGE_JSON = PAGE_ROOT / "ione_quality_workbench.json"
 PAGE_JS = PAGE_ROOT / "ione_quality_workbench.js"
 
@@ -334,7 +334,7 @@ class TestRoleWorkbenchStaticContracts(TestCase):
 				}
 			)
 		)
-		self.assertEqual(metadata["module"], "IONE Analytics")
+		self.assertEqual(metadata["module"], "IONE Quality Analytics")
 		self.assertEqual(metadata["page_name"], "ione-quality-workbench")
 
 	def test_backend_uses_only_permissioned_get_list_for_workbench_records(self) -> None:
