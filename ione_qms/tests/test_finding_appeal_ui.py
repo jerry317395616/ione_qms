@@ -144,8 +144,14 @@ class TestFindingAppealDeskContract(TestCase):
 			"validate_protected_identity_file": lambda _doc: calls.append("qms.identity.validate"),
 			"validate_finding_appeal_evidence_file": lambda _doc: calls.append("qms.appeal.validate"),
 			"validate_standard_source_file": lambda _doc: calls.append("qms.standard.validate"),
+			"validate_production_evidence_manifest_file": lambda _doc: calls.append(
+				"qms.production.validate"
+			),
 			"prevent_finding_appeal_evidence_deletion": lambda _doc: calls.append("qms.appeal.protect"),
 			"prevent_standard_source_file_deletion": lambda _doc: calls.append("qms.standard.protect"),
+			"prevent_production_evidence_manifest_deletion": lambda _doc: calls.append(
+				"qms.production.protect"
+			),
 			"qms_file_permission": (
 				lambda _doc, _ptype, *, user: calls.append(f"qms.permission:{user}") or True
 			),
@@ -196,6 +202,7 @@ class TestFindingAppealDeskContract(TestCase):
 				"qms.identity.validate",
 				"qms.appeal.validate",
 				"qms.standard.validate",
+				"qms.production.validate",
 				"frappe.validate",
 			],
 		)
@@ -209,6 +216,7 @@ class TestFindingAppealDeskContract(TestCase):
 				"qms.identity.validate",
 				"qms.appeal.validate",
 				"qms.standard.validate",
+				"qms.production.validate",
 				"drive.validate",
 			],
 		)
@@ -223,6 +231,7 @@ class TestFindingAppealDeskContract(TestCase):
 				"qms.identity.validate",
 				"qms.appeal.validate",
 				"qms.standard.validate",
+				"qms.production.validate",
 				"drive.validate",
 				"frappe.validate",
 			],
@@ -236,6 +245,7 @@ class TestFindingAppealDeskContract(TestCase):
 				"qms.identity.validate",
 				"qms.appeal.protect",
 				"qms.standard.protect",
+				"qms.production.protect",
 				"frappe.optimize",
 			],
 		)
@@ -248,6 +258,7 @@ class TestFindingAppealDeskContract(TestCase):
 				"qms.identity.validate",
 				"qms.appeal.protect",
 				"qms.standard.protect",
+				"qms.production.protect",
 				"frappe.trash",
 			],
 		)
