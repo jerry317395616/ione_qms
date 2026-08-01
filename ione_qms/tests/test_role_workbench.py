@@ -70,9 +70,12 @@ def _load_dashboard_with_frappe_stub():
 	)
 	permission_stub.has_app_permission = lambda user=None: True
 	permission_stub.require_department_read = lambda department, user=None: None
+	indicator_stub = ModuleType("ione_qms.services.indicators")
+	indicator_stub.current_indicator_result_lock = lambda: None
 	sys.modules["frappe"] = frappe
 	sys.modules["frappe.utils"] = utils
 	sys.modules["ione_qms.permissions"] = permission_stub
+	sys.modules["ione_qms.services.indicators"] = indicator_stub
 
 	spec = importlib.util.spec_from_file_location("_ione_dashboard_workbench_test", DASHBOARD_PATH)
 	if spec is None or spec.loader is None:
@@ -100,6 +103,7 @@ def _runtime(
 	staff_records: tuple[str, ...] = (),
 	departments: tuple[str, ...] = (),
 	app_permission: bool = True,
+	conf: dict | None = None,
 ):
 	get_list = MagicMock(side_effect=get_list_side_effect)
 	get_meta = MagicMock(
@@ -109,6 +113,7 @@ def _runtime(
 	)
 	with ExitStack() as stack:
 		stack.enter_context(patch.object(dashboard.frappe, "session", SimpleNamespace(user=user)))
+		stack.enter_context(patch.object(dashboard.frappe, "conf", conf or {}, create=True))
 		stack.enter_context(patch.object(dashboard.frappe, "get_roles", return_value=roles))
 		stack.enter_context(patch.object(dashboard.frappe, "get_list", get_list))
 		stack.enter_context(patch.object(dashboard.frappe, "get_meta", get_meta))
@@ -141,6 +146,17 @@ class TestRoleWorkbenchPermissions(TestCase):
 			with self.assertRaises(dashboard.frappe.PermissionError):
 				dashboard.get_role_workbench()
 		get_list.assert_not_called()
+
+	def test_site_can_enable_read_only_administrator_workbench(self) -> None:
+		with _runtime(
+			user="Administrator",
+			roles=["System Manager"],
+			get_list_side_effect=lambda *args, **kwargs: [],
+			conf={"ione_qms_allow_technical_administrator": 1},
+		) as (get_list, _):
+			result = dashboard.get_role_workbench()
+		self.assertEqual(result["persona"], "Functional")
+		self.assertEqual(len(get_list.call_args_list), len(dashboard._WORKBENCH_DATASETS))
 
 	def test_agent_service_is_rejected_even_with_a_business_role(self) -> None:
 		with _runtime(

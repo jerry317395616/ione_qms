@@ -237,11 +237,13 @@ def get_role_workbench() -> dict[str, Any]:
 
 
 def _resolve_workbench_persona(user: str, roles: frozenset[str]) -> str:
-	if user in {"", "Guest", "Administrator"}:
+	if user in {"", "Guest"} or (user == "Administrator" and not _administrator_workbench_enabled()):
 		frappe.throw(
 			"Role workbench access requires a named accountable IONE business user.",
 			frappe.PermissionError,
 		)
+	if user == "Administrator":
+		return "Functional"
 	if "IONE Agent Service" in roles or not roles.intersection(_WORKBENCH_ROLES):
 		frappe.throw(
 			"Current user does not have an eligible IONE business workbench role.",
@@ -254,6 +256,16 @@ def _resolve_workbench_persona(user: str, roles: frozenset[str]) -> str:
 	if roles.intersection(_DEPARTMENT_WORKBENCH_ROLES):
 		return "Department"
 	return "Physician"
+
+
+def _administrator_workbench_enabled() -> bool:
+	conf = getattr(frappe, "conf", None) or getattr(getattr(frappe, "local", None), "conf", None) or {}
+	value = conf.get("ione_qms_allow_technical_administrator")
+	if isinstance(value, bool):
+		return value
+	if isinstance(value, (int, float)):
+		return value != 0
+	return str(value or "").strip().lower() in {"1", "true", "yes", "on", "enabled"}
 
 
 def _workbench_staff_scope(user: str) -> tuple[tuple[str, ...], tuple[str, ...]]:
