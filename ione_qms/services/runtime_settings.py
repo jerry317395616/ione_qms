@@ -118,9 +118,7 @@ def _event_field_guard(doc, previous) -> None:
 	if current_event == previous_event:
 		return
 	if getattr(frappe.flags, "ione_production_activation", None) != current_event:
-		frappe.throw(
-			"Production activation events may only be bound through the governed production API."
-		)
+		frappe.throw("Production activation events may only be bound through the governed production API.")
 
 
 def _validate_production_activation_for_settings(doc, previous) -> None:
@@ -128,8 +126,7 @@ def _validate_production_activation_for_settings(doc, previous) -> None:
 		production_requested = bool(int(doc.get("production_mode") or 0))
 		governed_fields = ("production_mode", "enable_realtime_rules", "enable_ai")
 		previous_values = {
-			fieldname: int(previous.get(fieldname) or 0) if previous else 0
-			for fieldname in governed_fields
+			fieldname: int(previous.get(fieldname) or 0) if previous else 0 for fieldname in governed_fields
 		}
 		raised = any(
 			int(doc.get(fieldname) or 0) > previous_values[fieldname] for fieldname in governed_fields

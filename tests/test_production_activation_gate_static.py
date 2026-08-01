@@ -15,8 +15,7 @@ class TestProductionActivationGateStatic(TestCase):
 	def test_all_word_spec_production_gates_are_mandatory_and_exactly_mirrored(self) -> None:
 		service = (PACKAGE / "services" / "production_readiness.py").read_text(encoding="utf-8")
 		child = self._doctype(
-			"ione_administration/doctype/ione_production_gate_evidence/"
-			"ione_production_gate_evidence.json"
+			"ione_administration/doctype/ione_production_gate_evidence/ione_production_gate_evidence.json"
 		)
 		gate_field = next(field for field in child["fields"] if field["fieldname"] == "gate_code")
 		gate_codes = set(gate_field["options"].splitlines())
@@ -51,9 +50,7 @@ class TestProductionActivationGateStatic(TestCase):
 			"ione_administration/doctype/ione_production_activation_event/"
 			"ione_production_activation_event.json"
 		)
-		assessment_system = next(
-			row for row in assessment["permissions"] if row["role"] == "System Manager"
-		)
+		assessment_system = next(row for row in assessment["permissions"] if row["role"] == "System Manager")
 		self.assertEqual(assessment_system["create"], 0)
 		self.assertEqual(assessment_system["write"], 0)
 		for row in event["permissions"]:
@@ -62,9 +59,7 @@ class TestProductionActivationGateStatic(TestCase):
 			self.assertEqual(row["delete"], 0)
 
 	def test_system_settings_activation_event_is_read_only_and_hooks_are_fail_closed(self) -> None:
-		settings = self._doctype(
-			"ione_administration/doctype/ione_system_settings/ione_system_settings.json"
-		)
+		settings = self._doctype("ione_administration/doctype/ione_system_settings/ione_system_settings.json")
 		field = next(
 			field for field in settings["fields"] if field["fieldname"] == "production_activation_event"
 		)

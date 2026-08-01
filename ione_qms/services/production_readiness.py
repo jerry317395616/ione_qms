@@ -982,7 +982,9 @@ def _required_reason(value: Any, label: str) -> str:
 def _require_named_actor(roles: frozenset[str] | set[str]) -> str:
 	user = str(getattr(frappe.session, "user", "") or "")
 	if user in {"", "Guest", "Administrator"}:
-		frappe.throw("Production readiness governance requires a named accountable user.", frappe.PermissionError)
+		frappe.throw(
+			"Production readiness governance requires a named accountable user.", frappe.PermissionError
+		)
 	if not set(frappe.get_roles(user)).intersection(roles):
 		frappe.throw("User lacks the required production-readiness role.", frappe.PermissionError)
 	return user
