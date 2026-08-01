@@ -5,3 +5,7 @@ All notable changes to IONE QMS are documented here.
 ## Unreleased
 
 - Initial production implementation for Frappe 17 develop and Frappe Flow develop.
+- Add a fail-closed production activation gate with 14 mandatory evidence
+  domains, private immutable manifests, exact release/schema/commit binding,
+  three-person separation of duties, domain-separated HMAC signatures, and
+  append-only activation/deactivation/revocation events.

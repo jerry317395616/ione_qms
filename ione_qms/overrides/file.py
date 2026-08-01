@@ -8,6 +8,10 @@ from ione_qms.services.finding_appeals import (
 	prevent_finding_appeal_evidence_deletion,
 	validate_finding_appeal_evidence_file,
 )
+from ione_qms.services.production_readiness import (
+	prevent_production_evidence_manifest_deletion,
+	validate_production_evidence_manifest_file,
+)
 from ione_qms.services.versions import (
 	prevent_standard_source_file_deletion,
 	validate_standard_source_file,
@@ -27,6 +31,7 @@ class IONEQMSFileMixin:
 		validate_protected_identity_file(self)
 		validate_finding_appeal_evidence_file(self)
 		validate_standard_source_file(self)
+		validate_production_evidence_manifest_file(self)
 		return super().validate()
 
 	@frappe.whitelist()
@@ -34,12 +39,14 @@ class IONEQMSFileMixin:
 		validate_protected_identity_file(self)
 		prevent_finding_appeal_evidence_deletion(self)
 		prevent_standard_source_file_deletion(self)
+		prevent_production_evidence_manifest_deletion(self)
 		return super().optimize_file()
 
 	def on_trash(self):
 		validate_protected_identity_file(self)
 		prevent_finding_appeal_evidence_deletion(self)
 		prevent_standard_source_file_deletion(self)
+		prevent_production_evidence_manifest_deletion(self)
 		return super().on_trash()
 
 	def is_downloadable(self) -> bool:

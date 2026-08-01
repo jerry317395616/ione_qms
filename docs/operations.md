@@ -1,5 +1,14 @@
 # Operations runbook
 
+## Production-mode gate
+
+Do not edit `IONE System Settings.production_mode` directly. Follow the
+evidence, independent approval, and third-operator activation procedure in
+`docs/production-activation-governance.md`. Missing, expired, revoked, or stale
+evidence fails closed at runtime. Emergency deactivation clears production,
+real-time rules, and AI together; use the governed Desk button/API when
+possible so an append-only activation event records the reason and actor.
+
 ## Service ownership
 
 Assign named owners for application, clinical rules, integration, database,

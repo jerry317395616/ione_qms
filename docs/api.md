@@ -30,6 +30,12 @@ its own HMAC authentication. JSON errors follow Frappe response conventions.
 | POST | `/api/method/ione_qms.api.ai.operate_quality_report_schedule` | Suspend, resume, or retire an approved report schedule |
 | POST | `/api/method/ione_qms.api.ai.authorize_quality_report_recovery` | Let the exact configured report reviewer authorize one bounded replacement for the current terminal month |
 | GET | `/api/method/ione_qms.api.ai.get_model_readiness` | Verify Qwen production readiness |
+| POST | `/api/method/ione_qms.api.production.submit_assessment` | Freeze complete production evidence for independent review |
+| POST | `/api/method/ione_qms.api.production.approve_assessment` | Independently approve the exact assessment checksum |
+| POST | `/api/method/ione_qms.api.production.reject_assessment` | Reject an assessment with a governed reason |
+| POST | `/api/method/ione_qms.api.production.activate_production_mode` | Create an immutable activation event and enable authorized switches |
+| POST | `/api/method/ione_qms.api.production.deactivate_production_mode` | Fail closed and disable production workloads |
+| POST | `/api/method/ione_qms.api.production.revoke_assessment` | Revoke approval and disable any bound active workload |
 | GET | `/api/method/ione_qms.api.dashboard.get_command_center` | Read scoped command-center aggregates |
 | POST | `/api/method/ione_qms.api.data_export.request_data_export` | Create a canonical, scope-frozen controlled export request |
 | POST | `/api/method/ione_qms.api.data_export.approve_data_export` | Independently approve an authorized controlled export |

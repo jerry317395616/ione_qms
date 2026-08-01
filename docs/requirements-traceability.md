@@ -5,7 +5,7 @@
 - 审计日期：2026-07-29。
 - 需求来源：`IONE医院医疗质量管理系统总体技术建设方案_V1.0.docx`，共 43 页。
 - 代码范围：单一自研应用 `ione_qms`；Frappe 与 Frappe Flow 官方应用不在本仓库修改范围。
-- 当前静态清单：124 个 DocType、9 个 Module、9 个 Workspace、8 个 Workflow、5 个 Flow Agent 蓝图。
+- 当前静态清单：127 个 DocType、9 个 Module、9 个 Workspace、8 个 Workflow、5 个 Flow Agent 蓝图。
 - 当前交付状态：尚无同时包含远端候选 SHA、成功 Bench CI、Press QA
   和 `manager` 验收的发布证据包。
 - 本矩阵只证明“仓库中有什么”；代码存在不等于临床口径已批准，也不等于生产验收通过。
@@ -27,25 +27,25 @@
 | ID | 方案章节 | 能力与当前实现 | 代码/对象证据 | 验证状态 | 外部或验收门槛 |
 | --- | --- | --- | --- | --- | --- |
 | S00 | 第 0 节 执行摘要 | 单 App 九模块、确定性规则优先、AI 仅提供受控建议 | `modules.txt`、`rule_engine/`、`services/ai_policy.py` | `Implemented`; `Static-verified`; `Runtime-unverified` | 需核验官方 App 工作树、构建 SHA 和站点开关 |
-| S01 | 第 1 节 建设目标 | 标准、规则、指标、质控、整改、分析、集成、AI 治理底座已编码 | 124 个 DocType；9 个模块目录 | `Implemented`; `Static-verified`; `Runtime-unverified` | 真实临床专题与医院数据仍阻塞 |
+| S01 | 第 1 节 建设目标 | 标准、规则、指标、质控、整改、分析、集成、AI 治理底座已编码 | 127 个 DocType；9 个模块目录 | `Implemented`; `Static-verified`; `Runtime-unverified` | 真实临床专题与医院数据仍阻塞 |
 | S02 | 第 2 节 政策与十项目标 | 提供指标/规则版本模型及初始化模板，不代表十项目标已落地 | `setup/blueprint.py`、规则与指标版本 DocType | `Implemented`; `Runtime-unverified` | `External/Clinical blocker`：医院口径、责任科室、基线、目标值、审批 |
 | S03 | 第 3 节 设计原则 | 模块化单体、服务层、只读源系统、AI 最小权限已体现 | `services/`、`integration/`、`ai/` | `Static-verified`; `Runtime-unverified` | 需真实权限负向测试和审计取证 |
 | S04 | 第 4 节 技术基线 | 按 Frappe v17 develop 与 Flow develop 元数据设计 | `pyproject.toml`、`hooks.py`、`setup/install.py` | `Static-verified`; `Runtime-unverified` | 必须固定并记录三个仓库的已测 commit SHA |
 | S05 | 第 5 节 总体架构 | 接入、领域、规则、指标、AI、展示分层均有代码骨架 | `integration/`、`rule_engine/`、`indicator_engine/`、`api/` | `Implemented`; `Static-verified` | 真实端到端链路尚未在站点运行 |
 | S06 | 第 6 节 九模块设计 | 九模块及九 Workspace 已创建 | `modules.txt`、各模块 `workspace/*.json` | `Implemented`; `Static-verified`; `Runtime-unverified` | Desk 路由、角色可见性及工作台查询需 Bench 验证 |
-| S07 | 第 7 节 领域模型 | 主数据、版本、问题、整改、申诉、集成、AI、审计对象共 124 个 DocType | 各模块 `doctype/**.json` | `Implemented`; `Static-verified`; `Runtime-unverified` | 需 `bench migrate`、建表、索引和权限实测 |
+| S07 | 第 7 节 领域模型 | 主数据、版本、问题、整改、申诉、集成、AI、生产准入及审计对象共 127 个 DocType | 各模块 `doctype/**.json` | `Implemented`; `Static-verified`; `Runtime-unverified` | 需 `bench migrate`、建表、索引和权限实测 |
 | S08 | 第 8 节 业务功能 | 标准/规则/运行与终末质控/手麻/事件/整改/角色工作台均有通用实现 | `services/findings.py`、`services/improvement.py`、`services/safety_events.py`、`api/dashboard.py` | `Implemented`; `Static-verified`; `Runtime-unverified` | 专科规则包、真实事件生产链和用户验收未完成 |
 | S09 | 第 9 节 规则引擎 | 确定性执行、证据、去重、动作约束、回放与生产安全开关已编码 | `rule_engine/`、`api/rules.py`、`tests/test_rule_*.py` | `Static-verified`; `Runtime-unverified` | 实时执行默认关闭；需 30–50 条临床批准规则、金样本与回放报告 |
 | S10 | 第 10 节 指标引擎 | 指标元数据、版本、趋势、事实与计算器注册机制已编码 | `indicator_engine/`、`services/indicators.py`、`api/indicator.py` | `Static-verified`; `Runtime-unverified` | 分子/分母、排除条件、数据源和历史基线须医院确认 |
 | S11 | 第 11 节 集成与治理 | 来源、端点、映射、消息、任务、数据质量、对账、来源对账及严格签名的 HL7 v2 HTTP 适配器已编码 | `integration/`、`integration/hl7_v2.py`、`api/integration.py`、`tasks/integration.py`、`tests/test_hl7_v2_static.py` | `Static-verified`; `Runtime-unverified` | `External/Clinical blocker`：源合同、字段字典、只读账号、实际 Oracle 对账 query，以及医院接口引擎的 HL7 消息类型/字符集/MLLP ACK 与重试合同 |
 | S12 | 第 12 节 Flow AI | 5 个 Agent、最小工具、初始/Resume claim/lease/CAS、审批消费、孤儿运行对账、不可变 Flow 修订、评测和运行开关已编码 | `setup/install.py`、`ai/`、`services/agent_evaluations.py` | `Static-verified`; `Runtime-unverified` | AI 默认关闭；Qwen 鉴权、Flow Trigger、崩溃恢复、并发和人工续跑未验收 |
-| S13 | 第 13 节 权限安全 | 角色、临床范围、受控导出、安全策略、安全事件上报和审计钩子已编码；导出请求从规范化过滤器固化医院/院区/科室范围，Auditor 仅可处理明确 User Permission 覆盖的单科室/单院区请求，全院/多范围/无范围请求仅 Medical Affairs；审批、驳回、生成共享并发锁，私有文件下载复核父请求范围和有效期 | `permissions.py`、`services/data_export.py`、`services/safety_events.py`、`tasks/security.py` | `Static-verified`; `Runtime-unverified` | 需在 Bench 以真实 User Permission 执行 Desk/API/私有文件下载和审批竞态负向测试 |
+| S13 | 第 13 节 权限安全 | 角色、临床范围、受控导出、安全策略、安全事件及三人分离的生产准入门禁已编码；缺失、过期、撤销或漂移的 14 类 P0 证据均失败关闭 | `permissions.py`、`services/data_export.py`、`services/production_readiness.py`、`api/production.py` | `Static-verified`; `Runtime-unverified` | 需在 Bench 以真实角色验证证据篡改、直接设置旁路、三人职责分离、紧急停用和事件链 |
 | S14 | 第 14 节 性能高可用 | 队列与降级原则有文档和开关，尚无容量证据 | `hooks.py`、运行设置与任务配置 | `Implemented`; `Runtime-unverified` | `Not implemented`：压力报告、容量模型、HA 故障切换与可用性证据 |
 | S15 | 第 15 节 部署环境 | 有安装、发布、回滚和运维说明 | `docs/operations.md`、`docs/release-and-rollback.md` | `Runtime-unverified` | `Not implemented`：Press QA 发布记录与 `manager` 安装验收 |
 | S16 | 第 16 节 工程与 Hook | Controller/Service 分层、文档事件和定时任务钩子已编码 | `hooks.py`、`services/`、各 DocType controller | `Static-verified`; `Runtime-unverified` | scheduler 实际启用、队列消费及失败重试未验证 |
 | S17 | 第 17 节 分支与 CI/CD | 应用使用 develop；有校验工具与双 Frappe 基线 CI | `tools/validate_app.py`、`.github/workflows/` | `Static-verified`; `Runtime-unverified` | 尚未取得与最终候选 SHA 绑定的成功远端 CI 和不可变 Press 制品 |
 | S18 | 第 18 节 测试保障 | 仓库含规则、指标、权限、AI、集成、流程、工作台等自动化测试 | `ione_qms/tests/` | `Static-verified`; `Runtime-unverified` | Frappe 依赖测试必须在 Bench CI 执行；临床金样本尚缺 |
-| S19 | 第 19 节 路线图 | 一期所需平台底座大部分已编码 | 初始化蓝图、124 个 DocType、8 个 Workflow | `Implemented`; `Runtime-unverified` | 试点科室、阶段里程碑和退出标准需医院确认 |
+| S19 | 第 19 节 路线图 | 一期所需平台底座大部分已编码 | 初始化蓝图、127 个 DocType、8 个 Workflow | `Implemented`; `Runtime-unverified` | 试点科室、阶段里程碑和退出标准需医院确认 |
 | S20 | 第 20 节 组织预算 | 代码仓库不负责替代项目组织、人员和采购决策 | 无软件实现要求 | `External/Clinical blocker` | 医院须任命临床、质控、信息、运维、安全负责人 |
 | S21 | 第 21 节 验收标准 | 可测试对象与验收清单已形成，尚无正式验收报告 | `docs/testing-and-acceptance.md`、本矩阵 | `Runtime-unverified` | 功能、数据、规则、AI、性能、恢复和管理效果均须签字 |
 | S22 | 第 22 节 风险应对 | 默认关闭实时规则/AI，保留审计、对账、降级和回滚设计 | 运行设置、规则安全、AI 策略、发布回滚文档 | `Static-verified`; `Runtime-unverified` | 需演练误报、断链、越权、模型失败、回滚和恢复 |
@@ -144,6 +144,7 @@
 | Qwen/Flow | `External/Clinical blocker`; `Runtime-unverified` | 内部鉴权、公共入口保护、消费者同步、脱敏、失败降级、固定评测集和人工确认报告；RAG 保持关闭 |
 | 性能与灾备 | `Not implemented` | 当前根盘 86%；受控容量治理、压测、HA、监控告警、离站全量备份及恢复演练 |
 | 调度任务 | `Runtime-unverified` | 当前 scheduler 异常；修复后验证队列、租约、重试、失败告警和补数 |
+| 生产准入门禁 | `Implemented`; `Static-verified`; `Runtime-unverified` | 14 类 P0 证据、私有清单、具名评估人、独立 Auditor、第三操作人、篡改/过期/撤销及紧急停用 Bench 验收 |
 
 ## 8. 总体判定
 

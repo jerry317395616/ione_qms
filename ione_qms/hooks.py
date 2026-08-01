@@ -37,6 +37,8 @@ doctype_js = {
 	"IONE PHI Disclosure Policy": "public/js/phi_disclosure_policy.js",
 	"IONE Patient Index": "public/js/phi_identity.js",
 	"IONE Encounter Index": "public/js/phi_identity.js",
+	"IONE Production Readiness Assessment": "public/js/production_readiness.js",
+	"IONE System Settings": "public/js/production_readiness.js",
 }
 
 add_to_apps_screen = [
@@ -357,6 +359,18 @@ doc_events = {
 	},
 	"IONE System Settings": {
 		"validate": "ione_qms.services.runtime_settings.validate_runtime_enablement",
+	},
+	"IONE Production Readiness Assessment": {
+		"validate": "ione_qms.services.production_readiness.validate_production_readiness_assessment",
+		"on_trash": "ione_qms.services.immutability.prevent_delete",
+	},
+	"IONE Production Activation Event": {
+		"validate": [
+			"ione_qms.services.production_readiness.validate_production_activation_event",
+			"ione_qms.services.immutability.validate_append_only",
+		],
+		"on_cancel": "ione_qms.services.immutability.prevent_delete",
+		"on_trash": "ione_qms.services.immutability.prevent_delete",
 	},
 	"IONE AI Settings": {
 		"validate": "ione_qms.services.runtime_settings.validate_runtime_enablement",

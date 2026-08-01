@@ -8,7 +8,8 @@
   "default_time_zone",
   "enable_realtime_rules",
   "enable_ai",
-  "production_mode"
+  "production_mode",
+  "production_activation_event"
  ],
  "fields": [
   {
@@ -34,6 +35,13 @@
    "fieldtype": "Check",
    "label": "Production Mode",
    "default": "0"
+  },
+  {
+   "fieldname": "production_activation_event",
+   "fieldtype": "Link",
+   "label": "Current Production Activation Event",
+   "options": "IONE Production Activation Event",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 0,

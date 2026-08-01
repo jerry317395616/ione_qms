@@ -1,0 +1,303 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:IONE-PRA-{YYYY}-{#####}",
+ "creation": "2026-08-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "release_section",
+  "release_record",
+  "site_name",
+  "schema_revision",
+  "full_fingerprint",
+  "migration_completion_receipt",
+  "runtime_commit_manifest_json",
+  "evidence_section",
+  "valid_until",
+  "evidence_manifest_file",
+  "evidence_manifest_sha256",
+  "gate_evidence",
+  "governance_section",
+  "status",
+  "requested_by",
+  "requested_at",
+  "submitted_by",
+  "submitted_at",
+  "reviewed_by",
+  "reviewed_at",
+  "review_comment",
+  "assessment_checksum",
+  "hmac_key_id",
+  "assessment_signature",
+  "governance_hmac_key_id",
+  "governance_signature",
+  "revoked_by",
+  "revoked_at",
+  "revocation_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "release_section",
+   "fieldtype": "Section Break",
+   "label": "Immutable Release Binding"
+  },
+  {
+   "fieldname": "release_record",
+   "fieldtype": "Link",
+   "label": "Deployed Release Record",
+   "options": "IONE Release Record",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "site_name",
+   "fieldtype": "Data",
+   "label": "Site",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "schema_revision",
+   "fieldtype": "Data",
+   "label": "Schema Revision",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "full_fingerprint",
+   "fieldtype": "Data",
+   "label": "Full Application Fingerprint",
+   "reqd": 1,
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "migration_completion_receipt",
+   "fieldtype": "Link",
+   "label": "Migration Completion Receipt",
+   "options": "IONE Migration Completion Receipt",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "runtime_commit_manifest_json",
+   "fieldtype": "Code",
+   "label": "Runtime Commit Manifest",
+   "options": "JSON",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "evidence_section",
+   "fieldtype": "Section Break",
+   "label": "Required Production Evidence"
+  },
+  {
+   "fieldname": "valid_until",
+   "fieldtype": "Datetime",
+   "label": "Approval Valid Until",
+   "reqd": 1
+  },
+  {
+   "fieldname": "evidence_manifest_file",
+   "fieldtype": "Attach",
+   "label": "Private Evidence Manifest (JSON)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "evidence_manifest_sha256",
+   "fieldtype": "Data",
+   "label": "Evidence Manifest SHA-256",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "gate_evidence",
+   "fieldtype": "Table",
+   "label": "Production Gate Evidence",
+   "options": "IONE Production Gate Evidence",
+   "reqd": 1
+  },
+  {
+   "fieldname": "governance_section",
+   "fieldtype": "Section Break",
+   "label": "Independent Governance"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nUnder Review\nApproved\nRejected\nRevoked",
+   "default": "Draft",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Assessed By",
+   "options": "User",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "requested_at",
+   "fieldtype": "Datetime",
+   "label": "Assessment Started At",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_by",
+   "fieldtype": "Link",
+   "label": "Submitted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_at",
+   "fieldtype": "Datetime",
+   "label": "Submitted At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Independent Reviewer",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comment",
+   "fieldtype": "Small Text",
+   "label": "Review Comment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "assessment_checksum",
+   "fieldtype": "Data",
+   "label": "Assessment Checksum",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "hmac_key_id",
+   "fieldtype": "Data",
+   "label": "Production HMAC Key ID",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "assessment_signature",
+   "fieldtype": "Data",
+   "label": "Assessment HMAC Signature",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "governance_hmac_key_id",
+   "fieldtype": "Data",
+   "label": "Governance HMAC Key ID",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "governance_signature",
+   "fieldtype": "Data",
+   "label": "Governance HMAC Signature",
+   "read_only": 1,
+   "length": 64
+  },
+  {
+   "fieldname": "revoked_by",
+   "fieldtype": "Link",
+   "label": "Revoked By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "revoked_at",
+   "fieldtype": "Datetime",
+   "label": "Revoked At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "revocation_reason",
+   "fieldtype": "Small Text",
+   "label": "Revocation Reason",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-08-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "IONE Administration",
+ "name": "IONE Production Readiness Assessment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "IONE QC Administrator",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "print": 0,
+   "report": 1,
+   "share": 0
+  },
+  {
+   "role": "IONE Medical Affairs",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "print": 0,
+   "report": 1,
+   "share": 0
+  },
+  {
+   "role": "IONE QMS Auditor",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 1,
+   "print": 0,
+   "report": 1,
+   "share": 0
+  },
+  {
+   "role": "System Manager",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "email": 0,
+   "export": 0,
+   "print": 0,
+   "report": 1,
+   "share": 0
+  }
+ ],
+ "search_fields": "release_record,site_name,status,requested_by,reviewed_by",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

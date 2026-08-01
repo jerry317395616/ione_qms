@@ -274,6 +274,9 @@ REQUIRED_DOCTYPES_BY_MODULE = {
 		"IONE Migration State",
 		"IONE PHI Access Receipt",
 		"IONE PHI Disclosure Policy",
+		"IONE Production Activation Event",
+		"IONE Production Gate Evidence",
+		"IONE Production Readiness Assessment",
 		"IONE QC Settings",
 		"IONE Release Record",
 		"IONE Security Policy",
@@ -293,6 +296,7 @@ CHILD_DOCTYPES = frozenset(
 		"IONE Meeting Attendee",
 		"IONE Pareto Cause Item",
 		"IONE PDCA Effect Measurement",
+		"IONE Production Gate Evidence",
 		"IONE Rectification Action",
 		"IONE Root Cause",
 	}

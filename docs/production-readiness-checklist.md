@@ -190,6 +190,18 @@ Every item must have dated evidence and an owner.
 
 ## Deployment
 
+- [ ] One `IONE Production Readiness Assessment` contains exactly all 14 P0
+      gate codes, a private immutable manifest whose file and artifact hashes
+      reverify, the exact deployed Release Record/app commits/schema/migration
+      receipt, named evidence owners, and an unexpired validity window.
+- [ ] A named `IONE QMS Auditor`, independent of the assessor, approved the
+      exact assessment checksum; a third named operator activates it through
+      the POST-only governed API. Direct settings writes, stale/tampered
+      evidence, and actor reuse all fail closed.
+- [ ] Activation, deactivation, and revocation append hash-verifiable events;
+      emergency deactivation atomically clears production, real-time rules,
+      and AI.
+
 - [ ] QA candidate matches production app combination.
 - [ ] If `manager` shares a bench, Press splits only `manager`; every other site
       remains on its recorded prior candidate unless explicitly approved.
