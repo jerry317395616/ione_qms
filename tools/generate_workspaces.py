@@ -197,7 +197,7 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 	},
 	{
 		"label": "IONE Integration",
-		"module": "IONE Integration",
+		"module": "IONE Quality Integration",
 		"icon": "plug",
 		"roles": [
 			"IONE Integration Administrator",
@@ -366,6 +366,8 @@ WORKSPACES: tuple[dict[str, Any], ...] = (
 			"Controlled Operations": [
 				"IONE Data Export Request",
 				"IONE Release Record",
+				"IONE Production Readiness Assessment",
+				"IONE Production Activation Event",
 			],
 			"Privacy Governance": [
 				"IONE PHI Disclosure Policy",

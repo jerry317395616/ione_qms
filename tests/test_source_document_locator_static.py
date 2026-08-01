@@ -141,7 +141,7 @@ class TestSourceDocumentLocatorStatic(unittest.TestCase):
 			(
 				ROOT
 				/ "ione_qms"
-				/ "ione_integration"
+				/ "ione_quality_integration"
 				/ "doctype"
 				/ "ione_source_document_access_log"
 				/ "ione_source_document_access_log.json"

@@ -221,7 +221,7 @@ REQUIRED_DOCTYPES_BY_MODULE = {
 		"IONE Rectification Action",
 		"IONE Root Cause",
 	},
-	"IONE Integration": {
+	"IONE Quality Integration": {
 		"IONE Data Quality Issue",
 		"IONE Data Reconciliation",
 		"IONE Integration Allowed Scope",

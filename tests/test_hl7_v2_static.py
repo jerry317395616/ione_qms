@@ -250,7 +250,7 @@ class TestHL7V2IngressStaticContract(unittest.TestCase):
 			(
 				ROOT
 				/ "ione_qms"
-				/ "ione_integration"
+				/ "ione_quality_integration"
 				/ "doctype"
 				/ "ione_source_system"
 				/ "ione_source_system.json"
@@ -260,7 +260,7 @@ class TestHL7V2IngressStaticContract(unittest.TestCase):
 			(
 				ROOT
 				/ "ione_qms"
-				/ "ione_integration"
+				/ "ione_quality_integration"
 				/ "doctype"
 				/ "ione_integration_endpoint"
 				/ "ione_integration_endpoint.json"

@@ -3,7 +3,7 @@ IONE Quality Standards
 IONE Clinical Quality
 IONE Indicators
 IONE Improvement
-IONE Integration
+IONE Quality Integration
 IONE Flow AI
 IONE Analytics
 IONE Administration

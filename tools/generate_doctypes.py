@@ -3018,7 +3018,7 @@ def _extend_integration_schemas() -> None:
 	SCHEMAS.update(
 		{
 			"IONE Integration Allowed Scope": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					link("Hospital", "hospital", "IONE Hospital", reqd=1, in_list_view=1),
 					link("Campus", "campus", "IONE Hospital Campus", in_list_view=1),
@@ -3028,7 +3028,7 @@ def _extend_integration_schemas() -> None:
 				istable=1,
 			),
 			"IONE Source System": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field("System Code", "system_code", reqd=1, unique=1, in_list_view=1),
 					field("System Name", "system_name", reqd=1, in_list_view=1),
@@ -3064,7 +3064,7 @@ def _extend_integration_schemas() -> None:
 				track_changes=1,
 			),
 			"IONE Integration Endpoint": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field("Endpoint Key", "endpoint_key", reqd=1, unique=1, in_list_view=1),
 					field("Endpoint Name", "endpoint_name", reqd=1, in_list_view=1),
@@ -3153,7 +3153,7 @@ def _extend_integration_schemas() -> None:
 				track_changes=1,
 			),
 			"IONE Source Document Locator": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field(
 						"Locator Key",
@@ -3286,7 +3286,7 @@ def _extend_integration_schemas() -> None:
 				track_changes=1,
 			),
 			"IONE Source Document Access Log": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field(
 						"Access Key",
@@ -3378,7 +3378,7 @@ def _extend_integration_schemas() -> None:
 				track_changes=0,
 			),
 			"IONE Integration Mapping": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field("Mapping Code", "mapping_code", reqd=1, in_list_view=1),
 					link("Source System", "source_system", "IONE Source System", reqd=1),
@@ -3438,7 +3438,7 @@ def _extend_integration_schemas() -> None:
 				track_changes=1,
 			),
 			"IONE Integration Job": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					link(
 						"Endpoint",
@@ -3471,7 +3471,7 @@ def _extend_integration_schemas() -> None:
 				INTEGRATION_AUDIT_PERMS,
 			),
 			"IONE Integration Message": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field("Idempotency Key", "idempotency_key", reqd=1, unique=1, read_only=1),
 					link(
@@ -3563,7 +3563,7 @@ def _extend_integration_schemas() -> None:
 				search_fields="idempotency_key,payload_hash",
 			),
 			"IONE Data Quality Issue": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field("Issue Key", "issue_key", reqd=1, unique=1, read_only=1),
 					link("Source System", "source_system", "IONE Source System"),
@@ -3604,7 +3604,7 @@ def _extend_integration_schemas() -> None:
 				search_fields="issue_key,issue_type",
 			),
 			"IONE Data Reconciliation": schema(
-				"IONE Integration",
+				"IONE Quality Integration",
 				[
 					field("Reconciliation Key", "reconciliation_key", reqd=1, unique=1, read_only=1),
 					link("Source System", "source_system", "IONE Source System", reqd=1),
@@ -4912,6 +4912,12 @@ def _extend_admin_schemas() -> None:
 					field("Enable Realtime Rules", "enable_realtime_rules", "Check", default="0"),
 					field("Enable AI", "enable_ai", "Check", default="0"),
 					field("Production Mode", "production_mode", "Check", default="0"),
+					link(
+						"Current Production Activation Event",
+						"production_activation_event",
+						"IONE Production Activation Event",
+						read_only=1,
+					),
 				],
 				[
 					perm("System Manager", read=1, write=1),

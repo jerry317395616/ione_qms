@@ -114,7 +114,7 @@ class TestIntegrationMappingLineageStatic(unittest.TestCase):
 		endpoint_path = (
 			ROOT
 			/ "ione_qms"
-			/ "ione_integration"
+			/ "ione_quality_integration"
 			/ "doctype"
 			/ "ione_integration_endpoint"
 			/ "ione_integration_endpoint.json"
@@ -122,7 +122,7 @@ class TestIntegrationMappingLineageStatic(unittest.TestCase):
 		job_path = (
 			ROOT
 			/ "ione_qms"
-			/ "ione_integration"
+			/ "ione_quality_integration"
 			/ "doctype"
 			/ "ione_integration_job"
 			/ "ione_integration_job.json"
@@ -130,7 +130,7 @@ class TestIntegrationMappingLineageStatic(unittest.TestCase):
 		mapping_path = (
 			ROOT
 			/ "ione_qms"
-			/ "ione_integration"
+			/ "ione_quality_integration"
 			/ "doctype"
 			/ "ione_integration_mapping"
 			/ "ione_integration_mapping.json"
