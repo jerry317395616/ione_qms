@@ -83,7 +83,7 @@ def submit_feedback(
 	return flow_submit_feedback(run_name=run_name, rating=rating, comment=comment)
 
 
-@frappe.whitelist(methods=["GET"])
+@frappe.whitelist(methods=["GET", "POST"])
 def get_agent_tools(agent: str) -> dict[str, bool]:
 	if _agent_is_governed(agent):
 		frappe.throw(

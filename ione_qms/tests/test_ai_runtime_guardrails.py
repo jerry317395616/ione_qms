@@ -6,6 +6,8 @@ from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
 
+import frappe
+
 from ione_qms.ai import approvals, flow_gateway
 from ione_qms.ai.evaluation import _evaluate_criteria
 from ione_qms.ai.tool_registry import (
@@ -21,6 +23,14 @@ from ione_qms.services import agent_evaluations, ai_tasks, runtime_settings
 def _raise_runtime(message: str, *args, **kwargs) -> None:
 	del args, kwargs
 	raise RuntimeError(message)
+
+
+class TestFlowGatewayHTTPContract(TestCase):
+	def test_get_agent_tools_accepts_get_and_post(self) -> None:
+		self.assertEqual(
+			frappe.allowed_http_methods_for_whitelisted_func[flow_gateway.get_agent_tools],
+			("GET", "POST", "QUERY"),
+		)
 
 
 class _Document(dict):
