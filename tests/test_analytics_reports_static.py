@@ -189,6 +189,32 @@ class TestAnalyticsReportsStaticContract(TestCase):
 				self.assertIn('fieldname: "to_date"', javascript)
 				self.assertIn("frappe.datetime.add_days", javascript)
 
+	def test_indicator_reports_expose_all_ten_governed_dimensions(self) -> None:
+		dimensions = {
+			"hospital",
+			"campus",
+			"department",
+			"ward",
+			"medical_group",
+			"physician",
+			"disease",
+			"surgery",
+			"drg",
+			"dip",
+		}
+		for folder in (
+			"ione_indicator_trend_and_quality_profile",
+			"ione_2026_national_ten_goal_progress",
+		):
+			with self.subTest(report=folder):
+				javascript = (REPORT_ROOT / folder / f"{folder}.js").read_text(encoding="utf-8")
+				for fieldname in dimensions:
+					self.assertIn(f'fieldname: "{fieldname}"', javascript)
+		self.assertIn("_INDICATOR_DIMENSION_FIELDS", self.source)
+		self.assertGreaterEqual(self.source.count("_indicator_dimension_filters(values)"), 2)
+		for fieldname in dimensions:
+			self.assertIn(f'_value(row, "{fieldname}")', self.source)
+
 	def test_domain_script_reports_are_standard_permission_filtered_and_closed_role(self) -> None:
 		for folder, (name, ref_doctype, roles, service_function) in DOMAIN_REPORTS.items():
 			with self.subTest(report=name):

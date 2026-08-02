@@ -34,5 +34,16 @@ frappe.query_reports["IONE Indicator Trend and Quality Profile"] = {
 			options: "IONE Medical Department",
 		},
 		{ fieldname: "ward", label: __("Ward"), fieldtype: "Link", options: "IONE Ward" },
+		{ fieldname: "medical_group", label: __("Medical Group"), fieldtype: "Data" },
+		{
+			fieldname: "physician",
+			label: __("Physician"),
+			fieldtype: "Link",
+			options: "IONE Medical Staff",
+		},
+		{ fieldname: "disease", label: __("Disease"), fieldtype: "Data" },
+		{ fieldname: "surgery", label: __("Surgery"), fieldtype: "Data" },
+		{ fieldname: "drg", label: __("DRG"), fieldtype: "Data" },
+		{ fieldname: "dip", label: __("DIP"), fieldtype: "Data" },
 	],
 };

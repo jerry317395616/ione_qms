@@ -102,6 +102,18 @@ class TestAnalyticsReports(TestCase):
 				limit=1,
 			)
 
+	def test_indicator_dimension_filters_are_closed_and_bounded(self) -> None:
+		values = {
+			fieldname: f"VALUE-{index}"
+			for index, fieldname in enumerate(reports._INDICATOR_DIMENSION_FIELDS, start=1)
+		}
+		self.assertEqual(reports._indicator_dimension_filters({**values, "unexpected": "ignored"}), values)
+		with (
+			patch.object(reports.frappe, "throw", side_effect=_raise_runtime),
+			self.assertRaisesRegex(RuntimeError, "dip must be a bounded text filter"),
+		):
+			reports._indicator_dimension_filters({"dip": " DIP-A01"})
+
 	def test_rule_quality_uses_reviewed_appeals_only_for_human_overturn_rate(self) -> None:
 		def rows(doctype: str, **kwargs):
 			fields = tuple(kwargs["fields"])
@@ -160,8 +172,23 @@ class TestAnalyticsReports(TestCase):
 		self.assertTrue(summary)
 
 	def test_indicator_profile_returns_exact_result_and_governed_lineage_links(self) -> None:
+		dimensions = {
+			"hospital": "HOSPITAL-1",
+			"campus": "CAMPUS-1",
+			"department": "DEPT-1",
+			"ward": "WARD-1",
+			"medical_group": "GROUP-1",
+			"physician": "STAFF-1",
+			"disease": "C18.9",
+			"surgery": "PROC-1",
+			"drg": "DRG-BR01",
+			"dip": "DIP-A01",
+		}
+		result_query: dict[str, object] = {}
+
 		def rows(doctype: str, **kwargs):
 			if doctype == "IONE Indicator Result":
+				result_query.update(kwargs)
 				return [
 					{
 						"name": "RESULT-1",
@@ -171,7 +198,7 @@ class TestAnalyticsReports(TestCase):
 						"period": "2026-07",
 						"period_start": "2026-07-01",
 						"period_end": "2026-07-31",
-						"department": "DEPT-1",
+						**dimensions,
 						"indicator_value": 91.5,
 						"target_value": 90,
 						"status": "Met",
@@ -200,10 +227,18 @@ class TestAnalyticsReports(TestCase):
 			raise AssertionError(doctype)
 
 		with (
-			patch.object(reports, "_report_context", return_value=({}, date(2026, 7, 1), date(2026, 7, 30))),
+			patch.object(
+				reports,
+				"_report_context",
+				return_value=(
+					{"indicator": "IND-1", **dimensions},
+					date(2026, 7, 1),
+					date(2026, 7, 30),
+				),
+			),
 			patch.object(reports, "_permissioned_rows", side_effect=rows),
 		):
-			_columns, data, message, chart, summary = reports.execute_indicator_profile_report()
+			columns, data, message, chart, summary = reports.execute_indicator_profile_report()
 		self.assertEqual(data[0]["indicator_result"], "RESULT-1")
 		self.assertEqual(data[0]["calculation"], "CALC-1")
 		self.assertEqual(data[0]["indicator_version"], "IV-1")
@@ -212,6 +247,12 @@ class TestAnalyticsReports(TestCase):
 		self.assertIn("not averaged", message)
 		self.assertEqual(summary[1]["value"], 1)
 		self.assertNotIn("lineage_json", data[0])
+		for fieldname, expected in dimensions.items():
+			self.assertEqual(data[0][fieldname], expected)
+			self.assertIn(["IONE Indicator Result", fieldname, "=", expected], result_query["filters"])
+		column_map = {column["fieldname"]: column for column in columns}
+		self.assertTrue(dimensions.keys() <= column_map.keys())
+		self.assertEqual(column_map["physician"]["options"], "IONE Medical Staff")
 
 	def test_finding_closure_keeps_appeal_overturns_separate_from_closure(self) -> None:
 		def rows(doctype: str, **kwargs):
@@ -584,9 +625,21 @@ class TestAnalyticsReports(TestCase):
 
 	def test_national_goal_report_keeps_approved_versions_and_no_target_invention(self) -> None:
 		checksum = "c" * 64
+		dimensions = {
+			"hospital": "HOSPITAL-1",
+			"campus": "CAMPUS-1",
+			"department": "DEPT-1",
+			"ward": "WARD-1",
+			"medical_group": "GROUP-1",
+			"physician": "STAFF-1",
+			"disease": "C18.9",
+			"surgery": "PROC-1",
+			"drg": "DRG-BR01",
+			"dip": "DIP-A01",
+		}
+		result_query: dict[str, object] = {}
 
 		def rows(doctype: str, **kwargs):
-			del kwargs
 			if doctype == "IONE QC Standard":
 				return [
 					{
@@ -648,6 +701,7 @@ class TestAnalyticsReports(TestCase):
 					}
 				]
 			if doctype == "IONE Indicator Result":
+				result_query.update(kwargs)
 				return [
 					{
 						"name": "RESULT-1",
@@ -657,7 +711,7 @@ class TestAnalyticsReports(TestCase):
 						"period": "2026-07",
 						"period_start": "2026-07-01",
 						"period_end": "2026-07-31",
-						"department": "DEPT-1",
+						**dimensions,
 						"numerator": 91,
 						"denominator": 100,
 						"indicator_value": 91,
@@ -674,7 +728,7 @@ class TestAnalyticsReports(TestCase):
 				reports,
 				"_report_context",
 				return_value=(
-					{"standard": "STD-2026"},
+					{"standard": "STD-2026", **dimensions},
 					date(2026, 7, 1),
 					date(2026, 7, 31),
 				),
@@ -690,6 +744,9 @@ class TestAnalyticsReports(TestCase):
 		self.assertEqual(row["result_target_value"], 90)
 		self.assertEqual(row["target_state"], "Stored Result Target Matches Definition")
 		self.assertEqual(row["source_result_count"], 1)
+		for fieldname, expected in dimensions.items():
+			self.assertEqual(row[fieldname], expected)
+			self.assertIn(["IONE Indicator Result", fieldname, "=", expected], result_query["filters"])
 		self.assertIn("does not invent", message)
 		self.assertEqual(chart["data"]["labels"], ["Met"])
 		self.assertTrue(summary)

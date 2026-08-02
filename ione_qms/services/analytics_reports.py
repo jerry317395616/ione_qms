@@ -171,6 +171,15 @@ REPORT_REQUIRED_DOCTYPES: dict[str, tuple[str, ...]] = {
 }
 
 _SCOPE_FIELDS = ("hospital", "campus", "department", "ward")
+_INDICATOR_DIMENSION_FIELDS = (
+	*_SCOPE_FIELDS,
+	"medical_group",
+	"physician",
+	"disease",
+	"surgery",
+	"drg",
+	"dip",
+)
 _EXECUTION_RESULTS = ("Passed", "Failed", "Excluded", "Insufficient Data", "Error")
 _APPEAL_STATUSES = ("Submitted", "Approved", "Rejected", "Withdrawn")
 _FINDING_CLOSED_STATUS = "Closed"
@@ -454,7 +463,7 @@ def execute_indicator_profile_report(
 	filters: Mapping[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str, dict[str, Any], list[dict[str, Any]]]:
 	values, start, end = _report_context("indicator_profile", filters)
-	extra = _scope_filters(values)
+	extra = _indicator_dimension_filters(values)
 	indicator_filter = _optional_filter(values, "indicator")
 	if indicator_filter:
 		extra["indicator"] = indicator_filter
@@ -479,6 +488,12 @@ def execute_indicator_profile_report(
 			"campus",
 			"department",
 			"ward",
+			"medical_group",
+			"physician",
+			"disease",
+			"surgery",
+			"drg",
+			"dip",
 			"numerator",
 			"denominator",
 			"indicator_value",
@@ -535,6 +550,12 @@ def execute_indicator_profile_report(
 				"campus": _value(row, "campus"),
 				"department": _value(row, "department"),
 				"ward": _value(row, "ward"),
+				"medical_group": _value(row, "medical_group"),
+				"physician": _value(row, "physician"),
+				"disease": _value(row, "disease"),
+				"surgery": _value(row, "surgery"),
+				"drg": _value(row, "drg"),
+				"dip": _value(row, "dip"),
 				"numerator": _value(row, "numerator"),
 				"denominator": _value(row, "denominator"),
 				"indicator_value": _value(row, "indicator_value"),
@@ -1604,6 +1625,7 @@ def execute_national_ten_goal_report(
 	filters: Mapping[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], str, dict[str, Any], list[dict[str, Any]]]:
 	values, start, end = _report_context("national_ten_goal", filters)
+	dimension_filters = _indicator_dimension_filters(values)
 	standard_name = _required_filter(values, "standard")
 	standard_rows = _permissioned_rows(
 		"IONE QC Standard",
@@ -1655,7 +1677,7 @@ def execute_national_ten_goal_report(
 		limit=REPORT_MAX_OUTPUT_ROWS,
 	)
 	if not indicators:
-		data = [_national_goal_no_data_row(start, end, standard)]
+		data = [_national_goal_no_data_row(start, end, standard, dimension_filters)]
 		return (
 			_national_ten_goal_columns(),
 			data,
@@ -1759,7 +1781,7 @@ def execute_national_ten_goal_report(
 		"period_end",
 		start,
 		end,
-		_scope_filters(values),
+		dimension_filters,
 	)
 	result_filters.append(["IONE Indicator Result", "indicator", "in", indicator_names])
 	results = _permissioned_rows(
@@ -1777,6 +1799,12 @@ def execute_national_ten_goal_report(
 			"campus",
 			"department",
 			"ward",
+			"medical_group",
+			"physician",
+			"disease",
+			"surgery",
+			"drg",
+			"dip",
 			"numerator",
 			"denominator",
 			"indicator_value",
@@ -1816,10 +1844,7 @@ def execute_national_ten_goal_report(
 			indicator_name,
 			str(_value(result, "period_start") or ""),
 			str(_value(result, "period_end") or ""),
-			str(_value(result, "hospital") or ""),
-			str(_value(result, "campus") or ""),
-			str(_value(result, "department") or ""),
-			str(_value(result, "ward") or ""),
+			*(str(_value(result, fieldname) or "") for fieldname in _INDICATOR_DIMENSION_FIELDS),
 		)
 		version_sets.setdefault(key, set()).add(version_name)
 	if any(len(names) > 1 for names in version_sets.values()):
@@ -1843,6 +1868,7 @@ def execute_national_ten_goal_report(
 					None,
 					start,
 					end,
+					dimension_filters,
 				)
 			)
 			continue
@@ -1857,6 +1883,7 @@ def execute_national_ten_goal_report(
 					result,
 					start,
 					end,
+					dimension_filters,
 				)
 			)
 	if len(data) > REPORT_MAX_OUTPUT_ROWS:
@@ -2508,6 +2535,14 @@ def _scope_filters(values: Mapping[str, Any]) -> dict[str, str]:
 	return {fieldname: value for fieldname in _SCOPE_FIELDS if (value := _optional_filter(values, fieldname))}
 
 
+def _indicator_dimension_filters(values: Mapping[str, Any]) -> dict[str, str]:
+	return {
+		fieldname: value
+		for fieldname in _INDICATOR_DIMENSION_FIELDS
+		if (value := _optional_filter(values, fieldname))
+	}
+
+
 def _optional_filter(values: Mapping[str, Any], fieldname: str) -> str | None:
 	value = values.get(fieldname)
 	if value in (None, ""):
@@ -2759,6 +2794,7 @@ def _national_goal_row(
 	result: Any | None,
 	start: date,
 	end: date,
+	filters: Mapping[str, Any],
 ) -> dict[str, Any]:
 	has_result = result is not None
 	return {
@@ -2793,10 +2829,16 @@ def _national_goal_row(
 		"period": _value(result, "period") if has_result else None,
 		"period_start": _value(result, "period_start") if has_result else start,
 		"period_end": _value(result, "period_end") if has_result else end,
-		"hospital": _value(result, "hospital") if has_result else None,
-		"campus": _value(result, "campus") if has_result else None,
-		"department": _value(result, "department") if has_result else None,
-		"ward": _value(result, "ward") if has_result else None,
+		"hospital": _value(result, "hospital") if has_result else filters.get("hospital"),
+		"campus": _value(result, "campus") if has_result else filters.get("campus"),
+		"department": _value(result, "department") if has_result else filters.get("department"),
+		"ward": _value(result, "ward") if has_result else filters.get("ward"),
+		"medical_group": _value(result, "medical_group") if has_result else filters.get("medical_group"),
+		"physician": _value(result, "physician") if has_result else filters.get("physician"),
+		"disease": _value(result, "disease") if has_result else filters.get("disease"),
+		"surgery": _value(result, "surgery") if has_result else filters.get("surgery"),
+		"drg": _value(result, "drg") if has_result else filters.get("drg"),
+		"dip": _value(result, "dip") if has_result else filters.get("dip"),
 		"numerator": _value(result, "numerator") if has_result else None,
 		"denominator": _value(result, "denominator") if has_result else None,
 		"indicator_value": _value(result, "indicator_value") if has_result else None,
@@ -2891,7 +2933,12 @@ def _surgery_no_data_row(
 	}
 
 
-def _national_goal_no_data_row(start: date, end: date, standard: Any) -> dict[str, Any]:
+def _national_goal_no_data_row(
+	start: date,
+	end: date,
+	standard: Any,
+	filters: Mapping[str, Any],
+) -> dict[str, Any]:
 	return {
 		"data_state": "No Data",
 		"standard": _value(standard, "name"),
@@ -2900,6 +2947,7 @@ def _national_goal_no_data_row(start: date, end: date, standard: Any) -> dict[st
 		"standard_issue_date": _value(standard, "issue_date"),
 		"period_start": start,
 		"period_end": end,
+		**{fieldname: filters.get(fieldname) for fieldname in _INDICATOR_DIMENSION_FIELDS},
 		"result_status": "No Data",
 		"target_state": "No Approved Indicator Definition",
 		"source_result_count": 0,
@@ -3144,6 +3192,12 @@ def _indicator_profile_columns() -> list[dict[str, Any]]:
 		_column("Campus", "campus", "Link", options="IONE Hospital Campus", width=130),
 		_column("Department", "department", "Link", options="IONE Medical Department", width=150),
 		_column("Ward", "ward", "Link", options="IONE Ward", width=120),
+		_column("Medical Group", "medical_group", width=130),
+		_column("Physician", "physician", "Link", options="IONE Medical Staff", width=140),
+		_column("Disease", "disease", width=130),
+		_column("Surgery", "surgery", width=130),
+		_column("DRG", "drg", width=100),
+		_column("DIP", "dip", width=100),
 		_column("Numerator", "numerator", "Float"),
 		_column("Denominator", "denominator", "Float"),
 		_column("Value", "indicator_value", "Float"),
@@ -3493,6 +3547,12 @@ def _national_ten_goal_columns() -> list[dict[str, Any]]:
 		_column("Campus", "campus", "Link", options="IONE Hospital Campus", width=130),
 		_column("Department", "department", "Link", options="IONE Medical Department", width=150),
 		_column("Ward", "ward", "Link", options="IONE Ward", width=120),
+		_column("Medical Group", "medical_group", width=130),
+		_column("Physician", "physician", "Link", options="IONE Medical Staff", width=140),
+		_column("Disease", "disease", width=130),
+		_column("Surgery", "surgery", width=130),
+		_column("DRG", "drg", width=100),
+		_column("DIP", "dip", width=100),
 		_column("Numerator", "numerator", "Float"),
 		_column("Denominator", "denominator", "Float"),
 		_column("Indicator Value", "indicator_value", "Float", width=120),
