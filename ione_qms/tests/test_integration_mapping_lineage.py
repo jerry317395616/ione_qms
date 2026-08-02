@@ -76,6 +76,28 @@ class TestIntegrationMappingLineage(TestCase):
 				snapshot=noncanonical,
 			)
 
+	def test_dip_grouping_is_mapped_and_carried_independently_from_drg(self) -> None:
+		values, _, _, _ = canonicalize_mapping(
+			{
+				"drg": "payload.grouping.drg",
+				"dip": "payload.grouping.dip",
+			}
+		)
+		mapped = apply_mapping(
+			{"payload": {"grouping": {"drg": "DRG-BR01", "dip": "DIP-A01"}}},
+			values,
+		)
+		self.assertEqual(mapped, {"dip": "DIP-A01", "drg": "DRG-BR01"})
+		self.assertEqual(
+			integration_service._indicator_dimension_values(mapped),
+			{"drg": "DRG-BR01", "dip": "DIP-A01"},
+		)
+		with self.assertRaisesRegex(frappe.ValidationError, "Conflicting dip"):
+			integration_service._indicator_dimension_values(
+				{"dip": "DIP-A01"},
+				{"dip": "DIP-B02"},
+			)
+
 	def test_master_data_mapping_has_one_strict_canonical_schema(self) -> None:
 		normalized = normalize_master_data_configuration(
 			{

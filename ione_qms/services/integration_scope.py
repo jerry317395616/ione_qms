@@ -55,6 +55,7 @@ INTEGRATION_AUDIT_IDENTITY_FIELDS = {
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 	),
 }
 

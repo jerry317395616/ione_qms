@@ -1493,6 +1493,7 @@ REQUIRED_FIELDS = {
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 		"target_value",
 		"target_min",
 		"target_max",
@@ -1509,6 +1510,7 @@ REQUIRED_FIELDS = {
 		"current_input_receipt_hash",
 		"current_result_checksum",
 		"pointer_checksum",
+		"dip",
 	},
 	"IONE Indicator Result Detail": {
 		"detail_key",
@@ -1520,6 +1522,7 @@ REQUIRED_FIELDS = {
 		"mapping_version",
 		"mapping_checksum",
 		"detail_checksum",
+		"dip",
 	},
 	"IONE Indicator Quarantine Receipt": {
 		"quarantine_receipt_key",
@@ -1595,6 +1598,7 @@ REQUIRED_FIELDS = {
 		"input_receipt_hash",
 		"result_checksum",
 		"lineage_json",
+		"dip",
 	},
 	"IONE Data Quality Issue": {
 		"issue_key",
@@ -1619,6 +1623,7 @@ REQUIRED_FIELDS = {
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 		"target_value",
 		"target_min",
 		"target_max",
@@ -2330,6 +2335,7 @@ for _indicator_source_doctype in (
 			"disease",
 			"surgery",
 			"drg",
+			"dip",
 			"source_system",
 			"mapping_record",
 			"mapping_version",

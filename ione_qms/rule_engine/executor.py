@@ -571,6 +571,7 @@ def _create_candidate_finding(
 			"disease": event.get("disease"),
 			"surgery": event.get("surgery"),
 			"drg": event.get("drg"),
+			"dip": event.get("dip"),
 			"source_system": event.get("source_system"),
 			"mapping_record": event.get("mapping_record"),
 			"mapping_version": event.get("mapping_version"),
@@ -864,6 +865,7 @@ def _build_context(event) -> dict[str, Any]:
 		"disease": event.get("disease"),
 		"surgery": event.get("surgery"),
 		"drg": event.get("drg"),
+		"dip": event.get("dip"),
 	}
 
 

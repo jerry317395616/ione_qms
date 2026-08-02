@@ -45,7 +45,7 @@ Every production version requires:
   late-data policy, and manual-sample reconciliation for indicators;
 - for every indicator, an approved mapping for each selected canonical
   dimension (`hospital`, `campus`, `department`, `ward`, `medical_group`,
-  `physician`, `disease`, `surgery`, `drg`), including code-set ownership,
+  `physician`, `disease`, `surgery`, `drg`, `dip`), including code-set ownership,
   missing-value behavior, enumeration scope, and source correction semantics;
 - evidence that source-row manifests can be reproduced for the full approved
   retention window and that a late correction produces a new result revision

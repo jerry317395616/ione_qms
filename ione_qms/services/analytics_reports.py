@@ -32,6 +32,7 @@ _RESULT_POINTER_FILTER_FIELDS = frozenset(
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 	}
 )
 

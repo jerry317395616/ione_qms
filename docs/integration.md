@@ -145,13 +145,14 @@ constant:
   "medical_group": "payload.care_team_code",
   "disease": "payload.primary_diagnosis_code",
   "surgery": "payload.procedure_code",
-  "drg": "payload.drg_code"
+  "drg": "payload.drg_code",
+  "dip": "payload.dip_code"
 }
 ```
 
 Only `patient_index`, `encounter_index`, `hospital`, `campus`, `department`,
 `ward`, `responsible_staff`, the `medical_staff` compatibility source, and the
-canonical `medical_group`, `disease`, `surgery`, and `drg` indicator source
+canonical `medical_group`, `disease`, `surgery`, `drg`, and `dip` indicator source
 dimensions can be populated by mapping. Link values are resolved by approved
 identity crosswalks; dimension values are bounded canonical codes, not
 narrative or arbitrary Frappe document names.
@@ -206,6 +207,7 @@ current projection. Lexical version guessing is not permitted.
     "disease": "primary_diagnosis_code",
     "surgery": "procedure_code",
     "drg": "drg_code",
+    "dip": "dip_code",
     "status": "status"
   }
 }

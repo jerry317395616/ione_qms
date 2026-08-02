@@ -2226,6 +2226,7 @@ def _extend_indicator_schemas() -> None:
 					field("Disease", "disease", read_only=1, search_index=1),
 					field("Surgery", "surgery", read_only=1, search_index=1),
 					field("DRG", "drg", read_only=1, search_index=1),
+					field("DIP", "dip", read_only=1, search_index=1),
 					field("Numerator", "numerator", "Float", read_only=1),
 					field("Denominator", "denominator", "Float", read_only=1),
 					field("Indicator Value", "indicator_value", "Float", read_only=1, in_list_view=1),
@@ -2331,6 +2332,7 @@ def _extend_indicator_schemas() -> None:
 					field("Disease", "disease", read_only=1),
 					field("Surgery", "surgery", read_only=1),
 					field("DRG", "drg", read_only=1),
+					field("DIP", "dip", read_only=1),
 					link(
 						"Current Result",
 						"current_result",
@@ -4727,6 +4729,7 @@ def _extend_analytics_schemas() -> None:
 			field("Disease", "disease"),
 			field("Surgery", "surgery"),
 			field("DRG", "drg"),
+			field("DIP", "dip"),
 			field("Dimension JSON", "dimension_json", "Long Text"),
 			field("Numerator", "numerator", "Float"),
 			field("Denominator", "denominator", "Float"),
@@ -4758,6 +4761,7 @@ def _extend_analytics_schemas() -> None:
 			field("Disease", "disease", search_index=1),
 			field("Surgery", "surgery", search_index=1),
 			field("DRG", "drg", search_index=1),
+			field("DIP", "dip", search_index=1),
 			field("Numerator", "numerator", "Float"),
 			field("Denominator", "denominator", "Float"),
 			field("Indicator Value", "indicator_value", "Float"),
@@ -4877,6 +4881,7 @@ def _extend_indicator_dimension_source_schemas() -> None:
 			field("Disease Source Dimension", "disease", read_only=1, search_index=1),
 			field("Surgery Source Dimension", "surgery", read_only=1, search_index=1),
 			field("DRG Source Dimension", "drg", read_only=1, search_index=1),
+			field("DIP Source Dimension", "dip", read_only=1, search_index=1),
 		):
 			if dimension_field["fieldname"] not in existing:
 				definition["fields"].append(dimension_field)

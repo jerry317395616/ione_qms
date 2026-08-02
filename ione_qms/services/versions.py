@@ -4200,6 +4200,7 @@ def _materialize_indicator_execution_contract(
 		"disease": {"disease"},
 		"surgery": {"surgery"},
 		"drg": {"drg"},
+		"dip": {"dip"},
 	}
 	unmapped_dimensions = [
 		dimension

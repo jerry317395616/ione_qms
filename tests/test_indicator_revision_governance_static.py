@@ -23,7 +23,7 @@ from ione_qms.indicator_engine.dimensions import (  # noqa: E402
 
 
 class TestIndicatorDimensionRegistry(unittest.TestCase):
-	def test_nine_canonical_dimensions_and_legacy_alias_are_governed(self) -> None:
+	def test_ten_canonical_dimensions_and_legacy_aliases_are_governed(self) -> None:
 		self.assertEqual(
 			set(registered_dimensions()),
 			{
@@ -36,9 +36,11 @@ class TestIndicatorDimensionRegistry(unittest.TestCase):
 				"disease",
 				"surgery",
 				"drg",
+				"dip",
 			},
 		)
 		self.assertEqual(canonical_dimension("medical_staff"), "physician")
+		self.assertEqual(canonical_dimension("dip_code"), "dip")
 		self.assertTrue(
 			all(
 				specification["authorization_scope"]
@@ -49,6 +51,7 @@ class TestIndicatorDimensionRegistry(unittest.TestCase):
 			normalize_dimension_values({"medical_staff": "STAFF-1"}),
 			{"physician": "STAFF-1"},
 		)
+		self.assertEqual(normalize_dimension_values({"dip_code": "DIP-01"}), {"dip": "DIP-01"})
 		with self.assertRaisesRegex(ValueError, "Conflicting"):
 			normalize_dimension_values({"medical_staff": "STAFF-1", "physician": "STAFF-2"})
 
@@ -86,10 +89,11 @@ class TestIndicatorDimensionRegistry(unittest.TestCase):
 					"disease",
 					"surgery",
 					"drg",
+					"dip",
 				],
 			}
 		)
-		self.assertEqual(len(formula["dimensions"]), 9)
+		self.assertEqual(len(formula["dimensions"]), 10)
 		with self.assertRaisesRegex(ValueError, "does not support"):
 			BaseIndicatorCalculator.validate_dimension_capability({}, ("hospital",))
 		with self.assertRaisesRegex(ValueError, "not governed"):
@@ -208,7 +212,7 @@ class TestIndicatorRevisionStatic(unittest.TestCase):
 		self.assertIn("pointer.current_result", self.permissions)
 		self.assertIn("quarantine_legacy_indicator_receipts", self.migrations)
 		self.assertIn("LEGACY_INPUT_RECEIPT_UNPROVABLE", self.service)
-		for target in ("medical_group", "medical_staff", "disease", "surgery", "drg"):
+		for target in ("medical_group", "medical_staff", "disease", "surgery", "drg", "dip"):
 			self.assertIn(f'"{target}"', self.integration_mapping)
 
 	def test_result_detail_consumers_share_current_and_disposition_fail_closed_contract(self) -> None:

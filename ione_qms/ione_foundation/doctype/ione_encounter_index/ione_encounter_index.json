@@ -33,6 +33,7 @@
   "disease",
   "surgery",
   "drg",
+  "dip",
   "mapping_record",
   "mapping_version",
   "mapping_checksum"
@@ -235,6 +236,13 @@
    "fieldname": "drg",
    "fieldtype": "Data",
    "label": "DRG Source Dimension",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "dip",
+   "fieldtype": "Data",
+   "label": "DIP Source Dimension",
    "read_only": 1,
    "search_index": 1
   },

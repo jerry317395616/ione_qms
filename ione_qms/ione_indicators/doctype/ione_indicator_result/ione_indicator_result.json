@@ -30,6 +30,7 @@
   "disease",
   "surgery",
   "drg",
+  "dip",
   "numerator",
   "denominator",
   "indicator_value",
@@ -236,6 +237,13 @@
    "fieldname": "drg",
    "fieldtype": "Data",
    "label": "DRG",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "dip",
+   "fieldtype": "Data",
+   "label": "DIP",
    "read_only": 1,
    "search_index": 1
   },

@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass
 from typing import Any
 
-REGISTRY_VERSION = "ione-indicator-dimensions-v1"
+REGISTRY_VERSION = "ione-indicator-dimensions-v2"
 
 
 @dataclass(frozen=True)
@@ -127,6 +127,14 @@ _DIMENSIONS: dict[str, DimensionSpec] = {
 		enumerator_scope=("hospital", "campus", "department", "drg"),
 		authorization_scope=("hospital", "campus", "department", "ward"),
 		dataset_fields=_all_datasets("drg", "drg_code"),
+	),
+	"dip": DimensionSpec(
+		key="dip",
+		label="DIP",
+		aliases=("dip_code",),
+		enumerator_scope=("hospital", "campus", "department", "dip"),
+		authorization_scope=("hospital", "campus", "department", "ward"),
+		dataset_fields=_all_datasets("dip", "dip_code"),
 	),
 }
 

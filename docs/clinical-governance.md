@@ -82,11 +82,13 @@ calculator key, and zero-denominator behavior. Results retain the exact
 version, calculation run, numerator, denominator, value, target, dimensions,
 details, and source watermark.
 
-The governed registry has exactly nine canonical dimensions: `hospital`,
+The governed registry has exactly ten canonical dimensions: `hospital`,
 `campus`, `department`, `ward`, `medical_group`, `physician`, `disease`,
-`surgery`, and `drg`. `medical_staff` is accepted only as a compatibility
-alias and is canonicalized to `physician` before any query, series, receipt, or
-checksum is built. Every registered dimension declares its source-field
+`surgery`, `drg`, and `dip`. `medical_staff`, `drg_code`, and `dip_code` are
+accepted only as compatibility aliases and are canonicalized to `physician`,
+`drg`, and `dip` respectively before any query, series, receipt, or checksum is
+built. DRG and DIP are deliberately separate grouping dimensions and are never
+inferred from each other. Every registered dimension declares its source-field
 adapters and enumeration/authorization scope. Publication and calculation run
 the same dataset/calculator capability check; an unsupported dimension or
 dimension combination fails closed.

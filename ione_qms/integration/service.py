@@ -62,7 +62,7 @@ MESSAGE_MAPPING_LINEAGE_FIELDS = (
 	"mapping_checksum",
 	"mapping_snapshot",
 )
-INDICATOR_SOURCE_DIMENSION_FIELDS = ("medical_group", "disease", "surgery", "drg")
+INDICATOR_SOURCE_DIMENSION_FIELDS = ("medical_group", "disease", "surgery", "drg", "dip")
 MAPPED_SCOPE_FIELDS = frozenset(
 	{
 		"patient_index",

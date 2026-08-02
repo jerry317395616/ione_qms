@@ -39,7 +39,7 @@ UTC_DATETIME_SOURCE_VERSION = re.compile(
 )
 SOURCE_VERSION_STRATEGIES = frozenset({"integer", "datetime"})
 MASTER_DATA_LOCK_TIMEOUT_SECONDS = 15
-INDICATOR_DIMENSION_FIELDS = ("medical_group", "disease", "surgery", "drg")
+INDICATOR_DIMENSION_FIELDS = ("medical_group", "disease", "surgery", "drg", "dip")
 
 PATIENT_FIELDS = PATIENT_MASTER_DATA_FIELDS
 ENCOUNTER_FIELDS = ENCOUNTER_MASTER_DATA_FIELDS

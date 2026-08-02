@@ -26,6 +26,7 @@ ALLOWED_TARGET_FIELDS = frozenset(
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 	}
 )
 PATIENT_MASTER_DATA_FIELDS = frozenset(
@@ -58,6 +59,7 @@ ENCOUNTER_MASTER_DATA_FIELDS = frozenset(
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 	}
 )
 MASTER_DATA_CONSTANT_FIELDS = frozenset(
@@ -75,6 +77,7 @@ MASTER_DATA_CONSTANT_FIELDS = frozenset(
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 	}
 )
 

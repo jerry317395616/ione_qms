@@ -34,7 +34,7 @@
 | S05 | 第 5 节 总体架构 | 接入、领域、规则、指标、AI、展示分层均有代码骨架 | `integration/`、`rule_engine/`、`indicator_engine/`、`api/` | `Implemented`; `Static-verified` | 真实端到端链路尚未在站点运行 |
 | S06 | 第 6 节 九模块设计 | 九模块及九 Workspace 已创建 | `modules.txt`、各模块 `workspace/*.json` | `Implemented`; `Static-verified`; `Runtime-unverified` | Desk 路由、角色可见性及工作台查询需 Bench 验证 |
 | S07 | 第 7 节 领域模型 | 主数据、版本、问题、整改、申诉、集成、AI、生产准入及审计对象共 127 个 DocType | 各模块 `doctype/**.json` | `Implemented`; `Static-verified`; `Runtime-unverified` | 需 `bench migrate`、建表、索引和权限实测 |
-| S08 | 第 8 节 业务功能 | 标准/规则/运行与终末质控/手麻/事件/整改/角色工作台均有通用实现 | `services/findings.py`、`services/improvement.py`、`services/safety_events.py`、`api/dashboard.py` | `Implemented`; `Static-verified`; `Runtime-unverified` | 专科规则包、真实事件生产链和用户验收未完成 |
+| S08 | 第 8 节 业务功能 | 标准/规则/运行与终末质控/手麻/事件/整改/角色工作台均有通用实现；DRG 与 DIP 入组作为独立受治理维度全链传播 | `services/findings.py`、`services/improvement.py`、`services/safety_events.py`、`indicator_engine/dimensions.py`、`api/dashboard.py` | `Implemented`; `Static-verified`; `Runtime-unverified` | 专科规则包、真实事件生产链和用户验收未完成 |
 | S09 | 第 9 节 规则引擎 | 确定性执行、证据、去重、动作约束、回放与生产安全开关已编码 | `rule_engine/`、`api/rules.py`、`tests/test_rule_*.py` | `Static-verified`; `Runtime-unverified` | 实时执行默认关闭；需 30–50 条临床批准规则、金样本与回放报告 |
 | S10 | 第 10 节 指标引擎 | 指标元数据、版本、趋势、事实与计算器注册机制已编码 | `indicator_engine/`、`services/indicators.py`、`api/indicator.py` | `Static-verified`; `Runtime-unverified` | 分子/分母、排除条件、数据源和历史基线须医院确认 |
 | S11 | 第 11 节 集成与治理 | 来源、端点、映射、消息、任务、数据质量、对账、来源对账及严格签名的 HL7 v2 HTTP 适配器已编码 | `integration/`、`integration/hl7_v2.py`、`api/integration.py`、`tasks/integration.py`、`tests/test_hl7_v2_static.py` | `Static-verified`; `Runtime-unverified` | `External/Clinical blocker`：源合同、字段字典、只读账号、实际 Oracle 对账 query，以及医院接口引擎的 HL7 消息类型/字符集/MLLP ACK 与重试合同 |
@@ -78,7 +78,8 @@
   Standard Version and Clause, their checksum/content hash, authority snapshot,
   source provenance, and effective interval. Published indicator calculation
   uses only version snapshots and never mutable-parent fallback. A shared
-  nine-dimension registry (with `medical_staff` canonicalized to `physician`)
+  ten-dimension registry (with `medical_staff` canonicalized to `physician`,
+  and distinct `drg`/`dip` grouping dimensions)
   drives both publication and runtime capability validation. Exact input
   receipts bind version/period/dimensions, source-row manifests, mapping, query,
   and executable code. Result/detail history is append-only; an atomically

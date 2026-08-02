@@ -22,6 +22,7 @@
   "disease",
   "surgery",
   "drg",
+  "dip",
   "dimension_json",
   "numerator",
   "denominator",
@@ -135,6 +136,11 @@
    "fieldname": "drg",
    "fieldtype": "Data",
    "label": "DRG"
+  },
+  {
+   "fieldname": "dip",
+   "fieldtype": "Data",
+   "label": "DIP"
   },
   {
    "fieldname": "dimension_json",

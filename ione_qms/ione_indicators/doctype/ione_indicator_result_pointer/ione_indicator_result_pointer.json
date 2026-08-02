@@ -23,6 +23,7 @@
   "disease",
   "surgery",
   "drg",
+  "dip",
   "current_result",
   "current_revision",
   "current_input_receipt_hash",
@@ -157,6 +158,12 @@
    "fieldname": "drg",
    "fieldtype": "Data",
    "label": "DRG",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dip",
+   "fieldtype": "Data",
+   "label": "DIP",
    "read_only": 1
   },
   {

@@ -417,6 +417,7 @@ def _build_indicator_fact(row, period_start, period_end, seen_fact_keys: set[str
 		"disease": row.get("disease"),
 		"surgery": row.get("surgery"),
 		"drg": row.get("drg"),
+		"dip": row.get("dip"),
 		"dimension_hash": row.get("dimension_hash"),
 	}
 	fact_key = _digest({"month": period_start, **group})
@@ -814,6 +815,7 @@ def _source_rows(
 		"disease",
 		"surgery",
 		"drg",
+		"dip",
 		"series_key",
 		"result_revision",
 		"input_receipt_hash",

@@ -6,13 +6,13 @@ It covers standards, deterministic rules, clinical findings and evidence,
 indicators, rectification and PDCA, hospital-system integration, analytics,
 and governed Frappe Flow agents.
 
-Repository status: 124-DocType/9-module implementation baseline. A pinned
+Repository status: 127-DocType/9-module implementation baseline. A pinned
 Press candidate has been built and installed on `manager.myyr.top`; realtime
 clinical rules and AI remain disabled. Production activation remains NO-GO
 until the dated clinical, integration, security, capacity, offsite-backup,
 performance/HA, and hospital-acceptance gates pass. See
-`docs/production-deployment-evidence-2026-08-01.md` for the candidate 53
-historical snapshot and the fail-closed activation boundary. The current
+`docs/production-deployment-evidence-2026-08-01.md` for a historical deployment
+snapshot and the fail-closed activation boundary. The current
 release evidence is an external hash-bound package; it is not rewritten inside
 the commit that it attests.
 

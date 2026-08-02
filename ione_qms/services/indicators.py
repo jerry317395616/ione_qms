@@ -1106,6 +1106,7 @@ def _upsert_daily_fact(result_doc) -> None:
 			"disease": result_doc.get("disease"),
 			"surgery": result_doc.get("surgery"),
 			"drg": result_doc.get("drg"),
+			"dip": result_doc.get("dip"),
 			"dimension_json": result_doc.get("dimension_json"),
 			"numerator": result_doc.get("numerator"),
 			"denominator": result_doc.get("denominator"),
@@ -1153,6 +1154,7 @@ def _upsert_indicator_alert(result_doc) -> None:
 			"disease": result_doc.get("disease"),
 			"surgery": result_doc.get("surgery"),
 			"drg": result_doc.get("drg"),
+			"dip": result_doc.get("dip"),
 			"alert_level": _select_value(
 				doctype,
 				"alert_level",
@@ -1329,6 +1331,7 @@ def _dimension_projection_values(dimensions: dict[str, str]) -> dict[str, str | 
 		"disease": dimensions.get("disease"),
 		"surgery": dimensions.get("surgery"),
 		"drg": dimensions.get("drg"),
+		"dip": dimensions.get("dip"),
 	}
 
 
@@ -1379,6 +1382,7 @@ _RESULT_INTEGRITY_FIELDS = (
 	"disease",
 	"surgery",
 	"drg",
+	"dip",
 	"numerator",
 	"denominator",
 	"indicator_value",
@@ -1459,6 +1463,7 @@ _POINTER_INTEGRITY_FIELDS = (
 	"disease",
 	"surgery",
 	"drg",
+	"dip",
 	"current_result",
 	"current_revision",
 	"current_input_receipt_hash",
