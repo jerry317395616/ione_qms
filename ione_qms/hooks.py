@@ -3,7 +3,7 @@ from ione_qms.services.scope_hierarchy import (
 )
 
 app_name = "ione_qms"
-app_title = "IONE QMS"
+app_title = "医疗质量管理"
 app_publisher = "IONE"
 app_description = "医院医疗质量管理、持续改进、分析、集成与受治理 AI 平台"
 app_email = "317395616@qq.com"

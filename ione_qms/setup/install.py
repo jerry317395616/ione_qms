@@ -53,6 +53,7 @@ def after_install() -> None:
 	ensure_evaluation_threshold_policy()
 	disable_ione_flow_triggers()
 	seed_quality_blueprint()
+	ensure_workspace_navigation()
 	schedule_post_migrate_backfills()
 	frappe.db.commit()
 
@@ -71,8 +72,15 @@ def after_migrate() -> None:
 	ensure_evaluation_threshold_policy()
 	disable_ione_flow_triggers()
 	seed_quality_blueprint()
+	ensure_workspace_navigation()
 	schedule_post_migrate_backfills()
 	frappe.clear_cache()
+
+
+def ensure_workspace_navigation() -> dict:
+	from ione_qms.setup.navigation import ensure_workspace_navigation as reconcile_navigation
+
+	return reconcile_navigation()
 
 
 def ensure_batch_source_epoch_rows() -> None:

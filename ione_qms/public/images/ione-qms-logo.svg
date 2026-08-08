@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">IONE QMS</title>
+  <title id="title">医疗质量管理</title>
   <rect width="64" height="64" rx="14" fill="#165d80"/>
   <path d="M32 10 51 18v14c0 11.8-7.7 19.7-19 23-11.3-3.3-19-11.2-19-23V18l19-8Z" fill="#fff" opacity=".96"/>
   <path d="M29 21h6v8h8v6h-8v8h-6v-8h-8v-6h8v-8Z" fill="#2d7d6e"/>

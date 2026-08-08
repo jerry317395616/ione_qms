@@ -208,6 +208,7 @@ class TestInstallPreflight(TestCase):
 				"ensure_evaluation_threshold_policy",
 				"disable_ione_flow_triggers",
 				"seed_quality_blueprint",
+				"ensure_workspace_navigation",
 				"schedule_post_migrate_backfills",
 			)
 			patchers = [patch.object(install, name) for name in step_names]
@@ -238,6 +239,7 @@ class TestInstallPreflight(TestCase):
 				"ensure_evaluation_threshold_policy",
 				"disable_ione_flow_triggers",
 				"seed_quality_blueprint",
+				"ensure_workspace_navigation",
 				"schedule_post_migrate_backfills",
 			)
 			patchers = [patch.object(install, name) for name in step_names]
