@@ -1,7 +1,7 @@
 frappe.pages["ione-quality-action-workbench"].on_page_load = function (wrapper) {
 	const page = frappe.ui.make_app_page({
 		parent: wrapper,
-		title: __("Quality Action Workbench"),
+		title: __("质量行动工作台"),
 		single_column: true,
 	});
 	const workbench = new IONEQualityActionWorkbench(page, wrapper);

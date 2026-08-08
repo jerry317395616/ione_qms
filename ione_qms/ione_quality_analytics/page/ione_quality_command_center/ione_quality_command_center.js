@@ -1,7 +1,7 @@
 frappe.pages["ione-quality-command-center"].on_page_load = function (wrapper) {
 	const page = frappe.ui.make_app_page({
 		parent: wrapper,
-		title: __("IONE 医疗质量驾驶舱"),
+		title: __("医疗质量驾驶舱"),
 		single_column: true,
 	});
 	const dashboard = new IONEQualityCommandCenter(page, wrapper);

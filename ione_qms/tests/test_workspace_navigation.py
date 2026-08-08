@@ -43,8 +43,11 @@ def _workspace_payloads() -> list[dict]:
 
 
 class _Workspace:
-	def __init__(self, name: str) -> None:
+	def __init__(self, name: str, module: str) -> None:
 		self.name = name
+		self.app = "ione_qms"
+		self.module = module
+		self.standard = 1
 		self.values: dict = {}
 		self.sidebar_items: list[dict] = []
 		self.save_count = 0
@@ -67,6 +70,7 @@ class _Workspace:
 
 class _Database:
 	def __init__(self) -> None:
+		self.workspace_labels = {name: name for name, *_rest in EXPECTED_NAVIGATION}
 		self.page_titles = {
 			"ione-quality-command-center": "IONE Quality Command Center",
 			"ione-quality-action-workbench": "IONE Quality Action Workbench",
@@ -77,8 +81,10 @@ class _Database:
 		return True
 
 	def get_value(self, doctype: str, name: str, fieldname: str) -> str:
-		assert doctype == "Page"
-		assert fieldname == "title"
+		if doctype == "Workspace":
+			assert fieldname == "label"
+			return self.workspace_labels[name]
+		assert doctype == "Page" and fieldname == "title"
 		return self.page_titles[name]
 
 	def set_value(
@@ -90,15 +96,18 @@ class _Database:
 		*,
 		update_modified: bool,
 	) -> None:
-		assert doctype == "Page"
-		assert fieldname == "title"
-		self.page_titles[name] = value
+		if doctype == "Workspace":
+			assert fieldname == "label"
+			self.workspace_labels[name] = value
+		else:
+			assert doctype == "Page" and fieldname == "title"
+			self.page_titles[name] = value
 		self.set_value_calls.append((doctype, name, fieldname, value, update_modified))
 
 
 @contextmanager
 def _load_navigation():
-	workspaces = {name: _Workspace(name) for name, *_rest in EXPECTED_NAVIGATION}
+	workspaces = {name: _Workspace(name, module) for name, module, *_rest in EXPECTED_NAVIGATION}
 	clear_cache_calls: list[bool] = []
 	database = _Database()
 	frappe = ModuleType("frappe")
@@ -165,10 +174,21 @@ class TestWorkspaceNavigation(TestCase):
 		self.assertEqual(first["links"], 114)
 		self.assertEqual(first["page_titles"], EXPECTED_PAGE_TITLES)
 		self.assertEqual(clear_cache_calls, [True, True])
+		self.assertEqual(
+			database.workspace_labels,
+			{name: label for name, _module, label, _sequence in EXPECTED_NAVIGATION},
+		)
 		self.assertEqual(database.page_titles, EXPECTED_PAGE_TITLES)
 		self.assertEqual(
-			database.set_value_calls,
-			[("Page", page_name, "title", title, False) for page_name, title in EXPECTED_PAGE_TITLES.items()],
+			[row for row in database.set_value_calls if row[0] == "Workspace"],
+			[
+				("Workspace", name, "label", label, False)
+				for name, _module, label, _sequence in EXPECTED_NAVIGATION
+			],
+		)
+		self.assertEqual(
+			[row for row in database.set_value_calls if row[0] == "Page"],
+			[("Page", page_name, "title", title, True) for page_name, title in EXPECTED_PAGE_TITLES.items()],
 		)
 		for name, _module, label, sequence_id in EXPECTED_NAVIGATION:
 			workspace = workspaces[name]
@@ -188,6 +208,14 @@ class TestWorkspaceNavigation(TestCase):
 		self.assertFalse(clear_cache_calls)
 		self.assertFalse(database.set_value_calls)
 		self.assertTrue(all(workspace.save_count == 0 for workspace in workspaces.values()))
+
+	def test_workspace_ownership_is_validated_before_direct_label_reconciliation(self) -> None:
+		with _load_navigation() as (navigation, workspaces, _clear_cache_calls, database):
+			workspaces["IONE Analytics"].module = "Unexpected Module"
+			with self.assertRaisesRegex(RuntimeError, "ownership drifted"):
+				navigation.ensure_workspace_navigation()
+
+		self.assertFalse(database.set_value_calls)
 
 	def test_application_entry_and_landing_page_are_chinese(self) -> None:
 		hooks = (PACKAGE / "hooks.py").read_text(encoding="utf-8")
@@ -210,6 +238,20 @@ class TestWorkspaceNavigation(TestCase):
 				/ "ione_quality_action_workbench.json"
 			).read_text(encoding="utf-8")
 		)
+		page_js = (
+			PACKAGE
+			/ "ione_quality_analytics"
+			/ "page"
+			/ "ione_quality_command_center"
+			/ "ione_quality_command_center.js"
+		).read_text(encoding="utf-8")
+		action_workbench_js = (
+			PACKAGE
+			/ "ione_quality_analytics"
+			/ "page"
+			/ "ione_quality_action_workbench"
+			/ "ione_quality_action_workbench.js"
+		).read_text(encoding="utf-8")
 		self.assertIn('app_title = "医疗质量管理"', hooks)
 		self.assertIn('_("医疗质量管理")', desktop)
 		self.assertEqual(page["title"], "医疗质量驾驶舱")
@@ -218,3 +260,7 @@ class TestWorkspaceNavigation(TestCase):
 		self.assertEqual(page["page_name"], "ione-quality-command-center")
 		self.assertEqual(action_workbench["name"], "ione-quality-action-workbench")
 		self.assertEqual(action_workbench["page_name"], "ione-quality-action-workbench")
+		self.assertIn('title: __("医疗质量驾驶舱")', page_js)
+		self.assertNotIn('title: __("IONE 医疗质量驾驶舱")', page_js)
+		self.assertIn('title: __("质量行动工作台")', action_workbench_js)
+		self.assertNotIn('title: __("Quality Action Workbench")', action_workbench_js)

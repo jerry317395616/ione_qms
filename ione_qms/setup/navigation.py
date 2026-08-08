@@ -38,14 +38,13 @@ def ensure_workspace_navigation() -> dict[str, Any]:
 	payloads = _load_workspace_payloads()
 	_validate_navigation(payloads)
 	_validate_page_title_contract()
+	_validate_runtime_workspace_contract(payloads)
 
 	previous_in_migrate = getattr(frappe.flags, "in_migrate", False)
 	frappe.flags.in_migrate = True
 	try:
 		for payload in payloads:
 			name = payload["name"]
-			if not frappe.db.exists("Workspace", name):
-				raise RuntimeError(f"Required medical quality workspace is missing: {name}")
 			workspace = frappe.get_doc("Workspace", name)
 			workspace.update(
 				{
@@ -59,6 +58,7 @@ def ensure_workspace_navigation() -> dict[str, Any]:
 			for item in payload["sidebar_items"]:
 				workspace.append("sidebar_items", item)
 			workspace.save(ignore_permissions=True)
+			_reconcile_workspace_label(name, payload["label"])
 		_reconcile_page_titles()
 	except Exception as exc:
 		raise RuntimeError(f"Unable to reconcile medical quality navigation: {exc}") from exc
@@ -82,11 +82,34 @@ def _validate_page_title_contract() -> None:
 			raise RuntimeError(f"Required medical quality Page is missing: {page_name}")
 
 
+def _validate_runtime_workspace_contract(payloads: list[dict[str, Any]]) -> None:
+	"""Fail before the first write if a stable Workspace is absent or no longer app-owned."""
+	for payload in payloads:
+		name = payload["name"]
+		if not frappe.db.exists("Workspace", name):
+			raise RuntimeError(f"Required medical quality workspace is missing: {name}")
+		workspace = frappe.get_doc("Workspace", name)
+		if workspace.app != APP_NAME or workspace.module != payload["module"] or not workspace.standard:
+			raise RuntimeError(
+				f"Workspace {name} ownership drifted: app={workspace.app}, "
+				f"module={workspace.module}, standard={workspace.standard}"
+			)
+
+
+def _reconcile_workspace_label(workspace_name: str, label: str) -> None:
+	"""Keep the UI fallback label Chinese while preserving the stable document name."""
+	if frappe.db.get_value("Workspace", workspace_name, "label") == label:
+		return
+	frappe.db.set_value("Workspace", workspace_name, "label", label, update_modified=False)
+
+
 def _reconcile_page_titles() -> None:
 	for page_name, title in EXPECTED_PAGE_TITLES.items():
 		if frappe.db.get_value("Page", page_name, "title") == title:
 			continue
-		frappe.db.set_value("Page", page_name, "title", title, update_modified=False)
+		# Page.modified is a cache/version signal in Frappe's boot payload. Updating
+		# it guarantees clients discard the stale title as soon as migrate completes.
+		frappe.db.set_value("Page", page_name, "title", title, update_modified=True)
 
 
 def _load_workspace_payloads() -> list[dict[str, Any]]:
