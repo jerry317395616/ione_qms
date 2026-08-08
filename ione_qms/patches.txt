@@ -2,3 +2,4 @@
 ione_qms.patches.rename_integration_module
 
 [post_model_sync]
+ione_qms.patches.reconcile_navigation_metadata
