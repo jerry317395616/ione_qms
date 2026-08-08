@@ -23,6 +23,10 @@ EXPECTED_WORKSPACES = frozenset(
 )
 EXPECTED_SECTION_COUNT = 29
 EXPECTED_LINK_COUNT = 114
+EXPECTED_PAGE_TITLES = {
+	"ione-quality-command-center": "医疗质量驾驶舱",
+	"ione-quality-action-workbench": "质量行动工作台",
+}
 
 _CHINESE_TEXT = re.compile(r"[\u3400-\u9fff]")
 _FORBIDDEN_DISPLAY_TEXT = re.compile(r"ione|i-one|qms|ai|flow|mdt|phi", re.IGNORECASE)
@@ -30,9 +34,10 @@ _LINK_DOCTYPES = frozenset({"DocType", "Page", "Report"})
 
 
 def ensure_workspace_navigation() -> dict[str, Any]:
-	"""Reconcile the shipped Chinese navigation without renaming internal objects."""
+	"""Reconcile Chinese navigation and Page titles without renaming internal objects."""
 	payloads = _load_workspace_payloads()
 	_validate_navigation(payloads)
+	_validate_page_title_contract()
 
 	previous_in_migrate = getattr(frappe.flags, "in_migrate", False)
 	frappe.flags.in_migrate = True
@@ -54,6 +59,7 @@ def ensure_workspace_navigation() -> dict[str, Any]:
 			for item in payload["sidebar_items"]:
 				workspace.append("sidebar_items", item)
 			workspace.save(ignore_permissions=True)
+		_reconcile_page_titles()
 	except Exception as exc:
 		raise RuntimeError(f"Unable to reconcile medical quality navigation: {exc}") from exc
 	finally:
@@ -65,7 +71,22 @@ def ensure_workspace_navigation() -> dict[str, Any]:
 		"workspaces": [payload["name"] for payload in payloads],
 		"sections": EXPECTED_SECTION_COUNT,
 		"links": EXPECTED_LINK_COUNT,
+		"page_titles": dict(EXPECTED_PAGE_TITLES),
 	}
+
+
+def _validate_page_title_contract() -> None:
+	for page_name, title in EXPECTED_PAGE_TITLES.items():
+		_validate_display_text(title, f"Page {page_name} title")
+		if not frappe.db.exists("Page", page_name):
+			raise RuntimeError(f"Required medical quality Page is missing: {page_name}")
+
+
+def _reconcile_page_titles() -> None:
+	for page_name, title in EXPECTED_PAGE_TITLES.items():
+		if frappe.db.get_value("Page", page_name, "title") == title:
+			continue
+		frappe.db.set_value("Page", page_name, "title", title, update_modified=False)
 
 
 def _load_workspace_payloads() -> list[dict[str, Any]]:
